@@ -64,6 +64,8 @@ int _strstr(const char *text, const char *pattern)
 				i++; j=0; ind=-1;
 				cout<<"[ no ]"<<endl;
 			}
+
+
 			if(j==(len)) 
 			{
 				cout<<" return ind "<<ind<<endl; 
@@ -87,8 +89,8 @@ int main(int argc, char* argv[])
 	_strcat(&a[0]," from?");
 	cout<<a;
 
-	char s[BUFSIZ]   = "";
-	char str[BUFSIZ] = "qweqwe rty123456";
+	char s[BUFSIZ]   = "hello";
+	char str[BUFSIZ] = "hhello";
 
 	if(argc == 3)
 	{

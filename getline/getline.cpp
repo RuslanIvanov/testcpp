@@ -29,14 +29,14 @@ char *getline()
 	cout<<"size = "<<size<<endl;
 
 	int c=0; char cc;
-	while(cin.get(cc))
+	while(/*cin.get(cc)*/!cin.eof())
 	{
 		if(c>=(size-1)) 
 		{
 			char *p = pout;
 			int oldsize=size;	
 
-			size+=size;//size = size+size;
+			size+=size;
 			cout<<"new size = "<<size<<" c= "<<c<<endl;
 			char *pout = new char[size];
 
@@ -50,9 +50,9 @@ char *getline()
 
 		} 
 		
-		pout[c] = cc;
+		pout[c] = cin.get();//cc;
 
-		if(pout[c] == '\n' || cin.eof())
+		if(pout[c] == '\n' /*|| cin.eof()*/)
 		{cout<<"[ c="<<c<<" ]"<<endl; break;}
 
 		c++;

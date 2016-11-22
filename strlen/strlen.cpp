@@ -44,36 +44,39 @@ int _strstr(const char *text, const char *pattern)
 	for(len=0;;len++)
 	{if(pattern[len] == '\0') break;}
 
-	cout<<"len pattern: "<<len<<endl;
+	//cout<<"len pattern: "<<len<<endl;
 
 	if(len==0) return 0;
 
-
+	bool b = false;
 	for(;;)
 	{
 			if(pattern[j] == text[i])
 			{
 				if(j==0) 
 				{	ind = i; 
-					cout<<" mem index "<<ind;
+					//cout<<" mem index "<<ind;
 				}
-				cout<<"[j="<<j<<",i= "<<i<<"]"<<endl;
+				//cout<<"[j="<<j<<",i= "<<i<<"]"<<endl;
 				j++;i++;
+				b = true;
 			}else
 			{
-				i++; j=0; ind=-1;
-				cout<<"[ no ]"<<endl;
+				if(!b) i++; 
+				j=0; ind=-1;
+				//cout<<"[ no ]"<<endl;
+				b=false;
 			}
 
 
 			if(j==(len)) 
 			{
-				cout<<" return ind "<<ind<<endl; 
+				//cout<<" return ind "<<ind<<endl; 
 				return ind;
 			}
 			if(pattern[j] == '\0' || text[i]== '\0') 
 			{
-				cout<<" return '0': [i="<<i<<", j= "<<j<<"]"<<endl; 
+				//cout<<" return '0': [i="<<i<<", j= "<<j<<"]"<<endl; 
 				return -1;
 			}
 	}
@@ -83,11 +86,11 @@ int _strstr(const char *text, const char *pattern)
 int main(int argc, char* argv[])
 {
 
-	cout<<"strlen "<<strlen("aaa")<<endl;
+	//cout<<"strlen "<<strlen("aaa")<<endl;
 
 	char a[80] = "where are you";
 	_strcat(&a[0]," from?");
-	cout<<a;
+	//cout<<a;
 
 	char s[BUFSIZ]   = "hello";
 	char str[BUFSIZ] = "hhello";
@@ -98,18 +101,18 @@ int main(int argc, char* argv[])
 		strcpy(str,argv[1]);
 	}
 
-	cout<<endl;
-	cout<<"text: '"<<str<<"', pattern: '"<<s<<"'"<<endl;
+	//cout<<endl;
+	//cout<<"text: '"<<str<<"', pattern: '"<<s<<"'"<<endl;
 	int ind=_strstr(str,s);
 	if(ind==-1)
 	{
-		cout<<"Not found: "<<s<<endl;
+		//cout<<"Not found: "<<s<<endl;
 	}else
 		{
-			cout<<"index '"<<s<<"' is "<<ind<<endl;
+			//cout<<"index '"<<s<<"' is "<<ind<<endl;
 		}
 
-	cout<<endl<<"Press any key...";
+	//cout<<endl<<"Press any key...";
 	getchar();
 
 	return 0;

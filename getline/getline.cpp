@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
 char *getline()
 {
-	int size=10;
+	int size=3;
 
 	char *pout = new char[size];
 	cout<<"size = "<<size<<endl;
@@ -31,35 +31,35 @@ char *getline()
 	int c=0; char cc;
 	while(cin.get(cc))
 	{
-		if(c>=size) 
+		if(c>=(size-1)) 
 		{
 			char *p = pout;
 			int oldsize=size;	
 
 			size+=size;//size = size+size;
+			cout<<"new size = "<<size<<" c= "<<c<<endl;
 			char *pout = new char[size];
 
 			for(int i=0;i<oldsize; i++)
 			{
 				pout[i] = p[i];
 			}
-			pout[oldsize]  = '\0';
+			//pout[oldsize]  = '\0';
 
-			delete [] p;
+			delete [] p; p=0;
 
 		} 
 		
 		pout[c] = cc;
 
-		if(pout[c] == '\n')
-		{
-			pout[c]  = '\0';
-			cout<<"nesize = "<<size<<endl;
-			break;
-		}
+		if(pout[c] == '\n' || cin.eof())
+		{cout<<"[ c="<<c<<" ]"<<endl; break;}
 
 		c++;
 	}
+
+	cout<<"endsize = "<<size<<endl;
+	pout[c]  = '\0';
 
 	return pout;
 }

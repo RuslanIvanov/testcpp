@@ -11,9 +11,10 @@ int main(int argc, char *argv[])
 {
 	char *prez = getline();
 
-	cout<<endl;
+	//cout<<endl;
 
-	cout<<"\nrez: "<<prez<<endl;
+	//cout<<"\nrez: "<<prez<<endl;
+	//printf("\nrez: %s",prez);
 
 	delete [] prez;
 	prez=0;
@@ -25,20 +26,19 @@ char *getline()
 {
 	int size=3;
 
-	char *pout = new char[size];
-	cout<<"size = "<<size<<endl;
+	char *pout = new char[size+1];
+	//cout<<"size = "<<size<<endl;
 
 	int c=0; char cc;
-	while(/*cin.get(cc)*/!cin.eof())
+	while(!cin.eof())
 	{
-		if(c>=(size-1)) 
+		if(c>(size-1)) 
 		{
 			char *p = pout;
 			int oldsize=size;	
-
-			size+=size;
-			cout<<"new size = "<<size<<" c= "<<c<<endl;
-			char *pout = new char[size];
+			size+=size+1;
+			//cout<<"new size = "<<size<<" c= "<<c<<endl;
+			pout = new char[size];
 
 			for(int i=0;i<oldsize; i++)
 			{
@@ -48,17 +48,21 @@ char *getline()
 
 			delete [] p; p=0;
 
-		} 
-		
-		pout[c] = cin.get();//cc;
+		}
 
-		if(pout[c] == '\n' /*|| cin.eof()*/)
-		{cout<<"[ c="<<c<<" ]"<<endl; break;}
+		//pout[c] = cin.get();
+		//cin>>pout[c];
+		cin.get(pout[c]);
 
+		if(pout[c] == '\n')
+		{
+			//cout<<"[ c="<<c<<" ]"<<endl;
+			break;
+		}
 		c++;
 	}
 
-	cout<<"endsize = "<<size<<endl;
+	//cout<<"endsize = "<<size<<endl;
 	pout[c]  = '\0';
 
 	return pout;

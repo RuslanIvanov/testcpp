@@ -35,16 +35,12 @@ void swap_min(int *m[], unsigned rows, unsigned cols)
 		}
     }
 
-	cout<<"addr: "<<m[0]<<" "<<m[rmin]<<endl;
-	//int *p=&m[0][0];
-	//m[0] = &m[rmin][0];
+	//cout<<"addr: "<<m[0]<<" "<<m[rmin]<<endl;
 	int *p=m[0];
 	m[0] = m[rmin];
 	m[rmin]=p;
-	cout<<"addr: "<<m[0]<<" "<<m[rmin]<<endl;
-	cout<<"min="<<min<<" rmin="<<rmin<<endl;
-	
-
+	//cout<<"addr: "<<m[0]<<" "<<m[rmin]<<endl;
+	//cout<<"min="<<min<<" rmin="<<rmin<<endl;
 }
 
 int rows;
@@ -52,11 +48,11 @@ int cols;
 int main(int argc, char *argv[])
 {
 	srand(time(NULL));
-	rows=rand()%5;
-	cols=rand()%5;
+	//rows=rand()%5;
+	//cols=rand()%5;
 
-	if(!rows) rows = 2;
-	if(!cols) cols = 3;
+	if(!rows) rows = 6;
+	if(!cols) cols = 4;
 
 	int **m = create_array2d(rows, cols);
 	
@@ -75,10 +71,19 @@ int main(int argc, char *argv[])
 	swap_min(m,rows,cols);
 
 	cout<<"mnew:"<<endl<<endl;
-	p = m[0];
+
+	/*p = m[0];
 	for(int i=0,j=0;i<rows*cols;i++)
-	{cout<<*(p+i)<<" "; if(++j==cols) {j=0; cout<<endl; } }cout<<endl;
-	
+	{cout<<*(p+i)<<" "; if(++j==cols) {j=0; cout<<endl; } }cout<<endl; error!!!
+	*/
+
+	for (int i = 0; i < rows; ++i) 
+    {
+       	for (int j = 0; j < cols; ++j)
+       	{cout<<m[i][j]<<" ";}
+		cout<<endl;
+    }
+
 	destroy(m, rows);
     
 	cout<<endl<<"Press any key...";	

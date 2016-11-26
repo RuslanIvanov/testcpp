@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 using namespace std;
-int ** transpose(const int *m, unsigned rows, unsigned cols);
+int ** transpose(const int * /*const*/ * m, unsigned rows, unsigned cols);
 const int rows = 2;
 const int cols = 3;
 int main(int argc, char *argv[])
@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
 		cout<<*(p+i);
 	}
 	cout<<endl;
-
-	int **T = transpose(&m[0][0],rows,cols);
+	int **pm=&m[0];
+	int **T  =  transpose(pm,rows,cols);
 
 	cout<<"mT:"<<endl<<endl;
 	for(int i=0;i<rows;i++)
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-int ** transpose(const int* m, unsigned rows, unsigned cols)
+int ** transpose(const int * /*const*/ * m, unsigned rows, unsigned cols)
 {
     	/* ..a[i,j] = a[j,i].. */
 		/*
@@ -51,21 +51,17 @@ int ** transpose(const int* m, unsigned rows, unsigned cols)
 		A = {1,2,3,4|5,6,7,8}
 	   AT= {1,5,2,6|3,7,4,8}
 	*/
+
 	int **T = new int* [rows];
 	T[0] = new int [rows*cols];
 	for(int i=1;i!=rows;i++)
-	{
-		T[i] = T[i-1]+cols; 
-	}
+	{T[i] = T[i-1]+cols;}
 
-	for(int mem=0;mem<(cols*rows)/2;mem++)
+	for(int a=0;a<rows;a++)
+		for(int b=0;b<cols;b++)
 	{
-		*T+mem = *(m+mem+cols);
+		T[b][a] = *(*(m+a)+b);
 	}
-
-	//for(int a=0;a<rows;a++)
-	//	for(int b=0;b<cols;b++)
-	//{T[a][b] = *((m+a) + b);}
 
 	return T;
 

@@ -1,13 +1,14 @@
 #include <cstddef> // size_t
 #include <cstring> // strlen, strcpy
+#include <iostream>
+using namespace std;
 
 struct String 
 {
-
-	/* Реализуйте этот конструктор */
 	String(const char *str = "");
 	String(size_t n, char c);
 	void append(String &other);
+	void print();
 	~String();
 	size_t size;
 	char *str;
@@ -44,22 +45,21 @@ String::String(size_t n, char c)
 }
 
 void String::append(String &other)
-{//error!
-	if(this == &other) { strcpy(str,other.str); size = strlen(other.str); return; }
+{
+//	if(this == &other) { return; }
 
-	size_t len = strlen(str);
-
-	char *pstr = str;
-	size = size+len;
-	str = char new [size+1];
-
+	char* pstr = str;
+	str = new char [other.size+size+1];
 	strcpy(str,pstr);
-	for(int i=size;i<size+1;i++)
-	{
-		str[i+size] = other.str[i];
-	}
-	
+	strcpy(str+size,other.str);
+	size += other.size;
+
 	delete [] pstr;
+}
+
+void String::print()
+{
+	cout<<str<<endl;
 }
 
 String::~String()
@@ -75,9 +75,12 @@ int main(int,char**)
 	String s1("Hello,");
 	String s2(" world!");
 	s1.append(s2); //s1 is "Hello, world!"
+	s1.print();
 
 	String sss("Hello");
 	sss.append(sss); // "HelloHello"
+
+	sss.print();
 
 	return 0;
 }

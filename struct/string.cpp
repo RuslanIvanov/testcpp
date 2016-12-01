@@ -46,20 +46,30 @@ String::String(size_t n, char c)
 
 void String::append(String &other)
 {
-//	if(this == &other) { return; }
+	//if(this == &other) { return; }
 
 	char* pstr = str;
+	//cout<<"-1\n";
 	str = new char [other.size+size+1];
+	//cout<<"-2\n";
 	strcpy(str,pstr);
-	strcpy(str+size,other.str);
+	//cout<<"-3\n";
+	if(this == &other) 
+		strcpy(str+size,pstr);
+	else
+		strcpy(str+size,other.str);
+	//cout<<"-4\n";
 	size += other.size;
+	//cout<<"-5\n";
 
 	delete [] pstr;
 }
 
 void String::print()
 {
+	cout<<"------------------------------------------"<<endl;
 	cout<<str<<endl;
+	cout<<"------------------------------------------"<<endl;
 }
 
 String::~String()
@@ -71,6 +81,7 @@ int main(int,char**)
 {
 	String s;
 	String ss("This is str");
+	ss.print();
 
 	String s1("Hello,");
 	String s2(" world!");
@@ -79,7 +90,6 @@ int main(int,char**)
 
 	String sss("Hello");
 	sss.append(sss); // "HelloHello"
-
 	sss.print();
 
 	return 0;

@@ -37,7 +37,8 @@ int main (int argc, char* argv[])
 
 	if(strcmp(pathDir,"")==0)
         {//если пользователь не указал директорию
-                strcpy(pathDir,"./"); //getcwd(pathDir,BUFSIZ);
+                //strcpy(pathDir,"./");
+		getcwd(pathDir,BUFSIZ);
         }
 
         DIR *pDir = opendir(pathDir);
@@ -56,8 +57,9 @@ int main (int argc, char* argv[])
 
 bool scanDir(/*const*/ char * path)
 {
-	printf("\ncurrent path '%s'",path);
+	printf("\ncurrent path '%s'\n",path);
 	DIR* pdir =  opendir(path);
+	if(pdir == NULL) return false;
         dirent *pdirent;
         while( NULL != (pdirent = readdir(pdir)) ) //читает директорию
         {
@@ -79,15 +81,13 @@ bool scanDir(/*const*/ char * path)
 		if (S_ISDIR( statbuf.st_mode ))
                 {// если это директория
 		        char nextDir[1025];
-			sprintf(nextDir,"%s%s/",path,pdirent->d_name);
+			sprintf(nextDir,"%s/%s/",path,pdirent->d_name);
 			printf("\nThe dir '%s'", nextDir);
 			scanDir(nextDir);
 
 			// printf("\nThe dir '%s'", pdirent->d_name);
                        //scanDir(pdirent->d_name);
-                } else break;
-
-
+                }
         }
 
 	closedir(pdir);

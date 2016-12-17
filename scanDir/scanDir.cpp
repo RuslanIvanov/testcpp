@@ -54,7 +54,7 @@ int main (int argc, char* argv[])
 
 	return 0;
 }
-
+char nextDir[BUFSIZ];
 bool scanDir(/*const*/ char * path)
 {
 	printf("\ncurrent path '%s'\n",path);
@@ -80,13 +80,13 @@ bool scanDir(/*const*/ char * path)
     		}else
 		if (S_ISDIR( statbuf.st_mode ))
                 {// если это директория
-		        char nextDir[1025];
-			sprintf(nextDir,"%s/%s/",path,pdirent->d_name);
+		        //char nextDir[1025];
+			sprintf(nextDir,"%s%s/",path,pdirent->d_name);
 			printf("\nThe dir '%s'", nextDir);
 			scanDir(nextDir);
 
-			// printf("\nThe dir '%s'", pdirent->d_name);
-                       //scanDir(pdirent->d_name);
+			//printf("\nThe dir '%s'", pdirent->d_name);
+                        //scanDir(pdirent->d_name);
                 }
         }
 

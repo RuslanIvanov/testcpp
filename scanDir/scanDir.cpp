@@ -8,7 +8,7 @@
 #include <dirent.h>
 #include <time.h>
 
-char pathDir[BUFSIZ];
+char pathDir[PATH_MAX];
 char ipAdress[BUFSIZ];
 
 struct files
@@ -19,7 +19,7 @@ struct files
         unsigned char fblock[32];
 };
 
-bool scanDir(/*const*/ char*);
+bool scanDir(const char*);
 
 int main (int argc, char* argv[])
 {
@@ -54,41 +54,45 @@ int main (int argc, char* argv[])
 
 	return 0;
 }
-char nextDir[BUFSIZ];
-bool scanDir(/*const*/ char * path)
+
+
+bool scanDir(const char * path)
 {
-	printf("\ncurrent path '%s'\n",path);
+	char nextDir[PATH_MAX];
+	
 	DIR* pdir =  opendir(path);
-	if(pdir == NULL) return false;
+	if(pdir == NULL){ perror("opendir "); return false; }
         dirent *pdirent;
         while( NULL != (pdirent = readdir(pdir)) ) //читает директорию
         {
                 struct stat statbuf;
-                lstat( pdirent->d_name, &statbuf ); // считываем информацию о файле в структуру
+                lstat( pdirent->d_name, &statbuf ); //считываем информацию о файле в структуру
 
 		if(strcmp( ".", pdirent->d_name ) == 0 ||
                    strcmp( "..",pdirent->d_name ) == 0 )
-                	{continue;}
+                	{continue;}		
+			
+		if((pdirent->d_type & DT_DIR) == DT_DIR) 
+                {// если это директория		   
+				
+			if(strcmp(path,"/")==0 || strcmp(path,"./")==0)
+				sprintf(nextDir,"%s%s",path,pdirent->d_name);
+			else sprintf(nextDir,"%s/%s",path,pdirent->d_name);
+			
+			printf("\nDIR: '%s':\n", nextDir);		
 
-		if (S_ISREG( statbuf.st_mode ))
-		{// если это file
-
-                       	printf("%s ",pdirent->d_name);
-			printf("size: %ld ", statbuf.st_size);
-			printf("%s ",asctime(localtime(&statbuf.st_mtime)));
-
-    		}else
-		if (S_ISDIR( statbuf.st_mode ))
-                {// если это директория
-		        //char nextDir[1025];
-			sprintf(nextDir,"%s%s/",path,pdirent->d_name);
-			printf("\nThe dir '%s'", nextDir);
 			scanDir(nextDir);
-
-			//printf("\nThe dir '%s'", pdirent->d_name);
-                        //scanDir(pdirent->d_name);
-                }
+			
+                }		
+		if((pdirent->d_type & DT_REG) == DT_REG )
+		{// если это file
+			printf("file: '%s' ",pdirent->d_name);
+			printf("size: %16.6f ", ((double)statbuf.st_size/1024)/1024);//размер в Mб
+			printf("size: %ld ", statbuf.st_size);//размер в байтах
+			printf("time: %s",asctime(localtime(&statbuf.st_mtime)));
+    		}
         }
 
 	closedir(pdir);
+	return true;
 }

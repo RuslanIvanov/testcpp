@@ -11,3 +11,7 @@ echo `expr index "$pos" 'level'`
 
 #до . т.к. позиция будет плавать!
 echo ${string:21:2}
+
+
+level=`grep -e '[0-9]' $1`
+echo "$level"

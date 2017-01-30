@@ -7,7 +7,7 @@ if [ ! -f "$OPERSTATE" ]; then logger "Error path: '$OPERSTATE'"; exit 0; fi
 
 logger "scannet param: ' $OPERSTATE ' for ' $NETWORK '"
 var=0
-b=0
+
 while [ 0 ]
 do
 	#oper=`cat $OPERSTATE`
@@ -16,12 +16,12 @@ do
 	if [ "$oper" != "up" ]
 	then
 		iwlist wlan0 scanning essid $NETWORK
-		if [ "$var" -eq "$b" ]; then 
+		if [ $var = 0 ]; then 
 			logger "founding $NETWORK ..."
-			$var=1
+			var=1
 		fi
 	else
-		$var=0
+		var=0
 	fi
 
 	sleep 15

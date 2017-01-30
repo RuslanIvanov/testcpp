@@ -2,7 +2,7 @@
 
 NETWORK=$1
 
-sleep 60
+#sleep 60
 
 logger "scannet param is $NETWORK"
 
@@ -15,6 +15,7 @@ do
 		logger "founding $NETWORK ..."	
 	fi
 
-	sleep 30
+#	sleep 60
+	sleep 15
 done
 

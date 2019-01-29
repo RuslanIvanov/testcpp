@@ -10,7 +10,6 @@ struct Expression
 struct Number : Expression
 {
     Number(double value) : value(value)
-
     {}
 
 private:

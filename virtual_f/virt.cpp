@@ -55,14 +55,14 @@ bool check_equals(Expression const *left, Expression const *right)
 
 {
 
-    // put your code here
+    	// put your code here
 
-    return (sizeof(*left)==sizeof(*right));
-//	double (*p)() const  = left->evaluate;
-//	double (*p2)() const  = &right->evaluate;
+    	return (sizeof(*left)==sizeof(*right));
 
-//	 return p == p2;
+//	int p  = reinterpret_cast<int>(&left->evaluate);
+//	int p2 = reinterpret_cast<int>(&right->evaluate);
 
+	 return p == p2;
 //	 return &left->evaluate == &right->evaluate;
 
 }

@@ -51,6 +51,22 @@ private:
 
 };
 
+bool check_equals(Expression const *left, Expression const *right)
+
+{
+
+    // put your code here
+
+    return (sizeof(*left)==sizeof(*right));
+//	double (*p)() const  = left->evaluate;
+//	double (*p2)() const  = &right->evaluate;
+
+//	 return p == p2;
+
+//	 return &left->evaluate == &right->evaluate;
+
+}
+
 int main(int argc, char * argv[])
 {
 	// сначала создаём объекты для подвыражения 4.5 * 5
@@ -64,6 +80,18 @@ int main(int argc, char * argv[])
 	// тут освобождаются *все* выделенные объекты
 	// (например, sube будет правым операндом expr, поэтому его удалять не нужно)
 	delete expr;
+
+	if(check_equals(new BinaryOperation(new Number(4.5), '*', new Number(5)),new BinaryOperation(new Number(4.5), '*', new Number(5))))//new Number(5))) 
+
+		std::cout << "TRUE" << std::endl;
+
+	else std::cout << "FLSE" << std::endl;
+
+	if(check_equals(new BinaryOperation(new Number(4.5), '*', new Number(5)), new Number(5))) 
+
+		std::cout << "TRUE" << std::endl;
+
+	else std::cout << "FLSE" << std::endl;
 
 	std::cout << "Press any key..." << std::endl;
 

@@ -1,3 +1,4 @@
+//enum
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,6 +67,8 @@ public:
 	SVETOFOR() {a=b=0;}
 	SVETOFOR(int _a,int _b = 0) { a=_a; b=_b; }
 
+	int fRet() { return SIGN_SVET_OFF; }
+
 public:
 	void f(int) { printf("f: '%d' '%d' ",/*SVETOFOR::*/SIGN_SVET_RED,/*SVETOFOR::*/SIGN_OTKL_DEIST); }
 	
@@ -107,6 +110,7 @@ int main()
 	printf(": '%d' '%d' ",SIGN_SVETOFOR::SIGN_SVET_RED,SIGN_SVETOFOR::SIGN_SVET_OFF);
 	printf(": '%d' '%d' ",SVETOFOR::SIGN_SVET_RED,SVETOFOR::SIGN_SVET_OFF);
 	s.f(1);
+	printf("num color: %d",s.fRet());
 	getchar();
   	return 0;
 }

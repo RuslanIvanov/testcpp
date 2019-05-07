@@ -46,6 +46,15 @@ class	SVETOFOR
 	int b;
 	SVETOFOR * pNext;
 
+	static unsigned char m_count;
+	static const int MAX_KOL_OGN_BUSF = 10;
+	static const int MAX_KOL_SIGN_SVET = 16;
+
+	int m[SVETOFOR::MAX_KOL_OGN_BUSF];
+	int m2[MAX_KOL_OGN_BUSF];
+
+	unsigned char m_nsv;
+
 public:
 	enum SIGNALS_SVET 
 	{ 
@@ -64,9 +73,10 @@ public:
 		SIGN_SVET_OFF = 0xD		
 	};
 
-	SVETOFOR() {a=b=0;}
-	SVETOFOR(int _a,int _b = 0) { a=_a; b=_b; }
+	SVETOFOR() {a=b=0;   m_nsv = (++m_count); }
+	SVETOFOR(int _a,int _b = 0) { a=_a; b=_b;   m_nsv = (++m_count); }
 
+	unsigned char GetNum() { return m_nsv; }
 	int fRet() { return SIGN_SVET_OFF; }
 
 public:
@@ -103,6 +113,8 @@ private:
 
 //using namespace SIGN_SVETOFOR;
 
+unsigned char SVETOFOR::m_count;
+
 int main()
 {
  	SVETOFOR s; SVETOFOR s2(1); SVETOFOR s3(1,2);
@@ -111,6 +123,9 @@ int main()
 	printf(": '%d' '%d' ",SVETOFOR::SIGN_SVET_RED,SVETOFOR::SIGN_SVET_OFF);
 	s.f(1);
 	printf("num color: %d",s.fRet());
+
+	printf("num: %d",s.GetNum());
+
 	getchar();
   	return 0;
 }

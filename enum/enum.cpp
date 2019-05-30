@@ -126,6 +126,19 @@ int main()
 
 	printf("num: %d",s.GetNum());
 
+	int reqs[] = {7,8,11};
+
+	printf("\nSTART init JSON DB\n");
+
+	for(int i=0;i<(sizeof(reqs)/sizeof(reqs[0])); i++)
+	{
+	switch(reqs[i])
+	{
+		case 8:  printf("case: %d",reqs[i] );  break;
+		case 7:  printf("case: %d",reqs[i] ); break;
+		case 11: printf("case: %d",reqs[i]);  break;
+	}}
+
 	getchar();
   	return 0;
 }

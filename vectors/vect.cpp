@@ -183,5 +183,9 @@ int main( )
 
 	//MARSHRUT m = mar[0];
 	pm->GetXy();
+
+	MARSHRUT *ppm  = &(*mar.begin());
+	ppm->SetSet(77,77);
+	ppm->GetXy();
 }
 

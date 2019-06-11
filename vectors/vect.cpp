@@ -8,20 +8,21 @@ using namespace std;
 
 #define MAX_UNION_MAR 4
 
+class MARSHRUT;
 typedef	struct
 {
-		void *m_mars[MAX_UNION_MAR];
+		void * m_mars[MAX_UNION_MAR];
 }DISCRIPTOR_MAR;
 
-DISCRIPTOR_MAR m_fd_mar;
 
-void SetAddrAD_AO(void *p, int i)  
+/*
+void SetAddrAD_AO_Global(void *p, int i)  
 {
 	if(i<MAX_UNION_MAR) 
 	{ m_fd_mar.m_mars[i] = p;  } 
 	else 
 	{ m_fd_mar.m_mars[i] = NULL; } 
-}
+}*/
 
 class SVETOFOR
 {
@@ -35,17 +36,22 @@ class STRELKA
 
 class MARSHRUT
 {
-
+	DISCRIPTOR_MAR m_fd_mar;
 	unsigned short m_set[2];
 	unsigned char status;
 	unsigned char przmar;
 public:
 
-	MARSHRUT() { std::cout << "MARSHRUT()\n";  m_set[0] = 0; m_set[1] = 0; status=przmar=0; }
+	MARSHRUT()
+ 	{ 
+		std::cout << "MARSHRUT()\n";  m_set[0] = 0; m_set[1] = 0; status=przmar='a'; 
+		m_fd_mar.m_mars[0]=NULL;m_fd_mar.m_mars[1]=NULL;m_fd_mar.m_mars[2]=NULL;m_fd_mar.m_mars[3]=NULL;
+	}
 	MARSHRUT(SVETOFOR*,STRELKA*,unsigned short a,unsigned short b)
 	{
-		 m_set[0] = a; m_set[1] = b; status=przmar=1;
+		 m_set[0] = a; m_set[1] = b; status=przmar='b';
 		 std::cout << "MARSHRUT() <"<< m_set[0]<<" | "<< m_set[1] <<">\n";
+		m_fd_mar.m_mars[0]=NULL;m_fd_mar.m_mars[1]=NULL;m_fd_mar.m_mars[2]=NULL;m_fd_mar.m_mars[3]=NULL;
 	}
 	~MARSHRUT() { std::cout << "~MARSHRUT() ["<< m_set[0]<<" | "<< m_set[1] <<"]\n"; }
 
@@ -60,11 +66,34 @@ public:
 		 std::cout<<" x "<<m_set[0] <<" y "<<m_set[1]<<'\n';
 	}
 
-	unsigned char GetStatus() { std::cout << "\nstatus"<<status;  return status; }
-	unsigned char GetConnect(){ std::cout << "\nprzmar"<<przmar;  return przmar; }
+	unsigned char GetStatus() { std::cout << "\nstatus "<<status<<std::endl;  return status; }
+	unsigned char GetConnect(){ std::cout << "\nprzmar "<<przmar<<std::endl;  return przmar; }
 	const unsigned short* GetSet() { return &m_set[0]; }
 	void SetSet(unsigned char s1,unsigned char s2 ) { m_set[0]= s1; m_set[1] = s2; }
 
+	void SetAddrAD_AO(void *p, int i) 
+	{
+		if(i<MAX_UNION_MAR) 
+		{ m_fd_mar.m_mars[i] = p;  } 
+		else 
+		{ m_fd_mar.m_mars[i] = NULL;  std::cout<<"SetAddrAD_AO: is NULL i "<<i<<'\n'; } 
+	}
+
+	void f() 
+	{	
+		std::cout<<"F: 1 "<<'\n';
+		MARSHRUT* p1 = (MARSHRUT*)m_fd_mar.m_mars[0];
+		std::cout<<"F: 2 "<<'\n';
+		MARSHRUT* p2 = (MARSHRUT*)m_fd_mar.m_mars[1];
+
+		std::cout<<"F: 3 "<<'\n';
+		if(p1!=NULL)
+		p1->GetStatus();
+		std::cout<<"F: 4 "<<'\n';
+		if(p2!=NULL)
+		p2->GetStatus();
+		std::cout<<"F: 5 "<<'\n';
+	}
 };
 
 int main( )
@@ -210,17 +239,35 @@ int main( )
         pppm->GetXy();
 	ppm->GetXy();
 
-	SetAddrAD_AO(&(*(mar.begin())),0);
-	SetAddrAD_AO(&(*(mar.begin()+1)),1);
 
-	MARSHRUT *p1  = (MARSHRUT*) m_fd_mar.m_mars[0];
-	MARSHRUT *p2  = (MARSHRUT*) m_fd_mar.m_mars[1];
+	std::cout<<"OUT MAR["<<mar.size()<<"]========================================================"<<'\n';
+
+	if(mar.size()>2)
+	{
+		mar[2].SetAddrAD_AO(&(*(mar.begin())),0);
+		mar[2].SetAddrAD_AO(&(*(mar.begin()+1)),1);
+		std::cout<<"F: -1 "<<'\n';
+	}
+	if(mar.size()>3)
+	{
+		mar[3].SetAddrAD_AO(&(*(mar.begin())),0);
+		mar[3].SetAddrAD_AO(&(*(mar.begin()+1)),1);
+		std::cout<<"F: 0 "<<'\n';
+	}
+	std::cout<<"++++++++++++++++++++++++++========================================================"<<'\n';
+
+	mar[2].f();
+	std::cout<<"------------------------------------------------------------------------------------"<<'\n';
+	mar[3].f();
+
+	//MARSHRUT *p1  = (MARSHRUT*) m_fd_mar.m_mars[0];
+	//MARSHRUT *p2  = (MARSHRUT*) m_fd_mar.m_mars[1];
 
 	
-	p1->GetXy();
-	p2->GetXy();
+	//p1->GetXy();
+	//p2->GetXy();
 
 
-	if(NULL == 0) {printf("NULL == 0");}
+	//if(NULL == 0) {printf("NULL == 0");}
 }
 

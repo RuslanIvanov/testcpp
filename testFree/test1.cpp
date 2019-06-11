@@ -1,12 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SQUARE(x) (x)*(x) //макроопределение
 inline double Square(double x) { return x*x;} //встроенная функцияГлава 8
 int x = 2.2;
 
-#define SUM(x,y) x + y
+#define SUM1(x,y) x + y
 #define SUM2(x,y) (x + y)
+
+void SetAddrAD_AO(void *p[2], int N) 
+{ 	
+	void *m_mars[2];
+	memset(m_mars,0,sizeof(m_mars[0])*2);
+
+//	for(int i=0;i<N;i++) { m_mars[i] = p[i]; }
+
+	printf("\n%p %p", m_mars[0], m_mars[1]);
+	printf("\n%s %s", (const char*)m_mars[0], (const char*)m_mars[1]);
+}
 
 int main()
 {
@@ -33,4 +45,6 @@ int main()
 
 	printf("\nc=%d, %d",c,cc);
 
+	void *p[2] = {(void*)"aa",(void*)"bb"};
+	SetAddrAD_AO(p, 2);
 }

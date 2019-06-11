@@ -6,6 +6,23 @@
 
 using namespace std;
 
+#define MAX_UNION_MAR 4
+
+typedef	struct
+{
+		void *m_mars[MAX_UNION_MAR];
+}DISCRIPTOR_MAR;
+
+DISCRIPTOR_MAR m_fd_mar;
+
+void SetAddrAD_AO(void *p, int i)  
+{
+	if(i<MAX_UNION_MAR) 
+	{ m_fd_mar.m_mars[i] = p;  } 
+	else 
+	{ m_fd_mar.m_mars[i] = NULL; } 
+}
+
 class SVETOFOR
 {
 
@@ -187,5 +204,23 @@ int main( )
 	MARSHRUT *ppm  = &(*mar.begin());
 	ppm->SetSet(77,77);
 	ppm->GetXy();
+
+	MARSHRUT *pppm  = &(*(mar.begin()+1));
+        pppm->SetSet(88,88);
+        pppm->GetXy();
+	ppm->GetXy();
+
+	SetAddrAD_AO(&(*(mar.begin())),0);
+	SetAddrAD_AO(&(*(mar.begin()+1)),1);
+
+	MARSHRUT *p1  = (MARSHRUT*) m_fd_mar.m_mars[0];
+	MARSHRUT *p2  = (MARSHRUT*) m_fd_mar.m_mars[1];
+
+	
+	p1->GetXy();
+	p2->GetXy();
+
+
+	if(NULL == 0) {printf("NULL == 0");}
 }
 

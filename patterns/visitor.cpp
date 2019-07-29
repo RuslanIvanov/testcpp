@@ -16,21 +16,24 @@ public:
   virtual ~Visitor() = default;
 };
 
-class Element {
+class Element 
+{
 public:
   virtual void accept(Visitor &v) = 0;
 
   virtual ~Element() = default;
 };
 
-class Foo : public Element {
+class Foo : public Element 
+{
 public:
   void accept(Visitor &v) override {
     v.visit(*this);
   }
 };
 
-class Bar : public Element {
+class Bar : public Element 
+{
 public:
   void accept(Visitor &v) override {
     v.visit(*this);

@@ -144,6 +144,12 @@ int main( )
 	m.push_back(MARSHRUT(NULL,NULL,3,3));
 	m.push_back(MARSHRUT(NULL,NULL,4,4));
 
+	vector<MARSHRUT>::iterator it;
+	m.resize(101);
+	it = m.begin()+100;
+	
+	m.insert(it,MARSHRUT(NULL,NULL,5,5));
+
 	std::cout<<"OUT["<<m.size()<<"]========================================================"<<'\n';
 
 	for(int i=0;i<m.size();i++)

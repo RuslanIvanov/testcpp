@@ -139,14 +139,20 @@ int main( )
 
 	std::cout<<"PUSH========================================================"<<'\n';
 
+	vector<MARSHRUT>::iterator it0;
+        
+        it0 = m.begin();
+	m.insert(it0,MARSHRUT(NULL,NULL,8,8));
+
+
 	m.push_back(MARSHRUT(NULL,NULL,1,1));
 	m.push_back(MARSHRUT(NULL,NULL,2,2));
 	m.push_back(MARSHRUT(NULL,NULL,3,3));
 	m.push_back(MARSHRUT(NULL,NULL,4,4));
 
 	vector<MARSHRUT>::iterator it;
-	m.resize(101);
-	it = m.begin()+100;
+	m.resize(12);
+	it = m.begin()+12;
 	
 	m.insert(it,MARSHRUT(NULL,NULL,5,5));
 
@@ -162,6 +168,7 @@ int main( )
 		std::cout<<" i = "<<i<<"\n";
 	}
 
+	getchar();
 	std::cout<<"ERACE======================================================"<<'\n';
 	m.erase(m.begin()+2);
 

@@ -1,6 +1,8 @@
-#include <string>
+//#include <string> //windows
+#include <string.h>
 #include "myString.h"
 #include <iostream>
+
 using namespace std;
 
 // Определение конструктора.

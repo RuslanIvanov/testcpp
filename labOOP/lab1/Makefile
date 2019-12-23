@@ -1,4 +1,4 @@
-CCCC = g++
+CCCC = g++ --std=c++11
 
 LIBS = -lpthread  -lrt \
 

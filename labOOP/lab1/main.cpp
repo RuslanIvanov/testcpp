@@ -3,7 +3,7 @@
 #include "Bochka.h"
 #include <iostream>
 
-#define stop { int a = 1; }
+#define stop { int a = 1; a+=a; }
 
 int main()
 {

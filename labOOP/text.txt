@@ -1,0 +1,235 @@
+list(list&& other) noexcept
+   : count(other.count)
+   , m_head(other.m_head)
+   , m_tail(other.m_tail)
+{
+   other.count = 0;
+   other.m_head = nullptr;
+   other.m_tail = nullptr;
+}
+
+
+
+// LList.cpp : Defines the entry point for the console application.
+//
+ 
+#include "stdafx.h"
+#include <assert.h>
+#include <algorithm>
+#include <stdexcept>
+#include <cstddef>
+#include <iostream>
+#include <list>
+ 
+    template <class Type>
+    struct node
+    {
+        Type value;
+        node* next;
+        node* prev;
+ 
+        node(const Type& value, node<Type>* next, node<Type>* prev)
+            : value(value), next(next), prev(prev)
+        {
+        }
+    };
+ 
+    template <class Type>
+    class list
+    {
+    public:
+        typedef Type value_type;
+        typedef value_type& reference;
+        typedef const value_type& const_reference;
+ 
+        list()
+            : m_head(nullptr), m_tail(nullptr)
+        {
+        }
+        ~list()
+        {
+            node<value_type>* tmp;
+            while (this->m_head) {
+                tmp = this->m_head->next;
+                delete this->m_head;
+                this->m_head = tmp;
+                this->count--;
+            }
+        }
+ 
+        list(const list& other)
+        {
+            node<value_type>* tmp = other.m_head;
+            while (tmp != 0)
+            {
+                push_back(tmp->value);
+                tmp = tmp->next;
+            }
+        }
+ 
+        list(list&& other)
+        {
+            node<value_type> *prev;
+            while (other.m_head)
+            {
+                push_back(other.m_head->value);
+                prev = other.m_head;
+                other.m_head = other.m_head->next;
+                if (other.m_head) {
+                    other.m_head->prev = NULL;
+                }
+                if (prev == other.m_tail) {
+                    other.m_tail = NULL;
+                }
+                delete(prev);
+                other.count--;
+            }
+        }
+ 
+        list& operator= (const list& other)
+        {
+            if (this == &other) {
+                return *this;
+            }
+            this->~list();
+            node<value_type>* tmp = other.m_head;
+            while (tmp != 0)
+            {
+                push_back(tmp->value);
+                tmp = tmp->next;
+            }
+            return *this;
+        }
+ 
+        void push_back(const value_type& value)
+        {
+            node<value_type>* tmp = new node<value_type>(value, NULL, this->m_tail);
+            if (this->m_tail) {
+                this->m_tail->next = tmp;
+            }
+            this->m_tail = tmp;
+            if (this->m_head == NULL) {
+                this->m_head = tmp;
+            }
+            this->count++;
+        }
+ 
+        void push_front(const value_type& value)
+        {
+            node<value_type>* tmp = new node<value_type>(value, this->m_head, NULL);
+            if (this->m_head) {
+                this->m_head->prev = tmp;
+            }
+            this->m_head = tmp;
+            if (this->m_tail == NULL) {
+                this->m_tail = tmp;
+            }
+            this->count++;
+        }
+ 
+        reference front()
+        {
+            return m_head->value;
+        }
+ 
+        const_reference front() const
+        {
+            return m_head->value;
+        }
+ 
+        reference back()
+        {
+            return m_tail->value;
+        }
+ 
+        const_reference back() const
+        {
+            return m_tail->value;
+        }
+ 
+        void pop_front()
+        {
+            node<value_type> *prev;
+            prev = this->m_head;
+            this->m_head = this->m_head->next;
+            if (this->m_head) {
+                this->m_head->prev = NULL;
+            }
+            if (prev == this->m_tail) {
+                this->m_tail = NULL;
+            }
+            delete(prev);
+            this->count--;
+        }
+ 
+        void pop_back()
+        {
+            node<value_type> *next;
+            next = this->m_tail;
+            this->m_tail = this->m_tail->prev;
+            if (this->m_tail) {
+                this->m_head->next = NULL;
+            }
+            if (next == this->m_head) {
+                this->m_head = NULL;
+            }
+            delete(next);
+            this->count--;
+        }
+ 
+        void clear()
+        {
+            while (count) {
+                pop_front();
+            }
+        }
+ 
+        bool empty() const
+        {
+            if (count == 0) {
+                return true;
+            }
+            else
+                return false;
+        }
+ 
+        size_t size() const
+        {
+            return count;
+        }
+        void print() {
+            if (count != 0) {
+                node<value_type>* tmp = new node<value_type>(this->m_head->value, this->m_head->next, this->m_head->prev);
+                while (tmp)
+                {
+                    std::cout << tmp->value << " , ";
+                    tmp = tmp->next;
+                }
+            }
+        }
+    private:
+        //your private functions
+        int count;
+        node<Type>* m_head;
+        node<Type>* m_tail;
+    };
+ 
+ 
+ 
+int main()
+{
+    list<char> letters; 
+    letters.push_back('o');
+    letters.push_back('m');
+    letters.push_back('g');
+    letters.push_back('w');
+    letters.push_back('t');
+    letters.push_back('f');
+    letters.pop_front();
+    list<char> let = list<char>(letters);
+    std::cout << letters.size();
+    std::cout << let.size();
+    let.print();
+    system("pause");
+    return 0;
+}

@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
 	List list6;
 	list6 = list7;
 	std::cout << "\nList after copy--------------";
-	std::cout << list7;
+	std::cout << list6;
 	stop
 	return 0;
 

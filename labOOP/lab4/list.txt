@@ -1,0 +1,9 @@
+
+sort list:
+
+x = 1 y = 1 D = 1
+x = 2 y = 2 D = 2
+x = 3 y = 3 D = 3
+x = 4 y = 4 D = 4
+x = 5 y = 5 D = 5
+x = 5 y = 5 D = 5

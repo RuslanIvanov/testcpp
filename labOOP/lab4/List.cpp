@@ -87,9 +87,36 @@ List::List(const List& l)
 	}
 }
 
-List::List(List&& l)
-{//нужно пройтис по скоированным адресам
 
+List& List::operator=(const List& l)
+{
+    if (this == &l) { return *this; }
+	
+	m_size = l.m_size;
+	
+	Cleaning();
+	//for (size_t i = 0; i < m_size; i++)
+	//{delete Head.pNext; //del Nodes	}
+
+	Head.pNext = &Tail;
+	Tail.pPrev = &Head;
+
+	Node* pOther = l.Head.pNext;
+	Node* pThis = &Head;
+
+	for (size_t i = 0; i < m_size; i++)
+	{
+		pThis = new Node(pOther->m_Data, nullptr, pThis);
+		pOther = pOther->pNext; 
+
+	}
+
+    return *this;
+}
+
+
+List::List(List&& l)
+{
 	Head.pNext = l.Head.pNext;
 	Head.pPrev = l.Head.pPrev;
 	Tail.pNext = l.Tail.pNext;
@@ -97,25 +124,10 @@ List::List(List&& l)
 
 	pHead = l.pHead;
 	m_size = l.m_size;
-/*
-	Node* pN = l.Head.pNext;
-	Node* pT = l.Tail.pPrev;
-	Node* pN_new = Head.pNext;
-	Node* pT_new = Tail.pPrev;
-
-	for (size_t i = 0; i < m_size-; i++)
-	{
-		pN_new->pNext = pN->pNext;
-		pN_new->pPrev = pN->pPrev;
-
-		pN=pN->pNext;
-		//pT = pN->pPrev;
-
-		pN_new = pN_new->pNext;
-		//pT_new = pT_new->pPrev;
-
-		//delete l.Head.pNext;// удалить используемый
-	}//*/
+	/////////////////////////////////
+	l.Head.pNext->pPrev = &Head;
+	l.Tail.pPrev->pNext = &Tail;
+	/////////////////////////////////
 
 	l.Head.pNext = nullptr;
 	l.Head.pPrev = nullptr;
@@ -141,6 +153,10 @@ List& List::operator=(List&& l)
 	Head.pPrev = l.Head.pPrev;
 	Tail.pNext = l.Tail.pNext;
 	Tail.pPrev = l.Tail.pPrev;
+
+	l.Head.pNext->pPrev = &Head;
+	l.Tail.pPrev->pNext = &Tail;
+
 	pHead = l.pHead;
 	m_size = l.m_size;
 

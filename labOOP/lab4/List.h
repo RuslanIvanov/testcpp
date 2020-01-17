@@ -42,6 +42,8 @@ public:
 	List(const List&);
 	List(List&&);
 	List& operator=(List&&);
+    List& operator=(const List&);
+
 	//	…
 	void AddHead(const Circle&);
 	void AddTail(const Circle&);

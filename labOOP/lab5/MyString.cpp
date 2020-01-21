@@ -1,7 +1,6 @@
-#include <string>
-#include <iostream>
-#include <cstdarg>
 #include <string.h>
+#include <iostream>
+#include <cstdarg.h>
 #include "myString.h"
 using namespace std;
 

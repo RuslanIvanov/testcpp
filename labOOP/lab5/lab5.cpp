@@ -2,10 +2,26 @@
 //
 
 #include <iostream>
-#include "myString.h"
-int main()
+#include "MyString2.h"
+
+void mystop()
+{
+        std::cout << "\nPause\n";
+        getchar();
+}
+
+#define  stop  {mystop();}
+
+int main(int argc, char* argv[])
 {
     std::cout << "Hello World!\n";
+    MyString2 str("ABC");
+    MyString2 str2("ABC2");
+    MyString2 str3("ABC3");
+    MyString2 str4("ABC3");
+    MyString2 str5("ABC3");
+
+    stop
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

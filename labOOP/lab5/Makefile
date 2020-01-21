@@ -7,7 +7,8 @@ LDFLAGS=
 
 SOURCES= \
 lab5.cpp \
-myString.cpp \
+MyString2.cpp \
+Counter.cpp \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=./run.exe

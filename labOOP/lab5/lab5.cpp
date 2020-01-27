@@ -22,6 +22,12 @@ int main()
     MyString2 str4("ABC3");
     MyString2 str5("ABC3");
 
+    	std::cout<<str;
+     	std::cout<<str2;
+ 	std::cout<<str3;
+	std::cout<<str4;
+	std::cout<<str5;
+
     stop
 
         

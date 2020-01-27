@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <iostream>
 #include "MyString2.h"
 #include "Counter.h"
 
@@ -27,3 +28,11 @@ MyString2& MyString2::operator=(const MyString2& s)
 	}
 	return *this;
 }
+
+std::ostream& operator<<(std::ostream& os, const MyString2& s) 
+{
+
+        os << "\nString is:' " << s.m_pMyCounter->getString()<<" '";//m_pStr;
+        return os;
+}
+

@@ -16,10 +16,7 @@ Counter::Counter(const char* str) :m_nOwners(1)
 		pHead = this;
 		pHead->pNext = nullptr;
 	}
-	else 
-		//if(m_curCounters==2){Head->pNext = this;}else 
-		//нужно проверить есть ли еще такая строка
-		{
+	else{
 			Counter* p =pHead;
 			for (int i = 1; ; i++)
 			{
@@ -28,9 +25,9 @@ Counter::Counter(const char* str) :m_nOwners(1)
 					p = p->pNext;
 				}
 				else 
-					{ 
-							p->pNext = this; 
-							break; 
+					{
+							p->pNext = this;
+							break;
 					}
 			}
 		}
@@ -53,8 +50,6 @@ Counter::~Counter()
 		pHead = nullptr;
 		m_curCounters = 0;
 	}
-	
-	
 }
 
 void Counter::AddUser()

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Circle.h"
+#include "CirCle.h"
 
 Circle::Circle(int x, int y, int D):m_Point(x, y)
 {
@@ -32,9 +32,9 @@ void Circle::Inflate(int d)
 	m_D += d;
 }
 
-bool Circle::operator==( Circle& c) const
+bool Circle::operator==( Circle& r) const
 {
-	if (c.m_D == m_D && c.m_x0 == m_x0 && c.m_y0 == m_y0  &&  m_Point == c.m_Point)
+	if (r.m_D == m_D && r.m_x0 == m_x0 && r.m_y0 == m_y0  &&  m_Point == r.m_Point)
 		return true;
 	else
 		return false;
@@ -54,10 +54,10 @@ void Circle::print()
 	std::cout << "D = " << m_D << "";
 }
 
-std::ostream& operator<<( std::ostream& os, const Circle& c)
+std::ostream& operator<<( std::ostream& os, const Circle& r)
 {
-	os << "x = " << c.m_x0 << " y = " << c.m_y0 << " ";
-	os << "D = " << c.m_D << "";
+	os << "x = " << r.m_x0 << " y = " << r.m_y0 << " ";
+	os << "D = " << r.m_D << "";
 	return os;
 }
 

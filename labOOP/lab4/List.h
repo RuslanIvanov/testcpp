@@ -25,10 +25,8 @@ class List
 			os << n.m_Data;
 			return os;
 		}
-
+		
 		Node* getNext() const { return pNext; }
-		Circle getData() const { return m_Data; }
-
 	};
 
 	//данные
@@ -42,8 +40,7 @@ public:
 	List(const List&);
 	List(List&&);
 	List& operator=(List&&);
-    List& operator=(const List&);
-
+	List& operator=(const List&);
 	//	…
 	void AddHead(const Circle&);
 	void AddTail(const Circle&);
@@ -53,8 +50,6 @@ public:
 	int  Size();
 	void Sort();
 	void out();
-
-
 	friend std::ostream& operator<<(std::ostream& os, const List& l);
 	};
 

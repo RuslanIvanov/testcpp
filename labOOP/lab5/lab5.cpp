@@ -12,7 +12,8 @@ void mystop()
 
 #define  stop  {mystop();}
 
-int main(int argc, char* argv[])
+
+int main()
 {
     std::cout << "Hello World!\n";
     MyString2 str("ABC");
@@ -22,6 +23,8 @@ int main(int argc, char* argv[])
     MyString2 str5("ABC3");
 
     stop
+
+        
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

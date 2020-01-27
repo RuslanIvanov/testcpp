@@ -9,16 +9,16 @@ class Circle
 	Point m_Point;
 
 	public:
-
+	
 		Circle(const Circle&);
 		Circle(int x=0, int y=0, int D=0);
-		~Circle();
+		~Circle();	
 		void WhereAmI();
 		void Inflate(int);
 		void print();
 		bool operator==( Circle&) const;
 		bool operator<(const Circle&);
-		friend std::ostream& operator<<( std::ostream& os, const Circle& c);
+		friend std::ostream& operator<<( std::ostream&, const Circle&);
 };
 
-std::ostream& operator<<( std::ostream& os, const Circle& c);
+std::ostream& operator<<( std::ostream&, const Circle&);

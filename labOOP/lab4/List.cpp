@@ -87,17 +87,70 @@ List::List(const List& l)
 	}
 }
 
-
-List& List::operator=(const List& l)
+List& List::operator=(const List& l)//  эффект.
 {
-    if (this == &l) { return *this; }
-	
+	if (this == &l) { return *this; }
+
+	//так как не чистим свой список
+	//Head.pNext = &Tail;
+	//Tail.pPrev = &Head;
+
+	Node* pOther = l.Head.pNext;
+	Node* pThis = Head.pNext;
+
+	if (m_size >= l.m_size)
+	{
+		for (size_t ii = 0; ii < m_size; ii++)
+		{			
+			if (ii < l.m_size)
+			{
+				pThis->m_Data = pOther->m_Data;		
+				pThis = pThis->pNext;
+				pOther = pOther->pNext;
+			}
+			else 
+			{
+				pThis = pThis->pNext;
+				delete pThis->pPrev;
+			}	
+			
+		}
+	}
+	else 
+	{//m_size < l.m_size
+		
+		for (size_t ii = 0; ii < l.m_size; ii++)
+		{
+			if (ii < m_size)
+			{
+				pThis->m_Data = pOther->m_Data;
+				pThis = pThis->pNext;
+				pOther = pOther->pNext;
+			}
+			else
+			{
+				AddTail(pOther->m_Data);
+				//pThis = new Node(pOther->m_Data, pOther, nullptr);//??
+				pOther = pOther->pNext;
+			}
+
+		}
+	}
+		
 	m_size = l.m_size;
 	
-	Cleaning();
-	//for (size_t i = 0; i < m_size; i++)
-	//{delete Head.pNext; //del Nodes	}
+	return *this;
+}
 
+/*
+List& List::operator=(const List& l)// не эффект.
+{
+	if (this == &l) { return *this; }
+
+	m_size = l.m_size;
+	//////////////////////////////
+	Cleaning();
+	/////////////////////////////
 	Head.pNext = &Tail;
 	Tail.pPrev = &Head;
 
@@ -107,16 +160,16 @@ List& List::operator=(const List& l)
 	for (size_t i = 0; i < m_size; i++)
 	{
 		pThis = new Node(pOther->m_Data, nullptr, pThis);
-		pOther = pOther->pNext; 
+		pOther = pOther->pNext;
 
 	}
 
-    return *this;
-}
-
+	return *this;
+}*/
 
 List::List(List&& l)
-{
+{//нужно пройтис по скоированным адресам
+
 	Head.pNext = l.Head.pNext;
 	Head.pPrev = l.Head.pPrev;
 	Tail.pNext = l.Tail.pNext;
@@ -128,8 +181,8 @@ List::List(List&& l)
 	l.Head.pNext->pPrev = &Head;
 	l.Tail.pPrev->pNext = &Tail;
 	/////////////////////////////////
-
-	l.Head.pNext = nullptr;
+	
+	l.Head.pNext = nullptr;//&l.Tail;
 	l.Head.pPrev = nullptr;
 	l.Tail.pPrev = nullptr;
 	l.Tail.pNext = nullptr;
@@ -144,7 +197,7 @@ List& List::operator=(List&& l)
 		return *this; 
 	}
 
-	for (size_t i = 0; i < m_size; i++)
+	for (size_t i = 0; i < m_size; i++)//OK
 	{
 		delete Head.pNext;
 	}
@@ -170,23 +223,23 @@ List& List::operator=(List&& l)
 	return *this;
 }
 
-void List::AddHead(const Circle& c)
+void List::AddHead(const Circle& r)
 {// так как вставляем в голову., то адрес головы
-	new Node(c, nullptr, &Head); // &Head - указатель наначало списка
+	new Node(r, nullptr, &Head); // &Head - указатель наначало списка
 	m_size++;
 }
-void List::AddTail(const Circle& c) 
+void List::AddTail(const Circle& r) 
 {
-	new Node(c, &Tail,nullptr);
+	new Node(r, &Tail,nullptr);
 	m_size++;
 }
-bool List::RemoveOne(const Circle& c) 
+bool List::RemoveOne(const Circle& r) 
 {
 	// установка на начало списка
 	Node* p = Head.pNext;
 	while (p!=&Tail) //пока текущий следующий не равен хвосту
 	{
-		if (c == p->m_Data)
+		if (r == p->m_Data)
 		{
 			delete p; //~Node () перекинул адреса
 			m_size--;
@@ -200,23 +253,23 @@ bool List::RemoveOne(const Circle& c)
 
 	return false;
 }
-int List::RemoveAll(const Circle& c) 
-{ 
+int List::RemoveAll(const Circle& r) 
+{ // удаляет все дубли Circle !!! 
 	int count = 0;
 	List::Node* p = Head.pNext;
 	while (p != &Tail) //пока текущий следующий не равен хвосту
 	{
-		if (c == p->m_Data)
+		Node* pnext = p->pNext;
+		if (r == p->m_Data)
 		{
-			//delete p;
+			delete p;//оставить NN
 			m_size--;
-			p = p->pNext;
-			delete p->pPrev;
-			count++;
-			//continue;
+			//p = p->pNext;//RR
+			//delete p->pPrev;//RR
+			count++;		
 		}
-		else
-			p = p->pNext;// следующий елемент в списке
+		p=pnext;//NN
+		//else p = p->pNext;// следующий елемент в списке//RR
 
 	}
 
@@ -261,7 +314,7 @@ void List::Sort()
 				p1 = p1->pNext;// Берем след адр для сравнения
 			}
 			//Обмен местами текущего с минимальным Circle
-			Circle tmp = pMin->m_Data;
+			Circle tmp = pMin->m_Data;//не эффект, надо менять узлы
 			pMin->m_Data = p->m_Data; 
 			p->m_Data = tmp; 
 	
@@ -273,25 +326,25 @@ void List::Sort()
 void List::out()
 {
 	Node* p = Head.pNext;
-	while (p != &Tail) 
+	while (p != &Tail)
 	{
 		std::cout << "\nout: ";
-                std::cout << p->m_Data;
-                p = p->pNext;
+		std::cout << p->m_Data;
+		p = p->pNext;
 	}
 }
 
 std::ostream& operator<<(std::ostream& os, const List& l)
-{//operator []
-
-	const List::Node* p =  l.Head.getNext();//// const ???
+{
+	
+	const List::Node* p =  l.Head.getNext();
 
 	while (p != &l.Tail)
 	{
 		os << "\n";
-		os << (*p);//Node ->m_Data;
-//		os << p->getData();
+		os << (*p);//Node.m_Data;
 		p = p->getNext();
 	}
+		
 	return os;
 }

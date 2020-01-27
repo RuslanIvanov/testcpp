@@ -9,7 +9,6 @@ SOURCES= \
 Circle.cpp \
 List.cpp \
 main.cpp \
-Node.cpp \
 Point.cpp \
 
 OBJECTS=$(SOURCES:.cpp=.o)

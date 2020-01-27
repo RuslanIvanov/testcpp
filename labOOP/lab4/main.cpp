@@ -1,17 +1,17 @@
 #include <iostream>
 #include <fstream>
-//#include <tchar.h>
 
 #include "Circle.h"
 #include "List.h"
 
 void mystop()
 {
-	std::cout << "\nPause\n";
-	getchar();
+        std::cout << "\nPause\n";
+        getchar();
 }
 
 #define  stop  {mystop();}
+
 //#define TEST
 List test();
 int main(int argc, char* argv[])
@@ -57,10 +57,10 @@ int main(int argc, char* argv[])
 		list2.AddHead(Circle(5, 5, 3));
 		list2.AddHead(Circle(4, 4, 2));
 		list2.AddHead(Circle(5, 5, 1));
-
+		std::cout << "\nlist2--------------";
+		std::cout << list2;
 		List ll = std::move(list2);
-		std::cout << "\nList after move1--------------";
-		test().out();
+		std::cout << "\nList after move--------------";
 		std::cout << ll;
 
 		List lll;
@@ -70,8 +70,10 @@ int main(int argc, char* argv[])
 		list3.AddHead(Circle(5, 5, 33));
 		list3.AddHead(Circle(4, 4, 22));
 		list3.AddHead(Circle(5, 5, 11));
+		std::cout << "\nlist3--------------";
+		std::cout << list3;
 		lll = std::move(list3);
-		std::cout << "\nList after move2--------------";
+		std::cout << "\nList after copy move--------------";
 		std::cout << lll;
 		stop
 	}
@@ -79,32 +81,61 @@ int main(int argc, char* argv[])
 	std::cout << "\nList after move--------------";
 	test().out();
 	std::cout << test();
-	
-	stop
 #endif
-	
-	List list7;
+
+	List list9;
+	list9.AddTail(Circle(5, 5, 5));
+	list9.AddTail(Circle(4, 4, 4));
+	std::cout << "\nlist9--------------";
+	std::cout << list9;
+	List list7 = list9;
 	list7.AddTail(Circle(5, 5, 5555));
 	list7.AddTail(Circle(4, 4, 4444));
 	list7.AddHead(Circle(5, 5, 3333));
 
+	std::cout << "\nlist7--------------";
+	std::cout << list7;
+
 	List list6;
-	list6 = list7;
-	std::cout << "\nList after copy--------------";
+	list6.AddTail(Circle(5, 5, 55555));
+	list6.AddTail(Circle(4, 4, 44444));
+	list6.AddHead(Circle(5, 5, 43333));
+	std::cout << "\nList6----------------------";
 	std::cout << list6;
+	list6 = list7;//list7 > list6
+	std::cout << "\nList6 after copy--------------";
+	std::cout << list6;
+	std::cout << "\nList9--------------------";
+	std::cout << list9;
+	list6 = list9;//list9 < list6
+	std::cout << "\nList6 after copy--------------";
+	std::cout << list9;
+	List list10;
+	list10 = list9;//list9 > list10
+	std::cout << "\nList10 after copy--------------";
+	std::cout << list10;
+
+	List list11;
+	list11.AddTail(Circle(5, 5, 4455));
+	list11.AddTail(Circle(4, 4, 5544));
+	std::cout << "\nList11 ---------------------";
+	std::cout << list11;
+	list11 = list9;//равны
+	std::cout << "\nList11 after copy--------------";
+	std::cout << list11;
 	stop
 	return 0;
 
 }
 
 List test()
-{
+{	
 	List list4;
 	list4.AddTail(Circle(5, 5, 555));
 	list4.AddTail(Circle(4, 4, 444));
 	list4.AddHead(Circle(5, 5, 333));
 	list4.AddHead(Circle(4, 4, 222));
 	list4.AddHead(Circle(5, 5, 111));
-	//List list5 = list4;
+
 	return list4;
 }

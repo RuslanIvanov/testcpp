@@ -36,7 +36,7 @@ int main()
     std::ifstream in("D:\\operations.txt"); // окрываем файл для чтения
     if (in.is_open())
     {
-        while (in >> sum >> rate)
+        while (in >>sum >>rate)
         {
             new_operations.push_back(Operation(sum, rate));
         }

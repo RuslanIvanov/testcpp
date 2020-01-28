@@ -24,8 +24,8 @@ int main()
     {
         for (int i = 0; i < operations.size(); i++)
         {
-	       //out << "oper " << operations[i].sum << ":" <<" rate "<< operations[i].rate << std::endl;
-		out <<operations[i].sum <<" "<<operations[i].rate << std::endl;
+	       out << "oper " << operations[i].sum << ":" <<" rate "<< operations[i].rate << std::endl;
+		//out <<operations[i].sum <<" "<<operations[i].rate << std::endl;
         }
     }
     out.close();
@@ -36,7 +36,9 @@ int main()
     std::ifstream in("D:\\operations.txt"); // окрываем файл для чтения
     if (in.is_open())
     {
-        while (in >>sum >>rate)
+	char buff[BUFSIZ]="";
+	//while (in >>sum>>rate)
+        while (in >> buff >>sum>>buff>>buff>>rate)
         {
             new_operations.push_back(Operation(sum, rate));
         }

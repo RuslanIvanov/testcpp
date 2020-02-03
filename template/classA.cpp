@@ -15,7 +15,10 @@ private:
     size_t m_nn;
 
 //template <typename T>
-	friend ostream& operator<< <>(ostream& out, const A<T,m_n>& a);
+	friend ostream& operator<< <>(ostream& out, const A& a);
+	//or
+	//friend ostream& operator<< <>(ostream& out, const A<T,m_n>& a);
+
 };
 
 //definition
@@ -33,4 +36,4 @@ int main(int argc, char* argv[])
     cout<<a;
     cout << A<int>();
 }
-//friend ostream &operator <<<T> (ostream &, const A<T> &);
+

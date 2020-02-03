@@ -3,11 +3,9 @@ using namespace std;
 
 template<typename T> class A; 
 
-template <typename T>
-ostream& operator << (ostream& out, const A<T>& a)
-{
-    return out << a.elem << endl;
-}
+template <typename T> //declaration
+	ostream& operator << (ostream& out, const A<T>&);
+
 
 template <typename T> class A {
 public:
@@ -15,10 +13,16 @@ public:
 private:
     T elem;
 
-public:
-	template <typename T>
-	friend ostream& operator<< <>(ostream& out, const A<T>& a);
+//template <typename T>
+	friend ostream& operator<< <>(ostream& out, const A& a);
 };
+
+//definition
+template <typename T>
+ostream& operator << (ostream& out, const A<T>& a)
+{
+    return out << a.elem << endl;
+}
 
 int main(int argc, char* argv[])
 {

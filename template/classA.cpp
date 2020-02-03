@@ -1,17 +1,18 @@
 #include <iostream>
 using namespace std;
 
-template<typename T> class A; 
+template<typename T,size_t> class A;
 
 template <typename T> //declaration
-	ostream& operator << (ostream& out, const A<T>&);
+	ostream& operator << (ostream& out, const A<T,size_t>&);
 
 
-template <typename T> class A {
+template <typename T,size_t m_n=10> class A {
 public:
-    A() : elem (T()) {}
+    A() : elem (T()) { }
 private:
     T elem;
+    size_t m_n;
 
 //template <typename T>
 	friend ostream& operator<< <>(ostream& out, const A& a);
@@ -19,14 +20,14 @@ private:
 
 //definition
 template <typename T>
-ostream& operator << (ostream& out, const A<T>& a)
+ostream& operator << (ostream& out, const A<T,size_t>& a)
 {
-    return out << a.elem << endl;
+    return out <<" a = " <<a.elem <<" "<< "m_n = "<<a.m_n<<  endl;
 }
 
 int main(int argc, char* argv[])
 {
-    A<int> a;
+    A<int,10> a;
     cout<<a;
     //cout << A<int>();
 }

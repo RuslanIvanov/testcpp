@@ -1,0 +1,31 @@
+// Declare the class template, because we need it to declare the operator
+template <typename,int,template <class C> class,typename> class MyContainer;
+
+// Declare the operator, because (as the error says) templates must be declared
+// in the namespace before you can declare them friends. At this point, we can't
+// define the operator, since the class template is incomplete.
+template 
+<typename T,int _MaxSize,template <class C> class Policy,typename Container>
+std::ostream& operator<<(std::ostream&,MyContainer<T,_MaxSize,Policy,Container>);
+
+// Define the class template
+template
+<typename T,int _MaxSize=10,template <class C> class Policy=NoCheck,typename Container=std::vector<T>>
+class MyContainer : public Policy<T>
+{
+public:
+  MyContainer():p(_MaxSize){};
+
+  // Include <> to indicate that this is the template
+  friend std::ostream& operator<< <>(std::ostream& out,MyContainer<T,_MaxSize,Policy,Container> obj);
+private:
+  Container p;
+};
+
+// Finally define the operator
+template
+<typename T,int _MaxSize,template <class C> class Policy,typename Container>
+std::ostream& operator<<(std::ostream& out,MyContainer<T,_MaxSize,Policy,Container> obj)
+{
+  // print some stuff
+}

@@ -3,24 +3,24 @@ using namespace std;
 
 template<typename T,size_t> class A;
 
-template <typename T> //declaration
-	ostream& operator << (ostream& out, const A<T,size_t>&);
+template <typename T,size_t m_n> //declaration
+	ostream& operator << (ostream& out, const A<T,m_n>&);
 
 
 template <typename T,size_t m_n=10> class A {
 public:
-    A() : elem (T()) { }
+    A() : elem (T()) { m_nn = m_n; }
 private:
     T elem;
-    size_t m_n;
+    size_t m_nn;
 
 //template <typename T>
-	friend ostream& operator<< <>(ostream& out, const A& a);
+	friend ostream& operator<< <>(ostream& out, const A<T,m_n>& a);
 };
 
 //definition
-template <typename T>
-ostream& operator << (ostream& out, const A<T,size_t>& a)
+template <typename T,size_t m_n>
+ostream& operator << (ostream& out, const A<T,m_n>& a)
 {
     return out <<" a = " <<a.elem <<" "<< "m_n = "<<a.m_n<<  endl;
 }

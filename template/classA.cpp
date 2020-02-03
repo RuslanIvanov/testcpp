@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-template<typename T,size_t> class A;
+template<typename T,size_t m_n> class A;
 
 template <typename T,size_t m_n> //declaration
 	ostream& operator << (ostream& out, const A<T,m_n>&);
@@ -22,13 +22,15 @@ private:
 template <typename T,size_t m_n>
 ostream& operator << (ostream& out, const A<T,m_n>& a)
 {
-    return out <<" a = " <<a.elem <<" "<< "m_n = "<<a.m_n<<  endl;
+    return out <<" a = " <<a.elem <<" "<< "m_n = "<<a.m_nn<<  endl;
 }
 
 int main(int argc, char* argv[])
 {
-    A<int,10> a;
+
+    const size_t n = 5;
+    A<int,n> a;
     cout<<a;
-    //cout << A<int>();
+    cout << A<int>();
 }
 //friend ostream &operator <<<T> (ostream &, const A<T> &);

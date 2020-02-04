@@ -161,6 +161,7 @@ public:
 
 //definition
 #ifdef GLOB
+
 template <typename T,size_t m_n>
 std::ostream& operator<<(std::ostream& os, const MyStack2<T,m_n>& s)
 {

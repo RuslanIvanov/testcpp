@@ -7,12 +7,7 @@
 //#include <tchar.h>
 #include <iostream>
 //#include <stdexcept>
-#include "templ.h"
-#include "MyString.h"
-#include "MyStack.h"
-#include "MyStack2.h"
 
-//#define stop __asm nop
 void mystop()
 {
         std::cout << "\nPause\n";
@@ -21,6 +16,10 @@ void mystop()
 
 #define  stop  {mystop();}
 
+#include "templ.h"
+#include "MyString.h"
+#include "MyStack.h"
+#include "MyStack2.h"
 
 int main(int argc, char* argv[])
 {
@@ -216,12 +215,12 @@ int main(int argc, char* argv[])
 				st33.push(MyString("3333"));
 				st33.push(MyString("4444"));
 				MyStack<MyString, 10> st4 = std::move(st33);
-
+				std::cout << "\nafter move:";
 				for (size_t i = 0; i < st4.size(); i++)
 					std::cout << "\n#" << i << ": " << st4[i];
-
+				
 				st4 = std::move(st2);
-
+				std::cout << "\nafter copy move:";
 				for (size_t i = 0; i < st4.size(); i++)
 					std::cout << "\n#" << i << ": " << st4[i];
 			}
@@ -274,6 +273,7 @@ int main(int argc, char* argv[])
 			}
 			stop
 
+			std::cout << "\nafter reverse: ";
 			st21.print_reverse(st21.getHead());
 
 			stop

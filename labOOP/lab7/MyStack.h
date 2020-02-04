@@ -42,35 +42,36 @@ public:
 		m_index = i;
 
 	}
-	//1.	template <class ElementType>
-	//2.	Array<ElementType>::Array(Array<ElementType> && array)
-	///???
-	//template <typename T,size_t m_n=10>  MyStack( MyStack&& st)
-	//{
-	//	m_index = st.m_index;
 
-	//	static_cast<T*>(m_p) = (st.m_p);// для st.m_p деструктор отработает по m_n
-	//	st.m_index = 0;
-	//}
-	//цель семантики перемещения состоит в том, чтобы переместить владение ресурсами из одного объекта в другой
-	//(что менее затратно, чем выполнение копирования)
-	//???
-	//template <typename T,size_t m_n = 10> MyStack& operator=(MyStack&& st)
-	//{
-	//	if (this == &st)
-	//	{
-	//		return *this;
-	//	}
+	MyStack( MyStack/*<T,m_n>*/&& st)
+    {
+       m_index = st.m_index;
+	   //m_p = st.m_p;// для st.m_p деструктор отработает по m_n //??? m_p is const
+	   std::swap(m_p,st.m_p); 
+       st.m_index = 0;
+	   std::cout<< "\nrun constr move&& ";
 
-	//	for (size_t i = 0; i < m_n; i++)
-	//		m_p[i].~T();
+	   stop
+    }
 
-	//	m_index = st.m_index;
-	//	m_p = st.m_p; // для st.m_p деструктор отработает по m_n
-	//	st.m_index = 0;
+	MyStack& operator=(MyStack&& st)
+	{
+		if (this == &st)
+		{
+			return *this;
+		}
 
-	//	return *this;
-	//}
+//		for (size_t i = 0; i < m_n; i++)m_p[i].~T();
+
+		m_index = st.m_index;
+		//m_p = st.m_p; // для st.m_p деструктор отработает по m_n
+		std::swap(m_p,st.m_p); 
+		st.m_index = 0;
+
+		std::cout<< "\nrun oper move&& ";
+	    stop
+		return *this;
+	}	
 
 	MyStack& operator=(const MyStack& st)
 	{

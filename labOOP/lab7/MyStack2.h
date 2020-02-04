@@ -61,6 +61,71 @@ public:
                 m_index--;
         }
     }
+
+
+	MyStack2(const MyStack2& st )
+	{		
+		size_t i = 0;
+		for (; i < st.m_index && i<m_n; i++)// скопировать то что можно
+		{
+			//m_p[i] = st.m_p[i];
+		}
+
+		m_index = i;
+
+	}
+
+	MyStack2& operator=(const MyStack2& st)
+	{
+		if (this == &st) return *this;
+
+		size_t i = 0;
+		for (; i < st.m_index && i < m_n; i++)// скопировать то что можно
+		{	
+			if(i<m_index)
+				{}
+			else
+			{
+				try 
+				{
+					//push(st.m_p[i]);
+				}
+				catch (const char* e)
+				{
+					//std::cout << e;
+					throw e;
+				}
+			}
+
+		}
+		m_index = i;
+		
+		return *this;
+
+	}
+
+	MyStack2( MyStack2&& st)
+    {
+       m_index = st.m_index;
+	   
+       st.m_index = 0;
+	   std::cout<< "\nrun constr move&& ";
+
+	   stop
+    }
+
+	MyStack2& operator=(MyStack2&& st)
+	{
+		if (this == &st)
+		{
+			return *this;
+		}
+
+
+		std::cout<< "\nrun oper move&& ";
+	    stop
+		return *this;
+	}	
 /*
 MyStack2.h: In member function ‘T& MyStack2<T, <anonymous> >::operator[](size_t) [with T = int; unsigned int m_n = 4u; size_t = unsigned int]’:
 MyStack2.h:87:5: warning: control reaches end of non-void function [-Wreturn-type]

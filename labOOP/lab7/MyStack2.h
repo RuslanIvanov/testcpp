@@ -1,5 +1,5 @@
 #pragma once
-//#define GLOB
+#define GLOB
 #ifdef GLOB
 template <typename T,size_t> class MyStack2;
 //declaration
@@ -61,8 +61,11 @@ public:
                 m_index--;
         }
     }
-
-    T& operator[](size_t i) 
+/*
+MyStack2.h: In member function ‘T& MyStack2<T, <anonymous> >::operator[](size_t) [with T = int; unsigned int m_n = 4u; size_t = unsigned int]’:
+MyStack2.h:87:5: warning: control reaches end of non-void function [-Wreturn-type]
+*/
+    T& operator[](size_t i)
     {
 
         if (i < m_index) // только сколько внесено
@@ -83,7 +86,7 @@ public:
                 throw "\nError.  Stack is empty!";
             }
         }
-        else throw ErrorStack2(i, m_index);// throw std::out_of_range;
+        else { throw ErrorStack2(i, m_index); } // throw std::out_of_range;
     }
 
     void push(const T& p) // вставялть
@@ -165,10 +168,10 @@ public:
 template <typename T,size_t m_n>
 std::ostream& operator<<(std::ostream& os, const MyStack2<T,m_n>& s)
 {
-   const MyStack2<T,m_n>::Node* p = s.m_head;
+   const class /*typename*/ MyStack2<T,m_n>::Node* p = s.m_head;
 
    while (p)
-   {       
+   { 
         os<<"\n"<<p->m_t;
         p = p->m_next;
    }

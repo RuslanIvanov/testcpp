@@ -273,6 +273,10 @@ int main(int argc, char* argv[])
 				std::cout << "\nout of range: index " << e.m_i << " size " << e.m_n;
 			}
 			stop
+
+			st21.print_reverse(st21.getHead());
+
+			stop
 	}
 	stop
 

@@ -1,9 +1,11 @@
 #pragma once
-
-//template <typename T,size_t> class MyStack2;
+//#define GLOB
+#ifdef GLOB
+template <typename T,size_t> class MyStack2;
 //declaration
-//template <typename T,size_t m_n>
-//std::ostream& operator<<(std::ostream& os, const MyStack2<T,m_n>& );
+template <typename T,size_t m_n>
+std::ostream& operator<<(std::ostream& os, const MyStack2<T,m_n>& );
+#endif
 
 struct ErrorStack2
 {
@@ -132,35 +134,44 @@ public:
 
     bool empty() { return (m_index == 0); }
     size_t size() { return m_index; }
+	Node* getHead() { return m_head; }
 
-    void print_reverse()
+    void print_reverse(struct Node* pHead)
     {
+		if(pHead==nullptr) return;
+		print_reverse(pHead->m_next);
+		std::cout<<"\n" << pHead->m_t;
     }
 
-   friend  std::ostream& operator<< (std::ostream& os, const MyStack2& s)
-   {
-	const  MyStack2::Node* p = s.m_head;
-	while (p)
+	#ifdef GLOB
+	friend  std::ostream& operator<< <> (std::ostream& os, const MyStack2& s);
+	#else
+    friend  std::ostream& operator<< (std::ostream& os, const MyStack2& s)
+    {
+		const  MyStack2::Node* p = s.m_head;
+		while (p)
     	{
-        os<<"\n"<<p->m_t;
-	p = p->m_next;
+        	os<<"\n"<<p->m_t;
+			p = p->m_next;
     	}
     	return os;
-  }
+   }
+	#endif
 };
 
 //definition
-/*template <typename T,size_t m_n>
+#ifdef GLOB
+template <typename T,size_t m_n>
 std::ostream& operator<<(std::ostream& os, const MyStack2<T,m_n>& s)
 {
-   // const  MyStack2<T,m_n>::Node* p = s.m_head;
+   const MyStack2<T,m_n>::Node* p = s.m_head;
 
-   // while (p)
-   // {       
-    //     os<<"\n"<<p->m_t;
+   while (p)
+   {       
+        os<<"\n"<<p->m_t;
+        p = p->m_next;
+   }
 
-//         p = p->m_next;
-//    }
-
-    return os;
-}*/
+   return os;
+}
+#endif

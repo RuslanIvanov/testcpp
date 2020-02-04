@@ -13,6 +13,11 @@ public:
 private:
     T elem;
     size_t m_nn;
+    struct AA
+    {
+	T aa;
+	AA () {aa = T();}
+    };
 
 //template <typename T>
 	friend ostream& operator<< <>(ostream& out, const A& a);
@@ -25,6 +30,7 @@ private:
 template <typename T,size_t m_n>
 ostream& operator << (ostream& out, const A<T,m_n>& a)
 {
+//    out << A<T,m_n>::AA::aa;
     return out <<" a = " <<a.elem <<" "<< "m_n = "<<a.m_nn<<  endl;
 }
 

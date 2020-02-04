@@ -277,6 +277,10 @@ int main(int argc, char* argv[])
 			st21.print_reverse(st21.getHead());
 
 			stop
+
+			MyStack2<int, 4> st22 = std::move(st21);
+			std::cout << "\nafter move st22: ";
+			std::cout << st22;
 	}
 	stop
 

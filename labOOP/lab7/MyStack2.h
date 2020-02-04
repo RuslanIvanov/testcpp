@@ -64,14 +64,17 @@ public:
 
 
 	MyStack2(const MyStack2& st )
-	{		
-		size_t i = 0;
-		for (; i < st.m_index && i<m_n; i++)// скопировать то что можно
-		{
-			//m_p[i] = st.m_p[i];
-		}
-
-		m_index = i;
+	{	
+		Node* p = st.m_head;
+		size_t i =0;
+        while (p)
+        {
+			if(i < m_n)
+			{push(p->m_t);// созд новый узел
+			 p=p->m_next;
+			 i++;
+			}else break;
+		}	
 
 	}
 
@@ -80,15 +83,22 @@ public:
 		if (this == &st) return *this;
 
 		size_t i = 0;
-		for (; i < st.m_index && i < m_n; i++)// скопировать то что можно
-		{	
+		Node* p = st.m_head;
+		Node* pc = m_head;
+		// нужен еще pop если в копируемомо места больше по index 
+		while (p)
+        {	
 			if(i<m_index)
-				{}
+			{				
+				//копия содержимого узла
+				pc->m_t=p->m_t;
+				
+			}
 			else
 			{
 				try 
 				{
-					//push(st.m_p[i]);
+					push(p->m_t);
 				}
 				catch (const char* e)
 				{
@@ -96,10 +106,13 @@ public:
 					throw e;
 				}
 			}
-
+			p=p->m_next;
+			i++;
 		}
-		m_index = i;
 		
+		if(i<m_index) {  }
+
+		m_index = i;
 		return *this;
 
 	}
@@ -107,7 +120,12 @@ public:
 	MyStack2( MyStack2&& st)
     {
        m_index = st.m_index;
-	   
+
+	   m_head = st.m_head;
+	   m_head->m_next = st.m_head->m_next;
+	
+	   st.m_head = nullptr;
+	   st.m_head->m_next = nullptr;
        st.m_index = 0;
 	   std::cout<< "\nrun constr move&& ";
 
@@ -120,8 +138,20 @@ public:
 		{
 			return *this;
 		}
+		
+		//dell all	
+		for(int i =0;i<m_n;i++)
+			pop();
 
+		m_index = st.m_index;
 
+	    m_head = st.m_head;
+	    m_head->m_next = st.m_head->m_next;
+	
+	    st.m_head = nullptr;
+	    st.m_head->m_next = nullptr;
+        st.m_index = 0;
+	
 		std::cout<< "\nrun oper move&& ";
 	    stop
 		return *this;

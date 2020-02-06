@@ -314,12 +314,12 @@ void List::AddHead(const Shape* c)
 	new Node(c, nullptr, &Head); // &Head - указатель наначало списка
 	m_size++;
 }
-void List::AddTail(const Shape* c) 
+void List::AddTail(const Shape* c)
 {
 	new Node(c, &Tail,nullptr);
 	m_size++;
 }
-bool List::RemoveOne(const Shape* c) 
+bool List::RemoveOne(const Shape* c)
 {
 	// установка на начало списка
 	Node* p = Head.pNext;
@@ -342,8 +342,8 @@ bool List::RemoveOne(const Shape* c)
 
 	return false;
 }
-int List::RemoveAll(const Shape* c) 
-{ // удаляет все дубли Circle !!! 
+int List::RemoveAll(const Shape* c)
+{ // удаляет все дубли Circle !!!
 	int count = 0;
 	List::Node* p = Head.pNext;
 	while (p != &Tail) //пока текущий следующий не равен хвосту

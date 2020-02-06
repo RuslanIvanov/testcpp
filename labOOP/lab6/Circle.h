@@ -14,7 +14,7 @@ class Circle:public Shape
 	
 		Circle(const Circle&);
 		Circle(int x=0, int y=0, int D=0,COLOR c = RED);
-		~Circle();	
+		~Circle();
 		int square();
 		void WhereAmI();
 		void Inflate(int);

@@ -8,7 +8,7 @@ SORT Shape:: m_sortType = SQ;
 Shape::Shape(COLOR c)
 {
 	m_S = 0;
-	m_color = c;
+    m_color = c;
 	
 	//std::cout << "\nI am in Shape's constr!";
 }

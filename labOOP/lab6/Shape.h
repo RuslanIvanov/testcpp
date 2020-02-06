@@ -17,8 +17,8 @@ class Shape
 		virtual int square() = 0;
 		virtual void WhereAmI();
 		virtual Shape* clone()  const = 0;
-		virtual bool operator == (const Shape& s) const  { /*сравнить цвет*/ return ((s.m_color == m_color) && (s.m_S==m_S)); };
-		virtual bool operator != (const Shape& s) const  { return ((s.m_color != m_color)||(s.m_S != m_S)); };
+		virtual bool operator == (const Shape& s) const  { return ((s.m_color == m_color) && (s.m_S==m_S)); }
+		virtual bool operator != (const Shape& s) const  { return ((s.m_color != m_color)||(s.m_S != m_S)); }
 		virtual Shape& operator=(const Shape& s)
 		{
 			if (this == &s)return *this;
@@ -41,10 +41,10 @@ class Shape
 			{ 
 				return m_color < s.m_color; 
 			}
-		};
+		}
 
-		COLOR getColor() { return m_color; };
-		void setColor(COLOR color) {  m_color = color; };
+		COLOR getColor() { return m_color; }
+		void setColor(COLOR color) {  m_color = color; }
 		const char* getColorName();
 		void setColorName(const char*);
 

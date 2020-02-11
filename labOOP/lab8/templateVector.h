@@ -96,6 +96,7 @@ void makeUniqOnlyEven(U& u)
     printCont(u);
 }
 
+/*
 template <typename U>
 void makeUniqAll(U& u)
 {// интервал убрать
@@ -105,20 +106,23 @@ void makeUniqAll(U& u)
 
     typename U::iterator itb = u.begin();
     typename U::iterator ite = u.end();
-    typename U::iterator itmp = itb;
+    typename U::iterator itmp = u.begin();
 
-    bool b = false;
     for (size_t i = 0; itb!=ite ; i++)
     {
-        itmp = itb;
+        itmp = itb+1;
+        //bool b = false;
         if(*(itb) == *(itmp))//  не верно пары находит
         {
             ++itb;
-            b=true;
+            //b=true;
         }else
         {
-           if(b){ itb = u.erase(itmp,itb+1); b = false; }
-           else ++itb;
+           //if(b)
+           { itb = u.erase(itmp,itb+1);
+           //     b = false;
+           }
+           //else ++itb;
 
         }
 
@@ -128,10 +132,9 @@ void makeUniqAll(U& u)
 
     std::cout<<"\nafter delete:";
     printCont(u);
-}
+}*/
 
 
-/*
 template <typename U>
 void makeUniqAll(U& u)
 {// интервал убрать
@@ -170,7 +173,7 @@ void makeUniqAll(U& u)
 
     std::cout<<"\nafter delete:";
     printCont(u);
-}*/
+}//*/
 
 template <typename U>
 void deleteAllDuplicate(U& u)

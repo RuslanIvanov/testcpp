@@ -426,7 +426,15 @@ int main(int arg, char** parg)
 	//копией вектора элементов типа Point, но значения элементов списка располагались
 	//бы в обратном порядке 
 
+         vector<Point> tempPoint;
+         for(size_t t = 0; t<6;t++)
+         {
+             tempPoint.insert(tempPoint.begin()+t,Point(t,t));
 
+         }
+         list<Point> ptList2 (tempPoint.rbegin(),tempPoint.rend());
+         printContAny(ptList2);
+         stop//*/
 
 	//Отсортируйте списки  ptList1 и ptList2 - методом класса list - sort()
 	//по возрастанию.
@@ -434,25 +442,39 @@ int main(int arg, char** parg)
 	//работала сортировка
 
 
-	
-
+        std::cout<<"\nSort list1:";
+        ptList1.sort();
+        printContAny(ptList1);
+        stop
+         std::cout<<"\nSort list2:";
+        ptList2.sort();
+        printContAny(ptList2);//*/
 
 	stop
 
 	//Объедините отсортированные списки - merge(). Посмотрите: что
 	//при этом происходит с каждым списком.
 
-	
-	stop
+        std::cout<<"\nMerge:";
+        ptList1.merge(ptList2);
+        printContAny(ptList1);
+        stop
+        //*/
 
 	//Исключение элемента из списка - remove()
 	//Исключите из списка элемент с определенным значением.
 	//Подумайте: что должно быть перегружено в классе Point?
-	
+
+        ptList1.remove(Point(1,1)); // oper ==
+        printContAny(ptList1);
+        //*/
+        stop
 
 	//Исключение элемента из списка, удовлетворяющего заданному условию:
 	//любая из координат отрицательна - remove_if(). 
 
+        // pred
+        //ptList1.remove_if(predPoint);
 
 	//Исключение из списка подряд расположенных дублей - unique(). 
 

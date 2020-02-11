@@ -84,6 +84,21 @@ Point operator-(const Point& r)
 	return Point(-r.m_x,-r.m_y);
 }
 
+bool Point::operator>(const Point& p) const
+{
+    return ( m_y > p.m_y ) && (m_x > p.m_x );
+}
+
+bool Point::operator<(const Point& p) const
+{
+    return ( m_y < p.m_y ) && (m_x < p.m_x );
+}
+
+bool Point::operator==(const Point& p) const
+{
+    return ( m_y == p.m_y ) && (m_x == p.m_x );
+}
+
 std::ostream& Point::print(std::ostream& os)
 {
 	os << "\npoint: m_x = " << m_x << " m_y = " << m_y;

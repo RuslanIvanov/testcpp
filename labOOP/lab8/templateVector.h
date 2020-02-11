@@ -101,38 +101,43 @@ template <typename U>
 void makeUniqAll(U& u)
 {// интервал убрать
     std::cout<<"\nmakeUniqAll";
-    std::cout<<"\nsource_err: ";
+    std::cout<<"\nsource_err1: ";
     printCont(u);
 
     typename U::iterator itb = u.begin();
     typename U::iterator ite = u.end();
     typename U::iterator itmp = u.begin();
-
-    for (size_t i = 0; itb!=ite ; i++)
+    int count = 0;
+    for (size_t i = 0; (itb!=ite)  ; i++)
     {
-        itmp = itb+1;
-        //bool b = false;
-        if(*(itb) == *(itmp))//  не верно пары находит
-        {
-            ++itb;
-            //b=true;
-        }else
-        {
-           //if(b)
-           { itb = u.erase(itmp,itb+1);
-           //     b = false;
-           }
-           //else ++itb;
 
+        for(;itb != ite;)
+        {
+            if(*(itb) == *(itmp))
+            {
+                 ++itb;
+                count++;
+            }else
+            {
+                if(count>1)
+                {
+                    itb = u.erase(itmp,itb+count);
+                }
+                else ++itb;
+
+             count = 0;
+
+            }
         }
-
+        itb = u.begin();
+        itmp=itb;
         //std::cout<<"\n i = " <<i<< " element next: " << *(itb);
         //std::cout<< "\nsize: "<< u.size();
     }
 
     std::cout<<"\nafter delete:";
     printCont(u);
-}*/
+}//*/
 
 
 template <typename U>
@@ -162,8 +167,8 @@ void makeUniqAll(U& u)
             b = true;
         }else
         {
-           //if(b) { b = false; itb = u.erase(itb);} //удаляет последний не верно
-           //else
+           if(b) { b = false; itb = u.erase(itb);} //удаляет последний не верно
+           else
             ++itb;
         }
 
@@ -220,4 +225,10 @@ void deleteAllDuplicate(U& u)
     std::cout<<"\nafter delete:";
     printCont(u);
 
+}
+
+
+template<> bool predPoint<Point>(const Point& l)
+{
+    return l < 0;
 }

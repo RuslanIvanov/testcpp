@@ -15,6 +15,13 @@ class Point
 		Point& operator+=(const Point&);
 
 		Point operator+();
+
+               // bool operator<() const
+               // { return (m_x < 0) || (m_y < 0);  }
+
+                bool operator>(const Point& p) const;
+                bool operator<(const Point& p) const;
+                bool operator==(const Point& p) const;
 		
 		friend Point& operator+=(Point&, int);
 		friend Point operator-(Point& rl, int i);

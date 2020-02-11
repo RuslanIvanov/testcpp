@@ -70,6 +70,7 @@ void printContAny(const TT& t)
 template <typename U> 
 void makeUniqOnlyEven(U& u)
 {// нечетные не удаляет
+    std::cout<<"\nmakeUniqAll";
     std::cout<<"\nsource: ";
     printCont(u);
 
@@ -97,7 +98,8 @@ void makeUniqOnlyEven(U& u)
 template <typename U>
 void makeUniqAll(U& u)
 {
-    std::cout<<"\nsource: ";
+    std::cout<<"\nmakeUniqAll";
+    std::cout<<"\nsource_err: ";
     printCont(u);
 
     typename U::iterator itb = u.begin();
@@ -109,13 +111,14 @@ void makeUniqAll(U& u)
         {
             //std::cout<<"\n del: " <<*itb;
             itb = u.erase(itb);
-           // b = true;
+
             if(itb==u.end()) break;
 
             itb = u.erase(itb);//+1
 
             if(itb==u.end()) break;
 
+            b = true;
         }else
         {
            //if(b) { b = false; itb = u.erase(itb);} //удаляет последний не верно
@@ -134,7 +137,7 @@ void makeUniqAll(U& u)
 template <typename U>
 void deleteAllDuplicate(U& u)
 {
-
+    std::cout<<"\ndeleteAllDuplicate";
     std::cout<<"\nsource: ";
     printCont(u);
 

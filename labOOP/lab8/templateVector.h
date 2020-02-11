@@ -92,18 +92,56 @@ void makeUniqOnlyEven(U& u)
     }
 
     std::cout<<"\nafter delete:";
+
     printCont(u);
 }
 
 template <typename U>
 void makeUniqAll(U& u)
-{
+{// интервал убрать
     std::cout<<"\nmakeUniqAll";
     std::cout<<"\nsource_err: ";
     printCont(u);
 
     typename U::iterator itb = u.begin();
     typename U::iterator ite = u.end();
+    typename U::iterator itmp = itb;
+
+    bool b = false;
+    for (size_t i = 0; itb!=ite ; i++)
+    {
+        itmp = itb;
+        if(*(itb) == *(itmp))//  не верно пары находит
+        {
+            ++itb;
+            b=true;
+        }else
+        {
+           if(b){ itb = u.erase(itmp,itb+1); b = false; }
+           else ++itb;
+
+        }
+
+        //std::cout<<"\n i = " <<i<< " element next: " << *(itb);
+        //std::cout<< "\nsize: "<< u.size();
+    }
+
+    std::cout<<"\nafter delete:";
+    printCont(u);
+}
+
+
+/*
+template <typename U>
+void makeUniqAll(U& u)
+{// интервал убрать
+    std::cout<<"\nmakeUniqAll";
+    std::cout<<"\nsource_err: ";
+    printCont(u);
+
+    typename U::iterator itb = u.begin();
+    typename U::iterator ite = u.end();
+
     bool b = false;
     for (size_t i = 0; itb!=ite ; i++)
     {
@@ -132,7 +170,7 @@ void makeUniqAll(U& u)
 
     std::cout<<"\nafter delete:";
     printCont(u);
-}
+}*/
 
 template <typename U>
 void deleteAllDuplicate(U& u)

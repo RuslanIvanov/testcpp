@@ -549,15 +549,16 @@ int main(int arg, char** parg)
     printContAny(ds);
     std::deque<MyString>::iterator itb =  ds.begin();
     std::deque<MyString>::iterator ite =  ds.end();
-    for(size_t i=0; i<ds.size()/*itb!=ite */;i++)
+    for(size_t i=0; i<=ds.size()/*itb!=ite */;i++)
     {
         if( (itb->GetString()[0] == 'A') || (itb->GetString()[0] == 'a'))
         {
-              itb = ds.erase(itb);
-
+              ds.erase(itb);
+              i=0;
+              itb =  ds.begin();
         }else  ++itb;
 
-        std::cout<<"\nbegin:"<<ds.begin()->GetString();
+        //std::cout<<"\nbegin:"<<ds.begin()->GetString();
     }
 
     printContAny(ds);

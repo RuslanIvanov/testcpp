@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <deque>
 #include <string.h>
 #include "MyString.h"
 #include "Point.h"
@@ -446,7 +447,7 @@ int main(int arg, char** parg)
         ptList1.sort();
         printContAny(ptList1);
         stop
-         std::cout<<"\nSort list2:";
+        std::cout<<"\nSort list2:";
         ptList2.sort();
         printContAny(ptList2);//*/
 
@@ -473,14 +474,45 @@ int main(int arg, char** parg)
 	//Исключение элемента из списка, удовлетворяющего заданному условию:
 	//любая из координат отрицательна - remove_if(). 
 
-        // pred
-        //ptList1.remove_if(predPoint);
+        //pred:
+        /*Removes from the container all the elements for which Predicate pred returns true.
+         This calls the destructor of these objects and reduces the container size by the number of elements removed.
+         The function calls pred(*i) for each element (where i is an iterator to that element).*/
+
+     ptList1.push_back(Point(-1,0));
+     ptList1.push_front(Point(1,-1));
+     ptList1.push_front(Point(-1,-1));
+     ptList1.push_front(Point(3,3));
+     ptList1.push_front(Point(3,3));
+     ptList1.push_front(Point(5,5));
+
+     std::cout<<"\nList source:";
+     printContAny(ptList1);
+
+     std::cout<<"\nList remove_if:";
+     ptList1.remove_if(predPoint);
+
+     printContAny(ptList1);
+     //*/
+     stop
 
 	//Исключение из списка подряд расположенных дублей - unique(). 
-
+    ptList1.unique();
+    printContAny(ptList1);
 	stop
 
 ///////////////////////////////////////////////////////////////////
+    /*
+     * std::deque (двусторонняя очередь) представляет собой последовательный индексированный контейнер, который позволяет быстро вставлять и удалять элементы с начала и с конца. Кроме того, вставка и удаление с обоих концов двусторонней очереди оставляет действительными указатели и ссылки на остальные элементы.
+       В отличие от std::vector, элементы deque не хранятся непрерывно: обычно реализован с помощью набора выделенных массивов фиксированного размера.
+       Хранилище deque обрабатывается автоматически, расширяясь и сужаясь по мере необходимости. Расширение deque дешевле, чем расширение std::vector, потому что оно не требует копирования существующих элементов в новый участок памяти.
+       Сложность (производительность) стандартных операций над двусторонней очередью следующая:
+
+       Произвольный доступ - постоянная O(1)
+       Вставка и удаление элементов с начала и с конца - амортизированная постоянная O(1)
+       Вставка и удаление элементов - линейная O(n)
+    */
+
 	//Задание 2.Очередь с двумя концами - контейнер deque
 
 	//Создайте пустой deque с элементами типа Point. С помощью
@@ -488,15 +520,47 @@ int main(int arg, char** parg)
 	//разработанного Вами в предыдущем задании универсального шаблона
 	//выведите значения элементов на печать
 
-
+    std::cout<<"\ndeque:";
+    deque<Point> dp;
+    dp.assign(tempPoint.begin(),tempPoint.end()); //заменяет содержимое с копиями тех, кто в диапазоне [first, last)
+    printContAny(dp);
+    stop
 
 	//Создайте deque с элементами типа MyString. Заполните его значениями
 	//с помощью push_back(), push_front(), insert()
 	//С помощью erase удалите из deque все элементы, в которых строчки
 	//начинаются с 'A' или 'a'
 
+    deque<MyString> ds;
+    ds.insert(ds.begin()+0,MyString("ABC"));
+    ds.insert(ds.begin()+1,MyString("aabc"));
+    ds.insert(ds.begin()+2,MyString("aaabc"));
+    ds.insert(ds.begin()+3,MyString("ddd"));
+    ds.push_back(MyString("CCC"));
+    ds.push_back(MyString("ACC"));
+    ds.push_back(MyString("AAC"));
+    ds.push_front(MyString("BBB"));
+    ds.push_front(MyString("BAC"));
+    ds.push_front(MyString("aaa"));
+    ds.push_front(MyString("A"));
+    ds.push_front(MyString("aaA"));
 
+    std::cout<<"\ndeque source:";
+    printContAny(ds);
+    std::deque<MyString>::iterator itb =  ds.begin();
+    std::deque<MyString>::iterator ite =  ds.end();
+    for(size_t i=0; i<ds.size()/*itb!=ite */;i++)
+    {
+        if( (itb->GetString()[0] == 'A') || (itb->GetString()[0] == 'a'))
+        {
+              itb = ds.erase(itb);
 
+        }else  ++itb;
 
+        std::cout<<"\nbegin:"<<ds.begin()->GetString();
+    }
+
+    printContAny(ds);
+    stop
 	return 0;
 }

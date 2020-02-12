@@ -7,21 +7,21 @@ class Point
 	public:
 		Point(int x = 0, int y = 0);
 		Point(const Point& r);
+
+        int GetX() const {return m_x;}
+        int GetY() const {return m_y;}
+
 		Point& operator=(const Point&);
 		
 		Point operator+(const Point&); // копию объекта должен возвр, т.т. исменять самого себя не надо
 		Point operator+(int);
-	
-		Point& operator+=(const Point&);
+        Point& operator+=(const Point&);
 
 		Point operator+();
 
-               // bool operator<() const
-               // { return (m_x < 0) || (m_y < 0);  }
-
-                bool operator>(const Point& p) const;
-                bool operator<(const Point& p) const;
-                bool operator==(const Point& p) const;
+        bool operator>(const Point& p) const;
+        bool operator<(const Point& p) const;
+        bool operator==(const Point& p) const;
 		
 		friend Point& operator+=(Point&, int);
 		friend Point operator-(Point& rl, int i);

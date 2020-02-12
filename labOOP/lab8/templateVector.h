@@ -227,8 +227,17 @@ void deleteAllDuplicate(U& u)
 
 }
 
-
-template<> bool predPoint<Point>(const Point& l)
+/*
+template<> bool predPointTempl<Point>(const Point& l)
 {
-    return l < 0;
+    std::cout<<"\npredPointTempl:";
+
+    return ((l.GetX()<0) || (l.GetY()<0));
+}*/
+
+bool predPoint(const Point& l)
+{
+    std::cout<<"\npredPoint:";
+
+    return ((l.GetX()<0) || (l.GetY()<0));
 }

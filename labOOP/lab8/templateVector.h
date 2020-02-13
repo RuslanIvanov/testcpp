@@ -209,13 +209,13 @@ void deleteAllDuplicate(U& u)
 
 }
 
-/*
+/*template<typename T> bool predPointTempl(const T& l);
 template<> bool predPointTempl<Point>(const Point& l)
 {
     std::cout<<"\npredPointTempl:";
 
     return ((l.GetX()<0) || (l.GetY()<0));
-}*/
+}//*/
 
 bool predPoint(const Point& l)
 {

@@ -144,8 +144,7 @@ void makeUniqAll(U& u)
 		{
 			++itb; count = 0;
 		}
-		int a = 0;
-       	 
+
         //std::cout<<"\n i = " <<i<< " element next: " << *(itb);
         //std::cout<< "\nsize: "<< u.size();
     }

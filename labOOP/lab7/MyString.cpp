@@ -50,7 +50,7 @@ MyString::~MyString()
 	else { std::cout << "N/A"; }*/
 
 	delete [] m_pStr;
-	m_pStr = 0;///???
+	m_pStr = nullptr;
 	//std::cout << "\nNow I am in nMyString's destructor!";
 }
 
@@ -115,7 +115,12 @@ MyString& MyString::operator=(const MyString& r)
 	if (this == &r)
 	{ return *this; }
 
-	int n_cur = strlen(m_pStr)+1;
+	int n_cur = 0;
+
+	if (m_pStr)
+		n_cur = strlen(m_pStr) + 1;
+	else std::cout << "\n oper= ptr null!";
+
 	int n_copy = strlen(r.m_pStr) + 1;
 
 	if (n_cur < n_copy)

@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include <iostream>
 #include <typeinfo>
 
@@ -77,12 +77,14 @@ void makeUniqOnlyEven(U& u)
     typename U::iterator itb = u.begin();
     typename U::iterator ite = u.end();
 
-    for (size_t i = 0; itb!=ite ; i++)
+    for (size_t i = 0; i < u.size() /* itb!=ite */ ; i++)
     {
         if(*(itb) == *(itb+1))
         {
             //std::cout<<"\nerase i  =  " <<i  << " del: " << *(itb);
             //std::cout<<"\nerase i+1=  " <<i+1<< " del: " << *(itb+1);
+			if ((itb + 2) == u.end())
+				break;
             itb = u.erase(itb,itb+2);// itb_next = erase(first,last); [first,next)
             if(itb==u.end()) break;
         }else { ++itb; }
@@ -96,10 +98,10 @@ void makeUniqOnlyEven(U& u)
     printCont(u);
 }
 
-/*
+
 template <typename U>
 void makeUniqAll(U& u)
-{// интервал убрать
+{// интервал убрать// делает тоже что и deleteAllDuplicate
     std::cout<<"\nmakeUniqAll";
     std::cout<<"\nsource_err1: ";
     printCont(u);
@@ -107,71 +109,43 @@ void makeUniqAll(U& u)
     typename U::iterator itb = u.begin();
     typename U::iterator ite = u.end();
     typename U::iterator itmp = u.begin();
-    int count = 0;
-    for (size_t i = 0; (itb!=ite)  ; i++)
+	typename U::iterator itmp2 = u.begin();
+	int count = 0; size_t n = u.size(); 
+    for (size_t i = 0; i<n ; i++)// itb != ite
     {
+		if (itb == u.end())  break;
 
-        for(;itb != ite;)
+		itmp = itb;		
+        itmp2 = itb+1;
+        size_t nn = u.size();
+        for(size_t ii = 0;ii < nn;ii++)// itmp2 != ite; 
         {
-            if(*(itb) == *(itmp))
+			//if (itmp2 == u.end())  break;
+            if( (itmp2 != u.end()) && (*(itmp2) == *(itmp)))
             {
-                 ++itb;
+                
+                 ++itmp2;
                 count++;
             }else
             {
-                if(count>1)
+                if(count>0)
                 {
-                    itb = u.erase(itmp,itb+count);
+                    itb = u.erase(itmp + 1, itmp2);
+					
+					break;
                 }
-                else ++itb;
-
-             count = 0;
+          
+				count = 0;
 
             }
         }
-        itb = u.begin();
-        itmp=itb;
-        //std::cout<<"\n i = " <<i<< " element next: " << *(itb);
-        //std::cout<< "\nsize: "<< u.size();
-    }
 
-    std::cout<<"\nafter delete:";
-    printCont(u);
-}//*/
-
-
-template <typename U>
-void makeUniqAll(U& u)
-{// интервал убрать
-    std::cout<<"\nmakeUniqAll";
-    std::cout<<"\nsource_err: ";
-    printCont(u);
-
-    typename U::iterator itb = u.begin();
-    typename U::iterator ite = u.end();
-
-    bool b = false;
-    for (size_t i = 0; itb!=ite ; i++)
-    {
-        if(*(itb) == *(itb+1))//  не верно пары находит
-        {
-            //std::cout<<"\n del: " <<*itb;
-            itb = u.erase(itb);
-
-            if(itb==u.end()) break;
-
-            itb = u.erase(itb);//+1
-
-            if(itb==u.end()) break;
-
-            b = true;
-        }else
-        {
-           if(b) { b = false; itb = u.erase(itb);} //удаляет последний не верно
-           else
-            ++itb;
-        }
-
+		if (count == 0)
+		{
+			++itb; count = 0;
+		}
+		int a = 0;
+       	 
         //std::cout<<"\n i = " <<i<< " element next: " << *(itb);
         //std::cout<< "\nsize: "<< u.size();
     }
@@ -183,6 +157,7 @@ void makeUniqAll(U& u)
 template <typename U>
 void deleteAllDuplicate(U& u)
 {
+	
     std::cout<<"\ndeleteAllDuplicate";
     std::cout<<"\nsource: ";
     printCont(u);
@@ -191,15 +166,22 @@ void deleteAllDuplicate(U& u)
     typename U::iterator ite = u.end();
     typename U::iterator itmp = u.begin();
 
-    for (size_t i = 0; itmp!=ite ; i++)
+   // for (size_t i = 0; itmp!=ite  ; i++) ///i<u.size()
+	for (size_t i = 0; i < u.size(); i++)
     {
-        itb=itmp+1;
-        for (;itb!=ite;)
+		itb = itmp+1;
+
+       // for (;itb!=ite;)
+		for(int ii = 0 ; ii<u.size();ii++)
         {
             //std::cout<<"\n' " <<*itb<<" ',find is ' " << *itmp <<" '";
+			if (itb == u.end()) break;
+
             if(*(itmp) == *(itb))
             {
                 //std::cout<<"\n del: " <<*itb;
+				if (itb == u.end()) break;
+
                 itb = u.erase(itb);
 
                 if(itb==u.end()) break;
@@ -221,7 +203,7 @@ void deleteAllDuplicate(U& u)
 
         //std::cout<< "\nsize: "<< u.size()<< "first: " << *u.begin();
     }
-
+	
     std::cout<<"\nafter delete:";
     printCont(u);
 
@@ -237,7 +219,7 @@ template<> bool predPointTempl<Point>(const Point& l)
 
 bool predPoint(const Point& l)
 {
-    std::cout<<"\npredPoint:";
+    //std::cout<<"\npredPoint:";
 
     return ((l.GetX()<0) || (l.GetY()<0));
 }

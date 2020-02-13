@@ -317,38 +317,10 @@ int main(int arg, char** parg)
 	{
         char ar[] = "qwerrrrty12222r3";
 		vector<char>var(ar, ar + sizeof(ar) - 1);
-#define UNIQUM
-#ifdef UNIQUM
-        makeUniqOnlyEven(var);
-#else
-        std::cout<<"\nsource: ";
-        printCont(var);
-
-		vector<char>::iterator itb = var.begin();
-		vector<char>::iterator ite = var.end();
-
-        size_t sv = var.size();
 		
-        for (size_t i = 0; itb!=ite ; i++)
-        {
-            if(*(itb) == *(itb+1))
-            {
-                std::cout<<"\nerase i  =  " <<i  << " del: " << *(itb);
-                std::cout<<"\nerase i+1=  " <<i+1<< " del: " << *(itb+1);
-                itb = var.erase(itb,itb+2);// itb_next = erase(first,last); [first,next)
-                //itb = var.erase(itb+i);
-                if(itb==ite) break;
-                stop
-            }else { ++itb; }
-
-            std::cout<<"\n i = " <<i<< " element next: " << *(itb);
-            std::cout<< "\nsize: "<< var.size();
-		}
-
-        std::cout<<"\nafter delete:";
-        printCont(var);
-        stop
-#endif
+        makeUniqOnlyEven(var);
+		//makeUniqAll(var);
+	
 	}
 	stop
 
@@ -373,9 +345,9 @@ int main(int arg, char** parg)
         int array[] = {1,2,3,4,5,6,7,8};
         size_t n = (sizeof(array) / sizeof(array[0]));
         vector<int> v(array, array + n);
-
-       // vector<int> vr(v.reverse());
-        printContAny(v);
+		std::cout << "\nreverse: ";
+        vector<int> vr(v.rbegin(), v.rend());
+        printContAny(vr);
         stop
     }
 

@@ -4,24 +4,33 @@
 	//		шаблоны функций,
 	//		шаблоны классов,
 
-//#include <tchar.h>
 #include <iostream>
 //#include <stdexcept>
 
+#if  _WIN32 
+#include <tchar.h>
+#define   stop __asm nop
+#else
+
+#define _tmain main
+#define _TCHAR char 
+
 void mystop()
-{
+{//Linux
         std::cout << "\nPause\n";
         getchar();
 }
 
 #define  stop  {mystop();}
+#endif
 
-#include "templ.h"
 #include "MyString.h"
+#include "templ.h"
 #include "MyStack.h"
 #include "MyStack2.h"
 
-int main(int argc, char* argv[])
+
+int _tmain(int argc, _TCHAR* argv[])
 {
 
 
@@ -37,7 +46,7 @@ int main(int argc, char* argv[])
 
 	stop
 
-		double dX = 0.5, dY = -5.5;
+	double dX = 0.5, dY = -5.5;
 	Swap(dX, dY);
 
 	stop
@@ -82,12 +91,13 @@ int main(int argc, char* argv[])
 			std::cout << e;
 		}
 
-		std::cout << "\nread all stack:";
-		for (int i = 0; st.size() > 0; i++)
-			std::cout << "\n#" << i << ": " << st.pop();
-		stop
 		try
 		{
+			std::cout << "\nread all stack:";
+			for (int i = 0; st.size() > 0; i++)
+			std::cout << "\n#" << i << ": " << st.pop();
+			stop
+		
 			for (int i = 0; ; i++)
 				std::cout << "\n#" << i << " : " << st.pop();
 		}
@@ -106,7 +116,7 @@ int main(int argc, char* argv[])
 			std::cout << "\n#0: " << st[0];
 			std::cout << "\n#12: " << st[12];
 		}
-		catch (ErrorStack & e)
+		catch (ErrorStack& e)
 		{
 			std::cout << "\nout of range: index " << e.m_i << " size " << e.m_n;
 		}
@@ -146,17 +156,18 @@ int main(int argc, char* argv[])
 			std::cout << "\n#1new: " << st[1];
 			std::cout << "\n#2new: " << st[2];
 		}
-		catch (ErrorStack & e)
+		catch (ErrorStack& e)
 		{
 			std::cout << "\nout of range: index " << e.m_i << " size " << e.m_n;
 		}
 
+		try
+		{
 		std::cout << "\nread all stack:";
 		for (int i = 0; st.size() > 0; i++)
 			std::cout << "\n#" << i << ": " << st.pop();
 		stop
-		try
-		{
+		
 			for (int i = 0; ; i++)
 				std::cout << "\n#" << i << " : " << st.pop();
 		}
@@ -175,7 +186,7 @@ int main(int argc, char* argv[])
 			std::cout << "\n#0: " << st[0];
 			std::cout << "\n#12: " << st[12];
 		}
-		catch (ErrorStack & e)
+		catch (ErrorStack& e)
 		{
 			std::cout << "\nout of range: index " << e.m_i << " size " << e.m_n;
 		}
@@ -218,7 +229,7 @@ int main(int argc, char* argv[])
 				std::cout << "\nafter move:";
 				for (size_t i = 0; i < st4.size(); i++)
 					std::cout << "\n#" << i << ": " << st4[i];
-				
+
 				st4 = std::move(st2);
 				std::cout << "\nafter copy move:";
 				for (size_t i = 0; i < st4.size(); i++)
@@ -230,12 +241,12 @@ int main(int argc, char* argv[])
 			stop
 
 
-			//Задание 2. Реализуйте шаблон стека - MyStack2 таким образом, чтобы 
-			//для хранения элементов использовался ОДНОСВЯЗНЫЙ список.
-			//Реализуйте возможность распечатать элементы стека в том порядке, в котором их заносил (push())
-			//пользователь
+		//Задание 2. Реализуйте шаблон стека - MyStack2 таким образом, чтобы 
+		//для хранения элементов использовался ОДНОСВЯЗНЫЙ список.
+		//Реализуйте возможность распечатать элементы стека в том порядке, в котором их заносил (push())
+		//пользователь
 
-			{
+		{
 			MyStack2<int, 4> st21;
 			try {
 				st21.push(1);
@@ -245,29 +256,35 @@ int main(int argc, char* argv[])
 				st21.push(5);
 			}
 			catch (const char* e)
-			{ std::cout << e; }
+			{
+				std::cout << e;
+			}
 
-			
+
 			std::cout << "\nafter push: ";
 			std::cout << st21;
 			stop
 			try
 			{
-				st21.pop();
-				st21.pop();
+			st21.pop();
+			st21.pop();
 			}
+
 			catch (const char* e)
-			{ std::cout << e; }
+			{
+			std::cout << e;
+			}
 			std::cout << "\nafter pop: ";
 			std::cout << st21;
 			stop
-				std::cout << "\nafter oper[i]: ";
-				try {
-				std::cout << "\n#0: " << st21[0];
-				std::cout << "\n#1: " << st21[1];
+			std::cout << "\nafter oper[i]: ";
+			try 
+			{
+			std::cout << "\n#0: " << st21[0];
+			std::cout << "\n#1: " << st21[1];
 			}
 			catch (const char* e) { std::cout << e; }
-			catch (ErrorStack2 & e)
+			catch (ErrorStack2& e)
 			{
 				std::cout << "\nout of range: index " << e.m_i << " size " << e.m_n;
 			}
@@ -279,10 +296,61 @@ int main(int argc, char* argv[])
 			stop
 
 			MyStack2<int, 4> st22 = std::move(st21);
-			std::cout << "\nafter move st22: ";
+			std::cout << "\nafter move constr st22: ";
 			std::cout << st22;
-	}
-	stop
+
+			MyStack2<int, 4> st33;
+			st33.push(33);
+			st33.push(34);
+			stop
+			std::cout << "\nst33: ";
+			std::cout << st33;
+			stop
+			st22 = std::move(st33);
+
+			std::cout << "\nafter oper=() move st22: ";
+			std::cout << st22;
+			stop
+
+
+			MyStack2<int, 4> st35;
+			st35.push(35);
+			st35.push(36);
+			st35.push(37);
+			st35.push(38);
+			
+			stop
+
+			MyStack2<int, 4>st36 = st35;
+			std::cout << "\nafter constr copy st36: ";
+			std::cout << st36;
+
+			stop
+			std::cout << "\n st22: ";
+			std::cout << st22;
+			st22.addTail(88);
+			st36 = st22;
+
+			std::cout << "\nafter copy st22 to st36: ";
+			std::cout << st36;
+			stop
+
+			std::cout << "\nst35: ";
+			std::cout << st35;
+
+			st36 = st35;
+			std::cout << "\nafter copy st35 to st36 : ";
+			std::cout << st36;
+
+			MyStack2<int, 4> st37;
+			st37.addTail(99);
+			std::cout << "\nst37: ";
+			st36 = st37;
+			std::cout << "\nafter copy st37 to st36 : ";
+			std::cout << st36;
+			stop
+		}
+		stop
 
 	return 0;
 }

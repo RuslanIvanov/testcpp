@@ -1,9 +1,15 @@
 #pragma once
-#include <string.h>
+
 #include <iostream>
-//#include <cstdarg.h>
+
+#if  _WIN32 
+#include <string>
+#include <cstdarg>
+#else
 #include <cstddef>
 #include <stdarg.h>
+#include <string.h>
+#endif
 
 class MyString
 {

@@ -11,8 +11,8 @@
 #include <string>
 #include <clocale>
 
- #include <iostream>
-
+#include <iostream>
+#include "templ.h"
 using namespace std;
 
 #if  _WIN32 
@@ -34,14 +34,31 @@ void mystop()
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	
+
 	//Напишите шаблон функции для вывода значений stack, queue, priority_queue
 	//обратите внимание на то, что контейнеры предоставляют РАЗНЫЕ методы для 
 	//получения значений
-	
 
+    std::queue<int> q1;
+    q1.push(3);
+    q1.push(1);
+    q1.push(4);
+    q1.push(1);
+    q1.push(5);
 
+    std::stack<int> st1;
+    st1.push(3);
+    st1.push(1);
+    st1.push(4);
+    st1.push(1);
+    st1.push(5);
 
+    priority_queue<int> pq1;
+    pq1.push(3);
+    pq1.push(1);
+    pq1.push(4);
+    pq1.push(1);
+    pq1.push(5);
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//stack

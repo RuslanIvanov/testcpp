@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <clocale>
+#include <functional>
 
 #include <iostream>
 #include "templ.h"
@@ -45,21 +46,25 @@ int _tmain(int argc, _TCHAR* argv[])
     q1.push(4);
     q1.push(1);
     q1.push(5);
-
+    print_queue(q1);
+    stop
     std::stack<int> st1;
     st1.push(3);
     st1.push(1);
     st1.push(4);
     st1.push(1);
     st1.push(5);
-
+    //printCont(st1);
+    stop
     priority_queue<int> pq1;
     pq1.push(3);
     pq1.push(1);
     pq1.push(4);
     pq1.push(1);
     pq1.push(5);
+    //printCont(pq1);
 
+    stop
 	////////////////////////////////////////////////////////////////////////////////////
 	//stack
 

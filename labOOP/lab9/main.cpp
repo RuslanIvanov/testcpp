@@ -41,12 +41,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	//получения значений
 
     std::queue<int> q1;
+    std::queue<int> q2;
     q1.push(3);
     q1.push(1);
     q1.push(4);
     q1.push(1);
     q1.push(5);
     print_queue(q1);
+    print_queue(q2);
+    printCont(q1);
     stop
     std::stack<int> st1;
     st1.push(3);
@@ -55,6 +58,7 @@ int _tmain(int argc, _TCHAR* argv[])
     st1.push(1);
     st1.push(5);
     //printCont(st1);
+    print_stack(st1);
     stop
     priority_queue<int> pq1;
     pq1.push(3);
@@ -63,7 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
     pq1.push(1);
     pq1.push(5);
     //printCont(pq1);
-
+    print_priority_queue(pq1);
     stop
 	////////////////////////////////////////////////////////////////////////////////////
 	//stack

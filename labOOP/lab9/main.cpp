@@ -237,9 +237,24 @@ int _tmain(int argc, _TCHAR* argv[])
 	//в) распечатайте содержимое
 
 	//г) замените один из КЛЮЧЕЙ на новый (была "Иванова", вышла замуж => стала "Петрова")
+        {// не допускает дубликатов
 
-	stop
-	
+            typedef map<const char*,int> MAP;
+            MAP m;
+            MAP::iterator it= m.begin();
+
+            m["Petrov"] = 1111;
+            m["Sidorov"] = 2222;
+            m["Ivanova"] = 3333;
+            m.insert(it,MAP::value_type("Kirillov",4444));
+            m.insert(it,MAP::value_type("Makarov",5555));
+            printCont(m);
+            int tel =  m["Ivanova"];
+            m.erase("Ivanova");// удалить элемен по ключу
+            m["Petrova"] = tel;
+            printCont(m);
+            stop
+        }
 
 	
 		
@@ -247,8 +262,51 @@ int _tmain(int argc, _TCHAR* argv[])
 		//Создайте (и распечатайте для проверки) map<string, int>, который будет
 		//содержать упорядоченные по алфавиту строки и
 		//количество повторений каждой строки в векторе
-	
+                {
 
+
+                    vector<string> vstr;
+                    vstr.push_back("baba");
+                    vstr.push_back("mama");
+                    vstr.push_back("mama");
+                    vstr.push_back("mama");
+                    vstr.push_back("mama");
+                    vstr.push_back("papa");
+                    vstr.push_back("tata");
+                    vstr.push_back("papa");
+                    vstr.push_back("tata");
+                    vstr.push_back("cc");
+                    vstr.push_back("bb");
+                    vstr.push_back("aa");
+                    printCont(vstr);
+                    stop
+
+                    map<string, int> m;
+                    map<string, int>::iterator it = m.begin();
+                    pair< map<string, int> ::iterator ,bool> ret;
+                    for(size_t i = 0;i<vstr.size();i++)
+                    {
+
+                        // it =  m.insert(it,map<string, int>::value_type(vstr[i],1));//не позволяет выяснить выполнена ли вставка
+                        ret =  m.insert(map<string, int>::value_type(vstr[i],1));
+                        if(ret.second == false)
+                        {
+                           //std::cout<<"\nno insert";
+                           m[vstr[i]]= m[vstr[i]]+1;
+
+                        }
+                    }
+                    //std::map::value_compare value_comp() const;
+
+                   //map<string,int>::iterator it = m.begin();
+                   do
+                   {
+                     // std::cout << it->first << " => " << it->second << '\n';
+                   }while ( m.key_comp() (*it++, myless_str) );
+
+                   printCont(m);
+                   stop
+                }
 
 
 

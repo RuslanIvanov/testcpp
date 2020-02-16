@@ -2,6 +2,16 @@
 #define TEMPL_H
 #include <iostream>
 
+class L
+{
+    public:
+    bool operator()(const char *x, const char *y)
+   {
+    return strcmp(x, y)<0;
+   }
+
+};
+
 struct myless_str
 {
     bool operator()(const char* l,const char* r) const
@@ -27,6 +37,16 @@ template <typename T> void printCont(const T& t)
     for(typename T::const_iterator i = t.begin(); i != t.end(); ++i)
     {
         std::cout<< *i << " ";
+    }
+
+}
+
+template <typename T,typename TT> void printCont(std::map<T,TT>& t)
+{
+    std::cout<<"\nContainer map: \n";
+    for(typename std::map<T,TT>::const_iterator i = t.begin(); i != t.end(); ++i)
+    {
+       std::cout<<"|"<< (*i).first << " : "<< (*i).second;
     }
 
 }

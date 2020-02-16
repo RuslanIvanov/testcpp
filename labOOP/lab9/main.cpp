@@ -13,6 +13,7 @@
 #include <functional>
 
 #include <iostream>
+#include <string.h>
 #include "Point.h"
 #include "templ.h"
 using namespace std;
@@ -118,6 +119,16 @@ int _tmain(int argc, _TCHAR* argv[])
 
         std::cout<<"\nQueue point: ";
         printCont(q);
+        std::cout<<"\nvect size: " << v.size();
+        int n = v.size();
+        list<Point*>::const_iterator it = v.begin();
+        for(int i = 0 ; i<n; i++)
+        {
+
+            std::cout<<"\ndel: "<<*it;
+            delete *it;
+            ++it;
+        }
         stop
 
     }
@@ -132,9 +143,23 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
         {
+            const char* str[] = {"aa","bbb","cccc","ddddd","eeeeee","ffffffff"};
+            priority_queue<const char*,vector<const char*>,myless_str> pq;
 
+            for(size_t i = 0; i< (sizeof(str)/sizeof(char*));i++)
+                pq.push(str[i]);
 
-    }
+            printCont(pq);// лексеграф. сравнение при выводе с помощью pop
+            stop
+            priority_queue<const char*,vector<const char*>> pq2;
+            for(size_t i = 0; i< (sizeof(str)/sizeof(char*));i++)
+
+            pq2.push(str[i]);
+
+            printCont(pq2);// по адресам сравнение при выводе с помощью pop
+            stop
+
+         }
 
 
 
@@ -152,14 +177,58 @@ int _tmain(int argc, _TCHAR* argv[])
 	//д) Вставьте в любое множество диапазон элементов из любого другого
 	//	контейнера, например, элементов массива	(что происходит, если в массиве имеются дубли?)
 
+        {
+        std::cout<<"\n pair ";
+        auto a = std::make_pair(1, 22);
+        cout << "\nfirst: "<< a.first;
+        cout << " second " << a.second;
+        }
 
+        {
+            pair< set<Point>::iterator ,bool> ret;
+            set<Point> sp;
+            for(int i = 0; i<5; i++)
+            {
+                ret= sp.insert(Point(i,i));
+                std::cout<<"\n second: "<<((ret.second==true)?" is insert ":" no insert ");
+                std::cout<<", first: "<<*ret.first;
+            }
+            printCont(sp);
+            stop
+            set<Point> ::iterator i = sp.begin();
+           // *i = Point(88,99);//нельзя, только insert, а итератор только для чтения
+             std::cout<<"\nIter on Point: "<<*i;
+        }
 
+        {
 
+         pair< set<int>::iterator ,bool> ret;
+         int ar[] = {1,3,6,7,4,5,2};
+         int n = sizeof(ar)/sizeof(ar[0]);
+         set<int> sp1 (ar,ar+n);
+        //set<int,classcomp> sp2 = {1,6,7,4,5};
+         set<int,classcomp> sp2(ar,ar+n);
 
+         printCont(sp1);
+         printCont(sp2);
 
+         sp1.insert(8);
+         sp1.insert(9);
+         sp1.insert(10);
 
+         set<int>::iterator ii = sp1.begin();
+         for(size_t i =0;i<sp1.size();i++)
+         {
+             ret = sp2.insert(*ii);
+             std::cout<<"\n second: "<<((ret.second==true)?" is insert ":" no insert ");
+             std::cout<<", first: "<<*ret.first;
+             ++ii;
+         }
 
+         printCont(sp2);
+         stop
 
+        }
 	////////////////////////////////////////////////////////////////////////////////////
 	//map, multiset
 	//а) создайте map, который хранит пары "фамилия, зарплата" - pair<const char*, int>,

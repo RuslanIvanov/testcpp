@@ -13,6 +13,7 @@
 #include <functional>
 
 #include <iostream>
+#include "Point.h"
 #include "templ.h"
 using namespace std;
 
@@ -36,20 +37,27 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 
 
-	//Напишите шаблон функции для вывода значений stack, queue, priority_queue
-	//обратите внимание на то, что контейнеры предоставляют РАЗНЫЕ методы для 
-	//получения значений
+    //Напишите шаблон функции для вывода значений stack, queue, priority_queue
+    //обратите внимание на то, что контейнеры предоставляют РАЗНЫЕ методы для
+    //получения значений
 
     std::queue<int> q1;
     std::queue<int> q2;
+    std::queue<int> q3;
+
     q1.push(3);
     q1.push(1);
     q1.push(4);
     q1.push(1);
     q1.push(5);
-    print_queue(q1);
-    print_queue(q2);
     printCont(q1);
+    printCont(q2);
+
+    q3.push(4);
+    q3.push(5);
+    q3.push(6);
+    printCont(q3);
+
     stop
     std::stack<int> st1;
     st1.push(3);
@@ -57,8 +65,8 @@ int _tmain(int argc, _TCHAR* argv[])
     st1.push(4);
     st1.push(1);
     st1.push(5);
-    //printCont(st1);
-    print_stack(st1);
+    printCont(st1);
+
     stop
     priority_queue<int> pq1;
     pq1.push(3);
@@ -66,21 +74,24 @@ int _tmain(int argc, _TCHAR* argv[])
     pq1.push(4);
     pq1.push(1);
     pq1.push(5);
-    //printCont(pq1);
-    print_priority_queue(pq1);
+    printCont(pq1);
+    //print_priority_queue(pq1);
     stop
-	////////////////////////////////////////////////////////////////////////////////////
-	//stack
+    ////////////////////////////////////////////////////////////////////////////////////
+    //stack
 
-	//Создайте стек таким образом, чтобы
-	//а) элементы стека стали копиями элементов вектора
-	//б) при выводе значений как вектора, так и стека порядок значений был одинаковым 
-
-
-
+    //Создайте стек таким образом, чтобы
+    //а) элементы стека стали копиями элементов вектора
+    //б) при выводе значений как вектора, так и стека порядок значений был одинаковым
+    {
+        vector<int> v = {1,2,3,4,5};
+        printCont(v);
+        stop
+        stack<int,vector<int>> s1(v);
+        printCont(v);
+        stop
 	
-	
-
+    }
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//queue
@@ -90,11 +101,26 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Измените значения первого и последнего элементов посредством front() и back()
 	//Подумайте, что требуется сделать при уничтожении такой очереди?
 	
+    {
+        list<Point*> v;
+        v.push_back(new Point(1,1));
+        v.push_back(new Point(2,2));
+        v.push_back(new Point(3,3));
+        v.push_back(new Point(4,4));
+        v.push_back(new Point(5,5));
+        std::cout<<"\n List: ";
+        printCont(v);
+        queue<Point*,list<Point*>> q(v); //list or deque а vector ??
+
+        q.front() = new Point(0,0);// q.front() and q.back() - возвращают ссылки
+        q.back() = new Point(6,6);;
 
 
+        std::cout<<"\nQueue point: ";
+        printCont(q);
+        stop
 
-
-
+    }
 
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +131,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	//		что сравнивается при вставке?
 
 
-	
+        {
+
+
+    }
 
 
 

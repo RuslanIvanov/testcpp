@@ -8,6 +8,7 @@ LDFLAGS=
 
 SOURCES= \
 main.cpp \
+Point.cpp \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=./run.exe

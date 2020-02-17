@@ -1,4 +1,4 @@
-#ifndef TEMPL_H
+ #ifndef TEMPL_H
 #define TEMPL_H
 #include <iostream>
 
@@ -6,13 +6,13 @@ class classcomp_key
 {
 
     public:
-        classcomp_key() {}
-        bool operator()(const char *x, const char *y) const
+
+        bool operator()(const std::string& x , const std::string& y ) const
         {
-            if((x!=nullptr) && (y!=nullptr))
+            /*if((x!=nullptr) && (y!=nullptr))
                 return x[0] < y[0];
-            else
-                return false;
+            else*/
+                return x<y;
         }
 
 };

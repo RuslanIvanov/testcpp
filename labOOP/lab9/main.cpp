@@ -1,4 +1,4 @@
- // Контейнеры STL: 
+// Контейнеры STL: 
 //stack, queue, priority_queue
 //set, multiset, map, multimap
 
@@ -297,12 +297,14 @@ int _tmain(int argc, _TCHAR* argv[])
                         }
                     }
                     //std::map::value_compare value_comp() const;
+                    //std::map<char,int>::key_compare mycomp = mymap.key_comp();//Returns the function object that compares the keys, which is a copy of this container's constructor argument comp.
+                   map<string,int,classcomp_key>::key_compare comp = m.key_comp();
+                   map<string,int>::iterator itb = m.begin();
 
-                   //map<string,int>::iterator it = m.begin();
-                   //do
-                   //{
-                     // std::cout << it->first << " => " << it->second << '\n';
-                   //}while ( m.key_comp() (*it++, Compare) );
+                  // do
+                  // {
+                     //   std::cout << itb->first << " => " << itb->second << '\n';
+                  // }while ( comp( itb->first,++itb->first ) );
 
                    printCont(m);
                    stop

@@ -2,6 +2,22 @@
 #define TEMPL_H
 #include <iostream>
 
+class classcomp_key
+{
+
+    public:
+        classcomp_key() {}
+        bool operator()(const char *x, const char *y) const
+        {
+            if((x!=nullptr) && (y!=nullptr))
+                return x[0] < y[0];
+            else
+                return false;
+        }
+
+};
+
+
 class L
 {
     public:
@@ -37,6 +53,16 @@ template <typename T> void printCont(const T& t)
     for(typename T::const_iterator i = t.begin(); i != t.end(); ++i)
     {
         std::cout<< *i << " ";
+    }
+
+}
+
+template <typename T,typename TT,typename C> void printCont(std::map<T,TT,C>& t)
+{
+    std::cout<<"\nContainer map: \n";
+    for(typename std::map<T,TT>::const_iterator i = t.begin(); i != t.end(); ++i)
+    {
+       std::cout<<"|"<< (*i).first << " : "<< (*i).second;
     }
 
 }

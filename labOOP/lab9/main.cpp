@@ -281,7 +281,7 @@ int _tmain(int argc, _TCHAR* argv[])
                     printCont(vstr);
                     stop
 
-                    map<string, int> m;
+                    map<string, int,classcomp_key> m;
                     map<string, int>::iterator it = m.begin();
                     pair< map<string, int> ::iterator ,bool> ret;
                     for(size_t i = 0;i<vstr.size();i++)
@@ -299,10 +299,10 @@ int _tmain(int argc, _TCHAR* argv[])
                     //std::map::value_compare value_comp() const;
 
                    //map<string,int>::iterator it = m.begin();
-                   do
-                   {
+                   //do
+                   //{
                      // std::cout << it->first << " => " << it->second << '\n';
-                   }while ( m.key_comp() (*it++, myless_str) );
+                   //}while ( m.key_comp() (*it++, Compare) );
 
                    printCont(m);
                    stop

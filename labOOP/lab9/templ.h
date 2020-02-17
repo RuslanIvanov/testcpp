@@ -9,10 +9,9 @@ class classcomp_key
 
         bool operator()(const std::string& x , const std::string& y ) const
         {
-            /*if((x!=nullptr) && (y!=nullptr))
-                return x[0] < y[0];
-            else*/
-                return x<y;
+           // std::cout<<"\n classcomp_key";
+
+            return x<y;
         }
 
 };

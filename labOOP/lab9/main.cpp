@@ -281,8 +281,8 @@ int _tmain(int argc, _TCHAR* argv[])
                     printCont(vstr);
                     stop
 
-                    map<string, int,classcomp_key> m;
-                    map<string, int>::iterator it = m.begin();
+                    map<string, int/*,classcomp_key*/> m;
+                    //map<string, int>::iterator it = m.begin();
                     pair< map<string, int> ::iterator ,bool> ret;
                     for(size_t i = 0;i<vstr.size();i++)
                     {
@@ -298,13 +298,13 @@ int _tmain(int argc, _TCHAR* argv[])
                     }
                     //std::map::value_compare value_comp() const;
                     //std::map<char,int>::key_compare mycomp = mymap.key_comp();//Returns the function object that compares the keys, which is a copy of this container's constructor argument comp.
-                   map<string,int,classcomp_key>::key_compare comp = m.key_comp();
+                   map<string,int/*,classcomp_key*/>::key_compare comp = m.key_comp();
                    map<string,int>::iterator itb = m.begin();
-
-                  // do
-                  // {
-                     //   std::cout << itb->first << " => " << itb->second << '\n';
-                  // }while ( comp( itb->first,++itb->first ) );
+                   string l = m.rbegin()->first;
+                   do
+                   {vector<charvector<char
+                      std::cout << itb->first << " => " << itb->second << '\n';
+                   }while ( comp((*(itb++)).first, l ));//*/
 
                    printCont(m);
                    stop
@@ -323,6 +323,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		//'B' -  "Beauty" "Beta"  ...
 		//...
 		
+                const char* words[] = {"Abba", "Alfa", "Beta", "Beauty" ,"ddd","dff"};
+                map<int,vector<const char*>> mm;
+
 
 		//ж)
 		//создайте структуру данных, которая будет хранить информацию о студенческих группах.

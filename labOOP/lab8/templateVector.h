@@ -29,7 +29,7 @@ template <typename P> void printCont(const P& p)
 }
 
 class Point;
-template <>
+template <> //это не шаблон , а глобальная функция=> д.б. в  *.cpp //специалтзация шаблона
 void printCont<std::vector<Point*>>(const std::vector<Point*>& p)
 {
     std::cout << "\nContainer '" << typeid(p).name() << "' contains:";
@@ -144,7 +144,8 @@ void makeUniqAll(U& u)
 		{
 			++itb; count = 0;
 		}
-
+		int a = 0;
+       	 
         //std::cout<<"\n i = " <<i<< " element next: " << *(itb);
         //std::cout<< "\nsize: "<< u.size();
     }
@@ -208,13 +209,13 @@ void deleteAllDuplicate(U& u)
 
 }
 
-/*template<typename T> bool predPointTempl(const T& l);
+/*
 template<> bool predPointTempl<Point>(const Point& l)
 {
     std::cout<<"\npredPointTempl:";
 
     return ((l.GetX()<0) || (l.GetY()<0));
-}//*/
+}*/
 
 bool predPoint(const Point& l)
 {

@@ -1,5 +1,7 @@
- #ifndef TEMPL_H
-#define TEMPL_H
+//#ifndef TEMPL_H
+//#define TEMPL_H
+#pragma once
+
 #include <iostream>
 
 class classcomp_key
@@ -53,6 +55,21 @@ template <typename T> void printCont(const T& t)
         std::cout<< *i << " ";
     }
 
+}
+
+template <typename P> void printCont(const std::vector<P>& p)
+{
+	std::cout << "\nContainer vect'" << typeid(p).name() << "' contains:";
+	if (p.empty())
+	{
+		std::cout << "  IS EMPTY!";
+		return;
+	}
+	std::cout << "\n";
+	for (size_t i = 0; i < p.size(); i++)
+	{
+		std::cout << " | " << p[i];
+	}
 }
 
 template <typename T,typename TT,typename C> void printCont(std::map<T,TT,C>& t)
@@ -235,7 +252,7 @@ template <typename T>void print_priority_queue(T& pq)
            std::cout<<"\n| "<<it->first<<": "<<it->second<<"|";// (*it).first...
 
        }
-   }
+ }
 
 ////////////////////////////////////////////////////////////
-#endif // TEMPL_H
+//#endif // TEMPL_H

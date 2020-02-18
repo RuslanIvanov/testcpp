@@ -17,9 +17,10 @@
 #include "Point.h"
 #include "templ.h"
 using namespace std;
-
+#pragma warning(disable: 4786)
 #if  _WIN32 
 #define   stop __asm nop
+#include <tchar.h>
 #else
 
 #define _tmain main
@@ -35,9 +36,13 @@ void mystop()
 #endif
 
 int _tmain(int argc, _TCHAR* argv[])
-{
-
-
+{	
+#if  _WIN32 
+	setlocale(LC_CTYPE, ".UTF8");
+	cout << "Привет, Мир!";
+	//wcout << L"Русский вывод" << endl
+#endif
+;
     //Напишите шаблон функции для вывода значений stack, queue, priority_queue
     //обратите внимание на то, что контейнеры предоставляют РАЗНЫЕ методы для
     //получения значений
@@ -285,20 +290,21 @@ int _tmain(int argc, _TCHAR* argv[])
                     printCont(vstr);
                     stop
 
-                    map<string, int/*,classcomp_key*/> m;
+                    map<string, int,classcomp_key> m;// можно и без classcomp_key, по умолчанию по less упорядочит map кл.
                     //map<string, int>::iterator it = m.begin();
                     pair< map<string, int> ::iterator ,bool> ret;
                     for(size_t i = 0;i<vstr.size();i++)
                     {
 
                         // it =  m.insert(it,map<string, int>::value_type(vstr[i],1));//не позволяет выяснить выполнена ли вставка
-                        ret =  m.insert(map<string, int>::value_type(vstr[i],1));
-                        if(ret.second == false)
-                        {
+                 //       ret =  m.insert(map<string, int>::value_type(vstr[i],1));
+                 //       if(ret.second == false)
+                 //       {
                            //std::cout<<"\nno insert";
-                           m[vstr[i]]= m[vstr[i]]+1;
+						   //m[vstr[i]] = m[vstr[i]] + 1;
+                //        }
 
-                        }
+						m[vstr[i]]++;// Int склад
                     }
                     //std::map::value_compare value_comp() const;
                     //std::map<char,int>::key_compare mycomp = mymap.key_comp();
@@ -306,7 +312,7 @@ int _tmain(int argc, _TCHAR* argv[])
                     //map:: key_comp(); Returns the function object that compares the keys,
                     //which is a copy of this container's constructor argument comp.
                     //Возвращает функцию, сравнивающую ключи.
-                    map<string,int/*,classcomp_key*/>::key_compare comp = m.key_comp();//???
+                    map<string,int,classcomp_key>::key_compare comp = m.key_comp();//??? должен вернуть ссылку на мой компаратор
                     map<string,int>::iterator itb = m.begin();
                     string l = m.rbegin()->first;
                     do

@@ -45,10 +45,10 @@ int main(int arg, char** parg)
 	std::vector<int> vInt;
 	std::cout << "\nsize Vint: " << vInt.size();
 	stop
-    //Раскомментируйте следующий фрагмент, подумайте - все ли корректно
-    //Если есть некорректности, - исправьте
+		//Раскомментируйте следующий фрагмент, подумайте - все ли корректно
+		//Если есть некорректности, - исправьте
 
-    vInt.push_back(1);//добавляет элемент в конец вектора
+		vInt.push_back(1);//добавляет элемент в конец вектора
 	std::cout << "front " << vInt.front(); //возвращает ссылку на перый элемнт вектора
 	//vInt.front()=2;
 	stop
@@ -188,7 +188,7 @@ int main(int arg, char** parg)
 		stop
 
 	{
-	int n = 4;
+	int n = 20;
 	size_t m = 8;
 	vector<int> v(n);
 	v.reserve(m);
@@ -218,7 +218,8 @@ int main(int arg, char** parg)
 		//
 		//Сравните размер, емкость векторов и значения элементов
 	{
-		vector<int> v1(5);
+		vector<int> v1;
+		v1.reserve(5);
 		vector<int> v2;
 
 		for (int i = 0; i < 5; i++)
@@ -228,7 +229,7 @@ int main(int arg, char** parg)
 		}
 		std::cout << "\nsize v1 " << v1.size() << " cap " << v1.capacity();
 		std::cout << "\nsize v2 " << v2.size() << " cap " << v2.capacity();
-		stop //size v1 > size v2; cap v1 > cap v2
+		stop //size v1 = size v2; cap v1 < cap v2 (v2 - был запас емкости +1)
 
 
 		//!!! shrink_to_fit - Уменьшение емкости вектора.
@@ -250,21 +251,30 @@ int main(int arg, char** parg)
 		//vv[2] - содержит 4,4,4,4
 		//...
 		//Распечатайте содержимое такого двухмерного вектора по строкам
-	int ar[] = { 11,2,3,6,5 };
+	int ar[] = { 11,2,3,6,5 };//reserv
+	size_t nn = sizeof(ar) / sizeof(ar[0]);
 	vector<vector<int>> vv;
-    for (size_t i = 0; i < (sizeof(ar) / sizeof(ar[0])); i++)
+	vv.reserve(nn);
+	for (size_t i = 0; i < (sizeof(ar) / sizeof(ar[0])); i++)
 	{
-		vector <int> tmp(ar[i], ar[i]);//создает вектор размера ar[i] заполняет знач ar[i]
-
-		vv.push_back(tmp);
+		//vector <int> tmp(ar[i], ar[i]);//создает вектор размера ar[i] заполняет знач ar[i]
+		//vv.push_back(tmp);// move исп
+		vv.push_back(std::move(vector<int> (ar[i],ar[i])));
 		stop
 	}
-    for (size_t i = 0; i < (sizeof(ar) / sizeof(ar[0])); i++)
+	for (size_t i = 0; i < (sizeof(ar) / sizeof(ar[0])); i++)
 	{
 		printCont(vv[i]);
 	}
-	stop
 
+	stop
+	{
+		std::cout << "\n\n----------------------------------------";
+		vector<int> tmp(ar[3], ar[3]);
+		printCont(tmp);
+		printCont(vector<int>(ar[2], ar[2]));
+		stop
+	}
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Вставка элемента последовательности insert().
@@ -315,7 +325,7 @@ int main(int arg, char** parg)
 	//Напишите функцию, которая должна удалять только повторяющиеся последовательности.
 	//Например: было - "qwerrrrty12222r3", стало - "qwety1r3"
 	{
-        char ar[] = "qwerrrrty12222r3";
+        char ar[] = "qqwerrrrty12222r33";
 		vector<char>var(ar, ar + sizeof(ar) - 1);
 		
         makeUniqOnlyEven(var);
@@ -427,11 +437,35 @@ int main(int arg, char** parg)
 
 	//Объедините отсортированные списки - merge(). Посмотрите: что
 	//при этом происходит с каждым списком.
-
-        std::cout<<"\nMerge:";
+		//Слияние двух отсортированных списков в один. Списки должны быть отсортированы в порядке возрастания. 
+		//Элементы не копируются.Контейнер other становится пустым после операции.
+        std::cout<<"\nMerge:";//что с ptList2
         ptList1.merge(ptList2);
         printContAny(ptList1);
+		std::cout <<"\nptList2: " ;
+		printContAny(ptList2);// пустой 
         stop
+
+		{
+
+		list<int> list1 = { 5,9,0,1,3 };
+		list<int> list2 = { 8,7,2,6,4 };
+
+		list1.sort();
+		list2.sort(); //без сортировки если в release - merge не раб.,  debug - exception
+		cout << "\nlist1:  ";
+		printContAny(list1);
+		cout << "\nlist2:  ";
+		printContAny(list2);
+		try
+		{
+			list1.merge(list2);
+			cout << "\nmerged: ";
+			printContAny(list1);
+		}
+		catch (...) { cout << "\n merged: EXCEPTION ";  } //  не ловится, видимо assert в debug a release merge вернет по алгоритму...list пустой
+		stop
+		}
         //*/
 
 	//Исключение элемента из списка - remove()
@@ -521,17 +555,35 @@ int main(int arg, char** parg)
     printContAny(ds);
     std::deque<MyString>::iterator itb =  ds.begin();
     std::deque<MyString>::iterator ite =  ds.end();
-    for(size_t i=0; i<=ds.size()/*itb!=ite */;i++)
-    {
-        if( (itb->GetString()[0] == 'A') || (itb->GetString()[0] == 'a'))
-        {
-              ds.erase(itb);
-              i=0;
-              itb =  ds.begin();
-        }else  ++itb;
+	//size_t nnn = ds.size();
 
-        //std::cout<<"\nbegin:"<<ds.begin()->GetString();
-    }
+	for (size_t i = 0; itb != ite; i++)
+	{
+		if ((itb->GetString()[0] == 'A') || (itb->GetString()[0] == 'a'))
+		{
+			
+			itb = ds.erase(itb);//Возвращает Итератор, следующий за последним удаленным элементом.
+			ite = ds.end();// изменяется при удалении элем		
+		}
+		else
+		{
+			++itb;
+		}
+
+		//std::cout<<"\nbegin:"<<ds.begin()->GetString();
+	}
+
+    //for(size_t i=0; i<=ds.size();i++)//itb!=ite 
+    //{
+    //    if( (itb->GetString()[0] == 'A') || (itb->GetString()[0] == 'a'))
+    //    {
+    //          ds.erase(itb);
+    //          i=0;
+    //          itb =  ds.begin();
+    //    }else  ++itb;
+
+    //    //std::cout<<"\nbegin:"<<ds.begin()->GetString();
+    //}
 
     printContAny(ds);
     stop

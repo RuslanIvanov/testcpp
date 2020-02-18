@@ -271,6 +271,8 @@ int _tmain(int argc, _TCHAR* argv[])
                     vstr.push_back("mama");
                     vstr.push_back("mama");
                     vstr.push_back("mama");
+                    vstr.push_back("mmama");
+                    vstr.push_back("mmmama");
                     vstr.push_back("papa");
                     vstr.push_back("tata");
                     vstr.push_back("papa");
@@ -278,6 +280,8 @@ int _tmain(int argc, _TCHAR* argv[])
                     vstr.push_back("cc");
                     vstr.push_back("bb");
                     vstr.push_back("aa");
+                    vstr.push_back("aaaa");
+                    vstr.push_back("z");
                     printCont(vstr);
                     stop
 
@@ -297,15 +301,19 @@ int _tmain(int argc, _TCHAR* argv[])
                         }
                     }
                     //std::map::value_compare value_comp() const;
-                    //std::map<char,int>::key_compare mycomp = mymap.key_comp();//Returns the function object that compares the keys, which is a copy of this container's constructor argument comp.
-                   map<string,int/*,classcomp_key*/>::key_compare comp = m.key_comp();
-                   map<string,int>::iterator itb = m.begin();
-                   string l = m.rbegin()->first;
-                   do
-                   {vector<charvector<char
-                      std::cout << itb->first << " => " << itb->second << '\n';
-                   }while ( comp((*(itb++)).first, l ));//*/
-
+                    //std::map<char,int>::key_compare mycomp = mymap.key_comp();
+                    ///////////////////////////////////////////////////////////////////////
+                    //map:: key_comp(); Returns the function object that compares the keys,
+                    //which is a copy of this container's constructor argument comp.
+                    //Возвращает функцию, сравнивающую ключи.
+                    map<string,int/*,classcomp_key*/>::key_compare comp = m.key_comp();//???
+                    map<string,int>::iterator itb = m.begin();
+                    string l = m.rbegin()->first;
+                    do
+                    {
+                      std::cout <<"\n|first: " <<itb->first << "| second: " << itb->second;
+                    }while ( comp((*(itb++)).first, l ));//*/// не вызывается
+                   ////////////////////////////////////////////////////////////////////////////
                    printCont(m);
                    stop
                 }
@@ -322,11 +330,40 @@ int _tmain(int argc, _TCHAR* argv[])
 		//'A' -  "Abba" "Alfa"
 		//'B' -  "Beauty" "Beta"  ...
 		//...
+        //m[a] = {aa,ab,as}
 		
-                const char* words[] = {"Abba", "Alfa", "Beta", "Beauty" ,"ddd","dff"};
-                map<int,vector<const char*>> mm;
+        const char* words[] = {"Abba", "Alfa","Ara","Ara", "Beta", "Beauty" ,"ddd","dff"};
+        map<char,set<const char*>> mm;
+        size_t n = sizeof(words)/sizeof(words[0]);
 
+        for (size_t i = 0;i<n;i++)
+        {std::cout << "\nkeys: " << *words[i];}
 
+        mm[*words[0]].insert(words[0]);
+        for (size_t i = 1;i<n;i++)
+        {
+            map<char,set<const char*>>::iterator  it = mm.find(*words[i]);//Находит элемент с ключом key.
+            //Возвращаемое значение: Итератор элемент с ключом key. Если такой элемент не найден, пришедшего к концу (см. end()) итератора возвращается.
+
+            if( it != mm.end() ) { std::cout << "\nfind: " << *words[i]; mm[*words[i]].insert(words[i]); }
+            else
+            {
+                    mm[*words[i]].insert(words[i]);
+                    std::cout << "\nno find: " << *words[i]<< ", add: "<<words[i]<< "is ";
+            }
+        }
+
+        std::cout << "\nrezult: ["<<mm.size()<<"]";
+        map<char,set<const char*>>::iterator itm = mm.begin();
+        //for (size_t i = 0;i<mm.size();i++)
+        for (size_t i = 0;itm!=mm.end();++itm)
+        {
+            std::cout << "\n# "<<i;
+            printCont(itm->second);
+            i++;
+        }
+
+        stop
 		//ж)
 		//создайте структуру данных, которая будет хранить информацию о студенческих группах.
 		//Для каждой группы должны хранится фамилии студентов (по алфавиту). При этом 

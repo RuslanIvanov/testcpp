@@ -10,8 +10,7 @@ class classcomp_key
         bool operator()(const std::string& x , const std::string& y ) const
         {
            // std::cout<<"\n classcomp_key";
-
-            return x<y;
+           return x<y;
         }
 
 };

@@ -226,5 +226,16 @@ template <typename T>void print_priority_queue(T& pq)
 
 
 }
+
+ template <typename T, typename TT> void printCont(std::multimap<T,TT>& t)
+ {
+        std::cout<<"\nContainer multimap:";
+       for (typename std::multimap<T,TT>::iterator it = t.begin(); it!=t.end();++it)
+       {
+           std::cout<<"\n| "<<it->first<<": "<<it->second<<"|";// (*it).first...
+
+       }
+   }
+
 ////////////////////////////////////////////////////////////
 #endif // TEMPL_H

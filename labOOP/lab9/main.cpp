@@ -371,10 +371,37 @@ int _tmain(int argc, _TCHAR* argv[])
 		//Сами группы тоже должны быть упорядочены по номеру
 		//
 		//номера 
+        //m[111]= {"ivanov","petrov","petrov"}
+        //m[211]= {"ivanov","sidorov","petrov"}
 
+        list<string> l = {"kirillov","mirillov","miller","miller","amiller"};
 
+        map<int,list<string>/*,classcomp_key*/> groups;
 
+        groups[111].push_back("ivanov");
+        groups[111].push_back("petrov");
+        groups[111].push_back("apetrov");
+        groups[111].push_back("petrov");
+        groups[111].push_back("bpetrov");
+        groups[111].sort();
 
+        groups[211].push_back("ivanov");
+        groups[211].push_back("sidorov");
+        groups[211].push_back("petrov");
+        groups[211].sort();
+
+        groups[311] = l;
+        groups[311].sort();
+
+        map<int,list<string>>::iterator it = groups.begin();
+
+        for (size_t i = 0;it!=groups.end();++it)
+        {
+              std::cout << "\n# "<<i;
+              printCont(it->second);
+              i++;
+        }
+        stop
 	////////////////////////////////////////////////////////////////////////////////////
 	//multimap
 	//а) создайте "англо-русский" словарь, где одному и тому же ключу будут соответствовать
@@ -385,12 +412,33 @@ int _tmain(int argc, _TCHAR* argv[])
 	//г) Выведите на экран только варианты "переводов" для заданного ключа. Подсказка: для нахождения диапазона
 	//		итераторов можно использовать методы lower_bound() и upper_bound()
 
+    multimap<string,string> sl;
 
+    //sl["strange"]="чужой";
+    //sl["strange"]="странный";
+    //std::pair<V1,V2> make_pair( T1&& t, T2&& u );
 
+    pair <string,string> data( "чужой","strange" );
+    sl.insert(data);
+    //data ("strange", "странный");
+    sl.insert(make_pair("странный","strange")); //<key,T>
+    sl.insert(make_pair("хороший","good"));
+    sl.insert(make_pair("хороший","well"));
+    sl.insert(make_pair("хороший","nice"));
 
-   
+    printCont(sl);
 
-  stop
+    multimap<string,string>::iterator itb = sl.lower_bound( "хороший"); //Возвращает итератор, указывающий на первый элемент, который является' не меньше, чем key.
+    //++itb;
+    multimap<string,string>::iterator ite = sl.upper_bound( "хороший"); //Возвращает итератор, указывающий на первый элемент, больший', чем key.
+
+    for(;itb!=ite;++itb)
+    {
+        if(itb!=sl.end() && ite!=sl.end())
+        std::cout<<"\n|"<< itb->first<<" is: "<<itb->second;
+    }
+
+    stop
 
 	return 0;
 }

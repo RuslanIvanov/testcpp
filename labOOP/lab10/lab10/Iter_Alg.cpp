@@ -15,6 +15,7 @@
 #include <typeinfo>
 #include "Point.h"
 #include "templ9.h"
+#include "templ10.h"
 //#include "templateVector.h"
 using namespace std;	
 
@@ -50,42 +51,66 @@ int _tmain(int argc, _TCHAR* argv[])
 	//нужно перегрузить в классе Point. Создайте вектор, элементы которого 
 	//являются копиями элементов set, но упорядочены по убыванию
     {
-    set<Point> sp;
+        set<Point> sp;
 
 	for (size_t i = 0; i < 5; i++)
 		sp.insert(Point(i, i));
 
-    set<Point>::reverse_iterator spit = sp.rbegin();
-    printCont(sp);
+        set<Point>::reverse_iterator spit = sp.rbegin();
+        printCont(sp);
 
-    vector<Point> v(spit,sp.rend());
-    v.reserve(sp.size());
-    printCont(v);
-    //std::copy(v.rbegin(), v.rend(), std::inserter(sp, spit));
-    /*for(size_t i = 0;i<5;i++)
-    {
+        vector<Point> v(spit,sp.rend());
+        v.reserve(sp.size());
+        printCont(v);
+        //std::copy(v.rbegin(), v.rend(), std::inserter(sp, spit));
+        /*for(size_t i = 0;i<5;i++)
+        {
         v.push_back(*spit);
         ++spit;
-    }
-    printCont(v);*/
+        }
+         printCont(v);*/
 	stop
 
 
 	//Потоковые итераторы. С помощью ostream_iterator выведите содержимое
 	//vector и set из предыдущего задания на экран.
+        cout<<"\niter ostream:";
+        ostream_iterator<Point> out_it (cout,"\n| ");
+        copy(v.begin(),v.end(), out_it );
+        ostream_iterator<Point> out_it2 (cout,"\n: ");
+        copy(sp.begin(),sp.end(), out_it2 );
+        stop
 
-
-    stop
-    }
 	//Итераторы вставки. С помощью возвращаемых функциями:
 	//back_inserter()
 	//front_inserter()
 	//inserter()
 	//итераторов вставки добавьте элементы в любой из созданных контейнеров. Подумайте:
 	//какие из итераторов вставки можно использовать с каждым контейнером.
+        back_insert_iterator<vector<Point>> itv = back_inserter(v);
+        *itv = Point(66,66);
 
+        //error: ‘class std::vector<Point>’ has no member named ‘push_front’
+        //front_insert_iterator<vector<Point>> itvf = front_inserter(v);
+        //*itvf = Point(77,77);
 
+        insert_iterator<vector<Point>> itvi = inserter(v,v.begin());
+        *itvi = Point(88,88);
 
+        cout<<"\niter ostream v:";
+        copy(v.begin(),v.end(), out_it );
+
+        //set не имеет метод push_back
+       //back_insert_iterator<set<Point>> itspb = back_inserter(sp);
+       //set не имеет метод front
+       // front_insert_iterator<set<Point>> itspf = front_inserter(sp);
+        insert_iterator<set<Point>> itspi = inserter(sp,sp.begin());
+        *itspi = Point(99,99);
+        cout<<"\niter ostream sp:";
+        copy(sp.begin(),sp.end(), out_it2 );
+
+        stop
+        }
 ///////////////////////////////////////////////////////////////////
 
 	//Задание 2. Обобщенные алгоритмы (заголовочный файл <algorithm>). Предикаты.
@@ -96,7 +121,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	//распечатайте значения элементов
 	//Подсказка : неплохо вызываемую функцию определить как шаблон
 
+        {
+            vector<int> v{1,2,3,4,5};
+            for_each(v.begin(),v.end(),printVect<int>);
 
+        }
 
 	stop
 

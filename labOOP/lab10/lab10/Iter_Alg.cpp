@@ -49,20 +49,34 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Реверсивные итераторы. Сформируйте set<Point>. Подумайте, что
 	//нужно перегрузить в классе Point. Создайте вектор, элементы которого 
 	//являются копиями элементов set, но упорядочены по убыванию
+    {
+    set<Point> sp;
 
-	set<Point> sp;
-	
 	for (size_t i = 0; i < 5; i++)
 		sp.insert(Point(i, i));
-	vector<Point> v;
-	v.reserve(sp.size());
-	std::copy(v.begin(),v.end(),std::inserter(sp,sp.begin()));
-	printCont(v);
+
+    set<Point>::reverse_iterator spit = sp.rbegin();
+    printCont(sp);
+
+    vector<Point> v(spit,sp.rend());
+    v.reserve(sp.size());
+    printCont(v);
+    //std::copy(v.rbegin(), v.rend(), std::inserter(sp, spit));
+    /*for(size_t i = 0;i<5;i++)
+    {
+        v.push_back(*spit);
+        ++spit;
+    }
+    printCont(v);*/
 	stop
+
+
 	//Потоковые итераторы. С помощью ostream_iterator выведите содержимое
 	//vector и set из предыдущего задания на экран.
 
 
+    stop
+    }
 	//Итераторы вставки. С помощью возвращаемых функциями:
 	//back_inserter()
 	//front_inserter()

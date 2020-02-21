@@ -122,8 +122,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	//Подсказка : неплохо вызываемую функцию определить как шаблон
 
         {
+            cout<<"\nfor_each v:";
             vector<int> v{1,2,3,4,5};
             for_each(v.begin(),v.end(),printVect<int>);
+
+             cout<<"\nfor_each l:";
+            list<int> l{1,2,3,4,5};
+            for_each(l.begin(),l.end(),printVect<int>);
 
         }
 
@@ -133,7 +138,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	//измените "координаты" на указанное значение (такой предикат тоже стоит реализовать 
 	//как шаблон) и выведите результат с помощью предыдущего предиката
 
+    {
+        vector<Point> v{Point(2,3),Point(4,5)};
+        cout<<"\nfor_each point v:";
+        for_each(v.begin(),v.end(),changePoint<Point>(Point(55,55)));
 
+        for_each(v.begin(),v.end(),printVect<Point>);
+        stop
+    }
 
 
 	//С помощью алгоритма find() найдите в любой последовательности элементов Point

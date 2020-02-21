@@ -15,9 +15,9 @@ template <> void printVect<int>(const int& t)
 
 }*/
 
-//template <typename T> void printVect(const vector<T>& t)
-//{
+template <typename T,typename TT> void changePoint(const T& t, TT t2)
+{
 
-//    std::cout<<"|"<<t;
+   t = t2;
 
-//}
+}

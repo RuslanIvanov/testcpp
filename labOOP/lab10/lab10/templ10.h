@@ -6,18 +6,28 @@ template <typename T> void printVect(const T& t)
     std::cout<<"|"<<t;
 
 }
-/*
-
-template <> void printVect<int>(const int& t)
+template <typename T>
+struct changePPP
 {
+    change(int x,int y)
+    {
+  //      x = 0;,y=0;
+        t.SetX(x);
+        t.SetY(y);
+    }
+    void operator()(int x,int y) {  t.SetX(x);
+                                    t.SetY(y); }
 
-    std::cout<<"|"<<t;
+    T t;
+};
 
-}*/
-
-template <typename T,typename TT> void changePoint(const T& t, TT t2)
+class Point;
+template <typename T=Point> void changePoint(const T& t)//,int x,int y)
 {
-
-   t = t2;
+   int x = t.GetX();
+   int y = t.GetY();
+   x++; y++;
+   t.SetX(x);
+   t.SetY(y);
 
 }

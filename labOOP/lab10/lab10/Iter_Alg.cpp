@@ -141,7 +141,7 @@ int _tmain(int argc, _TCHAR* argv[])
     {
         vector<Point> v{Point(2,3),Point(4,5)};
         cout<<"\nfor_each point v:";
-        for_each(v.begin(),v.end(),changePoint<Point>(Point(55,55)));
+        for_each(v.begin(),v.end(),changePPP(5,55));//changePoint<Point>);
 
         for_each(v.begin(),v.end(),printVect<Point>);
         stop

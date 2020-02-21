@@ -10,10 +10,12 @@ class Point
 
         int GetX() const {return m_x;}
         int GetY() const {return m_y;}
+        void SetX(int x) { m_x = x;}
+        void SetY(int y) { m_y = y;}
 
 		Point& operator=(const Point&);
 		
-		Point operator+(const Point&); // РєРѕРїРёСЋ РѕР±СЉРµРєС‚Р° РґРѕР»Р¶РµРЅ РІРѕР·РІСЂ, С‚.С‚. РёСЃРјРµРЅСЏС‚СЊ СЃР°РјРѕРіРѕ СЃРµР±СЏ РЅРµ РЅР°РґРѕ
+        Point operator+(const Point&);
 		Point operator+(int);
         Point& operator+=(const Point&);
 

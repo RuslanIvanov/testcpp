@@ -3,20 +3,23 @@
 template <typename T> void printVect(const T& t)
 {
 
-    std::cout<<"|"<<t;
+    std::cout<<"\n|"<<t<<"|";
 
 }
-template <typename T>
-struct changePPP
+
+template <typename T=Point>
+class changePPP
 {
     int x;
     int y;
+    T t;
+
+    public:
     changePPP(int _x,int _y)
     {
         x = _x;
         y=_y;
-        t.SetX(x);
-        t.SetY(y);
+
     }
 
     changePPP()
@@ -26,22 +29,48 @@ struct changePPP
         t.SetY(0);
     }
 
-    void operator()(int _x,int _y)
+    void operator()( Point& p )
     {
-        t.SetX(_x);
-        t.SetY(_y);
+        p.SetX(x);
+        p.SetY(y);
     }
 
-    void operator()(int d)
+
+};//changePPP(5,6);
+
+class CMP_IF
+{
+    public:
+    CMP_IF() {}
+
+    bool operator()(const Point& l,const Point& r) const
     {
-        t.SetX(x+d);
-        t.SetY(y+d);
+        return (l>r);
     }
 
-    T t;
+};//Compare
+
+
+class findRangePoint
+{
+    int n;
+    int m;
+
+    public:
+    findRangePoint(int _n, int _m)
+    {
+        n =_n; m =_m;
+    }
+
+    bool operator()(const Point& p) const
+    {
+       return ( (p.GetX() >= n && p.GetX() <= m)  && (p.GetY() >= n && p.GetY() <= m) );
+
+    }//findRangePoint.operator()(const Point& p)
+
 };
 
-class Point;
+
 template <typename T=Point> void changePoint(T& t)
 {
    int x = t.GetX();
@@ -52,7 +81,7 @@ template <typename T=Point> void changePoint(T& t)
 
 }
 
-class Point;
+
 template <typename T=Point> void changePoint2(T& t,int X, int Y)
 {
 

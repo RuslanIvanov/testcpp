@@ -9,6 +9,7 @@ LDFLAGS=
 SOURCES= \
 Iter_Alg.cpp \
 Point.cpp \
+Rect.cpp \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=./run.exe

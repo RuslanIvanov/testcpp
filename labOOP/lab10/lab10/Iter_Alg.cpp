@@ -14,6 +14,7 @@
 #include <string.h>
 #include <typeinfo>
 #include "Point.h"
+#include "Rect.h"
 #include "templ9.h"
 #include "templ10.h"
 //#include "templateVector.h"
@@ -141,7 +142,7 @@ int _tmain(int argc, _TCHAR* argv[])
     {
         vector<Point> v{Point(2,3),Point(4,5)};
         cout<<"\nfor_each point v:";
-        for_each(v.begin(),v.end(),changePPP<Point>(44,55));
+        for_each(v.begin(),v.end(),changePPP<Point>(111,111));
         //for_each(v.begin(),v.end(),changePoint<Point>);
         for_each(v.begin(),v.end(),printVect<Point>);
         stop
@@ -151,8 +152,38 @@ int _tmain(int argc, _TCHAR* argv[])
 	//С помощью алгоритма find() найдите в любой последовательности элементов Point
 	//все итераторы на элемент Point с указанным значением.
 
+        {
+                vector<Point> v2 {Point(1,1),Point(2,2),Point(2,3),Point(4,5),Point(5,5),Point(5,5),Point(6,6)};
+
+                vector<Point>::iterator it = find(v2.begin(),v2.end(),Point(5,5)) ;
 
 
+                if(it==v2.end())
+                {
+                    std::cout<<"\nNo found";
+
+                }else
+                {
+
+                    do
+                    {
+                        if(it==v2.end())
+                        {
+                             std::cout<<"\nexit find! ";
+                             break;
+                        }
+
+                        std::cout<<"\nis finded: "<<*it;
+                        ++it;
+                        it = find(it,v2.end(),Point(5,5)) ;// возвращает итератор на первой вхождение , если нашел, иначе на конец
+
+
+
+                    }while(1);
+                }
+
+        }
+        stop
 	
 	
 	//С помощью алгоритма sort() отсортируйте любую последовательность элементов Point. 
@@ -161,7 +192,29 @@ int _tmain(int argc, _TCHAR* argv[])
 	// Замечание: обобщенный алгоритм sort не работает со списком, так как
 	//это было бы не эффективно => для списка сортировка реализована методом класса!!!
 	
+        {
+            vector<Point> v3 {Point(99,99),Point(6,6),Point(1,1),Point(2,2),Point(2,3),Point(4,5),Point(5,5),Point(5,5),Point(6,6)};
 
+            std::cout<<"\nSort1: ";
+            sort(v3.begin(),v3.end());
+            for_each(v3.begin(),v3.end(),printVect<Point>);
+
+            std::cout<<"\nSort2: ";
+            sort(v3.rbegin(),v3.rend());
+            for_each(v3.begin(),v3.end(),printVect<Point>);
+
+            list<Point> l3 {Point(99,99),Point(6,6),Point(1,1),Point(2,2),Point(2,3),Point(4,5),Point(5,5),Point(5,5),Point(6,6)};
+
+            std::cout<<"\nSort1 list: ";
+            l3.sort();
+            for_each(l3.begin(),l3.end(),printVect<Point>);
+
+            std::cout<<"\nSort2 list: ";
+            l3.sort(CMP_IF());//CMP_IF() - компаратор - автоматический объект, копия которго передается в sort
+            for_each(l3.begin(),l3.end(),printVect<Point>);
+
+            stop
+        }
 
 
 	
@@ -169,7 +222,34 @@ int _tmain(int argc, _TCHAR* argv[])
 	//итератор на элемент Point, удовлетворяющий условию: координаты x и y лежат в промежутке
 	//[-n, +m].
 
+        {
+             vector<Point> v4 {Point(99,99),Point(6,6),Point(1,1),Point(2,2),Point(2,3),Point(4,5),Point(5,5),Point(5,5),Point(6,6)};
 
+             std::cout<<"\nfind_if range Point:";
+             vector<Point>::iterator where =  find_if(v4.begin(),v4.end(),findRangePoint(4,99));
+             if(where == v4.end())
+             {
+                   std::cout<<"\nNo found";
+             }else
+             {
+                 do
+                 {
+                    if(where==v4.end())
+                    {
+                         std::cout<<"\nexit find! ";
+                         break;
+                    }
+
+                    std::cout<<"\nis finded: "<<*where;
+                     ++where;
+                    where = find_if(where,v4.end(),findRangePoint(4,4));
+
+                 }while(1);
+
+             }
+
+             stop
+        }
 
 	//С помощью алгоритма sort() отсортируйте любую последовательность элементов Rect,
 	//располагая прямоугольники по удалению центра от начала координат.

@@ -1,13 +1,16 @@
-/*template<class InputIt, class UnaryFunction>
+/*
+template<class InputIt, class UnaryFunction>
 constexpr UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f)
 {
     for (; first != last; ++first) {
         f(*first);
     }
     return f; // implicit move since C++11
-}*/
+}
+*/
 
-/*Example
+/*
+Example
 
 The following example uses a lambda function to increment all of the elements of a vector and then uses an overloaded operator() in a functor to compute their sum. Note that to compute the sum, it is recommended to use the dedicated algorithm std::accumulate.
 Run this code*/
@@ -15,29 +18,29 @@ Run this code*/
 #include <vector>
 #include <algorithm>
 #include <iostream>
- 
+
 struct Sum
 {
     Sum(): sum{0} { }
     void operator()(int n) { sum += n; }
     int sum;
 };
- 
-int main(int.char**)
+
+int main(int,char**)
 {
     std::vector<int> nums{3, 4, 2, 8, 15, 267};
- 
+
     auto print = [](const int& n) { std::cout << " " << n; };
- 
+
     std::cout << "before:";
     std::for_each(nums.begin(), nums.end(), print);
     std::cout << '\n';
- 
+
     std::for_each(nums.begin(), nums.end(), [](int &n){ n++; });
- 
+
     // calls Sum::operator() for each number
     Sum s = std::for_each(nums.begin(), nums.end(), Sum());
- 
+
     std::cout << "after: ";
     std::for_each(nums.begin(), nums.end(), print);
     std::cout << '\n';

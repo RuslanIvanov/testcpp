@@ -49,7 +49,7 @@ struct classcomp
 ////////////////////////////////////////////////////////////////////////
 template <typename T> void printCont(const T& t)
 {
-    std::cout<<"\nContainer: \n";
+    std::cout<<"\nContaine_r: \n";
     for(typename T::const_iterator i = t.begin(); i != t.end(); ++i)
     {
         std::cout<< *i << " ";

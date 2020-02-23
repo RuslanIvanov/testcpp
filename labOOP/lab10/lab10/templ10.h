@@ -70,6 +70,30 @@ class findRangePoint
 
 };
 
+class removal_on_from_the_center
+{
+    int x0;
+    int y0;
+    Rect zerro;
+
+    public:
+    removal_on_from_the_center(int X0 = 0, int Y0 = 0):zerro(0,0,0,0)
+    {
+        x0=X0; y0 =Y0;
+    }
+
+    bool operator()(const Rect& l, const Rect& r) //const
+    {
+       //if(l>tmp) {tmp=l; return true; }
+      // else
+      // return false;
+      return (l>r);//??
+
+    }//removal_on_from_the_center.operator()(const Rect& )
+
+};
+
+
 
 template <typename T=Point> void changePoint(T& t)
 {

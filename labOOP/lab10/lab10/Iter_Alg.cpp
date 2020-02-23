@@ -254,7 +254,26 @@ int _tmain(int argc, _TCHAR* argv[])
 	//С помощью алгоритма sort() отсортируйте любую последовательность элементов Rect,
 	//располагая прямоугольники по удалению центра от начала координат.
 	
+        {
+             // set<Rect> r;//не прошли все инициализ
 
+             Rect masR[] = {Rect(),Rect(1,1,10,10),Rect(2,2,20,20),Rect(3,3,30,30),Rect(20,20,2,2),Rect(30,30,2,2)};
+
+             size_t n = sizeof(masR)/sizeof(masR[0]);
+             set<Rect> r(masR,masR+n);
+             vector<Rect> v(masR,masR+n);
+
+             sort(r.begin(),r.end(),removal_on_from_the_center(0,0));
+
+             std::cout<<"\nSet sort: ";
+             printCont(r);
+
+            stop
+            std::cout<<"\nVector sort: ";
+            sort(v.begin(),v.end(),removal_on_from_the_center(0,0));
+            printCont(v);
+            stop
+        }
 
 
 

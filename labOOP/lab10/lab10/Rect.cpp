@@ -1,5 +1,5 @@
+
 #include "Rect.h"
-#include <iostream>
 
 Rect::Rect()
 {
@@ -18,8 +18,7 @@ Rect::Rect(int left, int right, int top, int bottom)
 }
 
 Rect::~Rect()
-{
-	std::cout << "\nNow I am in Rect's destructor!";
+{	
 }
 
 Rect::Rect(const Rect& r)
@@ -158,11 +157,6 @@ void Rect::print()
 	std::cout << "top = " << m_top << " bottom = " << m_bottom << "\n";
 }
 
-void Rect::WhereAmI()
-{
-	std::cout << "\nNow I am in class Rect";
-}
-
 void Rect::Inflate(int d) 
 {
 	//std::cout << "\nRect::Inflate";
@@ -172,7 +166,38 @@ void Rect::Inflate(int d)
 	m_bottom += d;
 }
 
+bool Rect::operator==(const Rect& r) const
+{
+    return (r.m_bottom == m_bottom) && (r.m_top == m_top) && (r.m_left == m_left) && (r.m_right == m_right);
+}
+
+bool Rect::operator>(const Rect& r) const
+{
+    bool blt = (r.m_top < m_top) && (r.m_left < m_left);
+    bool brb = (r.m_bottom > m_bottom) && (r.m_right > m_right);
+
+    return blt && brb;
+}
+
+
+ bool Rect::operator<(const Rect& r) const
+ {
+     bool blt = (r.m_top > m_top) && (r.m_left > m_left);
+     bool brb = (r.m_bottom < m_bottom) && (r.m_right < m_right);
+
+     return blt && brb;
+ }
+
 //=================================================================
+
+ std::ostream& operator<<(std::ostream& os, const Rect& r)
+ {
+    os << "\nleft = " << r.m_left << " right = " << r.m_right << "";
+    os << " top = " << r.m_top << " bottom = " << r.m_bottom << "";
+
+     return os;
+ }
+
 Rect BoundingRect(Rect r1, Rect r2)
 {
 	int vl1, vr1, vt1, vb1;

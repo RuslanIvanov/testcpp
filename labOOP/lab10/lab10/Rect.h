@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 class Rect
 {
 	int m_left, m_right, m_top, m_bottom;
@@ -27,13 +27,19 @@ public:
 	void setBottom(int);
 
 	Rect BoundingRect(const Rect& r1);
-	virtual void print();
-	virtual void WhereAmI();
-	virtual void Inflate(int);
+        void print();
+        void Inflate(int);
+
+        bool operator<(const Rect& r) const;
+        bool operator>(const Rect& r) const;
+        bool operator==(const Rect& r) const;
+
+        friend std::ostream& operator<<(std::ostream& os, const Rect& );
 	};
 
 /////////////////////////////////////////////////
 Rect BoundingRect2(Rect& r1, Rect& r2);
 Rect BoundingRect(Rect r1, Rect r2);
+std::ostream& operator<<(std::ostream& os, const Rect& );
 
 

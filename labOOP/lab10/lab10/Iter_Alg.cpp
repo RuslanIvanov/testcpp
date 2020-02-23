@@ -260,18 +260,34 @@ int _tmain(int argc, _TCHAR* argv[])
              Rect masR[] = {Rect(),Rect(1,1,10,10),Rect(2,2,20,20),Rect(3,3,30,30),Rect(20,20,2,2),Rect(30,30,2,2)};
 
              size_t n = sizeof(masR)/sizeof(masR[0]);
-             set<Rect> r(masR,masR+n);
-             vector<Rect> v(masR,masR+n);
+             set<Rect,RectCmp> r(masR,masR+n);
 
-             sort(r.begin(),r.end(),removal_on_from_the_center(0,0));
 
-             std::cout<<"\nSet sort: ";
+             // sort(r.begin(),r.end(),removal_on_from_the_center());//??
+             /*error: no match for ‘operator-’ (operand types are ‘std::_Rb_tree_const_iterator<Rect>’ and ‘std::_Rb_tree_const_iterator<Rect>’)
+             std::__lg(__last - __first) * 2,*/
+
+             //for(size_t ii=0;ii<n;ii++)
+             //  r.insert(masR[ii]);
+
+             //for(size_t ii=0;ii<5;ii++)
+             //    r.insert(Rect(ii,ii,ii+ii,ii+ii));
+
+             vector<Rect> v(masR,masR+n);        
+
+             std::cout<<"\nSet["<< r.size() <<"] sort: ";
              printCont(r);
 
             stop
             std::cout<<"\nVector sort: ";
-            sort(v.begin(),v.end(),removal_on_from_the_center(0,0));
+            sort(v.begin(),v.end(),removal_on_from_the_center());
             printCont(v);
+            stop
+
+            std::cout<<"\nList sort: ";
+            list<Rect> l(masR,masR+n);
+            l.sort(removal_on_from_the_center());
+            printCont(l);
             stop
         }
 
@@ -284,14 +300,28 @@ int _tmain(int argc, _TCHAR* argv[])
 		//содержимое объекта string в нижний регистр.
 		//Подсказка: класс string - это "почти" контейнер, поэтому для него
 		// определены методы begin() и end()
+                string st = "TEST";
+                for (string::iterator it = st.begin() ; it != st.end(); it ++ )
+                    *it = std::tolower(*it);
+                std::cout<<"\nst = "<<st;
+
+                string str1 = "AAAA BBBB CCCC";
+
+                transform(str1.begin(), str1.end(),str1.begin(),mytolower_char);
+                std::cout<<"\nstr1 = "<<str1;
 
 
 		//Заполните list объектами string. С помощью алгоритма transform сформируте
 		//значения "пустого" set, конвертируя строки в нижний регистр
-	
+                list<string> lst = {"AAA","BBB","CCC"};
+                std::cout<<"\nList ";
+                printCont(lst);
+                set<string> s;
 
+               // transform(lst.begin(), lst.end(),s.begin(),mytolower_uchar);
 
-
+                std::cout<<"\nSet ";
+                printCont(s);
 		stop
 	}
 	

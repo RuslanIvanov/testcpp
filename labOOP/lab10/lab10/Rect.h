@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <stdlib.h>
 class Rect
 {
 	int m_left, m_right, m_top, m_bottom;
@@ -16,10 +17,10 @@ public:
 	void SetAll(int l, int r, int t, int b);
 	void GetAll(int* pl, int* pr, int* pt, int* pb) const;
 
-	int getTop();
-	int getLeft();
-	int getRight();
-	int getBottom();
+        int getTop() const;
+        int getLeft() const;
+        int getRight() const;
+        int getBottom() const;
 
 	void setTop(int);
 	void setLeft(int);
@@ -33,13 +34,21 @@ public:
         bool operator<(const Rect& r) const;
         bool operator>(const Rect& r) const;
         bool operator==(const Rect& r) const;
+        Rect operator-(const Rect& r) const;
+         Rect operator-(Rect& r) ;
 
         friend std::ostream& operator<<(std::ostream& os, const Rect& );
+        friend Rect operator-(const Rect& rl, const Rect& rr);// const; ???
+        friend Rect operator-(Rect& rl,  Rect& rr);
+        friend bool operator<(const Rect& r,const Rect& l);// const;
 	};
 
 /////////////////////////////////////////////////
 Rect BoundingRect2(Rect& r1, Rect& r2);
 Rect BoundingRect(Rect r1, Rect r2);
 std::ostream& operator<<(std::ostream& os, const Rect& );
+Rect operator-(const Rect& rl, const Rect& rr); //const ???
+Rect operator-( Rect& rl, Rect& rr);
+bool operator<(const Rect& r,const Rect& l); //const;
 
 

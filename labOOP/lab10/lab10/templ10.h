@@ -50,6 +50,14 @@ class CMP_IF
 
 };//Compare
 
+struct RectCmp
+{
+    bool operator()(const Rect& lhs, const Rect& rhs) const
+    {
+        return lhs.operator>(rhs);
+    }
+};
+
 
 class findRangePoint
 {
@@ -84,10 +92,7 @@ class removal_on_from_the_center
 
     bool operator()(const Rect& l, const Rect& r) //const
     {
-       //if(l>tmp) {tmp=l; return true; }
-      // else
-      // return false;
-      return (l>r);//??
+        return (l>r);
 
     }//removal_on_from_the_center.operator()(const Rect& )
 
@@ -114,3 +119,54 @@ template <typename T=Point> void changePoint2(T& t,int X, int Y)
 
 }
 
+
+unsigned char mytolower_uchar(unsigned char st)
+{
+    return static_cast<unsigned char>(std::tolower(static_cast<int>(st)));
+
+}//*/
+
+ char mytolower_char( char st)
+{
+    return static_cast<char>(std::tolower(static_cast<int>(st)));
+
+}//*/
+
+
+
+/*template <typename T,typename TT>
+TT& mytolower(T& st)
+{
+    for (std::string::iterator it = st.begin() ; it != st.end(); it ++ )
+    {
+
+        *it = std::tolower(*it);
+
+    }
+
+  //  return tolower(st);
+
+}//*/
+
+
+/*class mytolower
+{
+
+
+    public:
+    mytolower()
+    {
+
+    }
+
+    void operator()( std::string& st )
+    {
+        for ( std::string::iterator it = st.begin() ; it != st.end(); ++it )
+        {
+
+           // *it = std::tolower(static_cast<char>(*it));
+        }
+
+    }
+
+};*/

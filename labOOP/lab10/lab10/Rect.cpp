@@ -109,22 +109,22 @@ void Rect::GetAll(int* pl, int* pr, int* pt, int* pb) const
 	*pb= m_bottom;
 }
 
-int Rect::getTop()
+int Rect::getTop() const
 {
 	return m_top;
 }
 
-int Rect::getLeft()
+int Rect::getLeft() const
 {
 	return m_left;
 }
 
-int Rect::getRight()
+int Rect::getRight() const
 {
 	return m_right;
 }
 
-int Rect::getBottom()
+int Rect::getBottom() const
 {
 	return m_bottom;
 }
@@ -173,7 +173,7 @@ bool Rect::operator==(const Rect& r) const
 
 bool Rect::operator>(const Rect& r) const
 {
-    bool blt = (r.m_top < m_top) && (r.m_left < m_left);
+    bool blt = (r.m_top > m_top) && (r.m_left > m_left);
     bool brb = (r.m_bottom > m_bottom) && (r.m_right > m_right);
 
     return blt && brb;
@@ -182,13 +182,75 @@ bool Rect::operator>(const Rect& r) const
 
  bool Rect::operator<(const Rect& r) const
  {
-     bool blt = (r.m_top > m_top) && (r.m_left > m_left);
+     bool blt = (r.m_top < m_top) && (r.m_left < m_left);
      bool brb = (r.m_bottom < m_bottom) && (r.m_right < m_right);
+
+     //std::cout<<"\nRect::operator< is "<< (( blt && brb )?"TRUE":"FALSE");
+     return blt && brb;
+ }
+
+ Rect Rect::operator-(const Rect& r) const
+ {
+     Rect tmp;
+
+     tmp.setLeft(abs(r.m_left - m_left));
+     tmp.setRight(abs(r.m_right - m_right));
+     tmp.setTop(abs(r.m_top - m_top));
+     tmp.setBottom(abs(r.m_bottom - m_bottom));
+
+     return tmp;
+ }
+
+ Rect Rect::operator-( Rect& r)
+ {
+     Rect tmp;
+
+     tmp.setLeft(abs(r.m_left - m_left));
+     tmp.setRight(abs(r.m_right - m_right));
+     tmp.setTop(abs(r.m_top - m_top));
+     tmp.setBottom(abs(r.m_bottom - m_bottom));
+
+     return tmp;
+ }
+
+//=================================================================
+
+ bool operator<(const Rect& r,const Rect& l) //const
+ {
+     bool blt = (r.m_top < l.m_top) && (r.m_left < l.m_left);
+     bool brb = (r.m_bottom < l.m_bottom) && (r.m_right < l.m_right);
+
+     //std::cout<<"\n:operator< is "<< (( blt && brb )?"TRUE":"FALSE");
 
      return blt && brb;
  }
 
-//=================================================================
+ Rect operator-(const Rect& rl, const Rect& rr) //const//???
+ {
+     Rect tmp;
+
+     tmp.setLeft(abs(rl.m_left - rr.m_left));
+     tmp.setRight(abs(rl.m_right - rr.m_right));
+     tmp.setTop(abs(rl.m_top - rr.m_top));
+     tmp.setBottom(abs(rl.m_bottom - rr.m_bottom));
+
+     return tmp;
+
+ }
+
+
+ Rect operator-(Rect& rl,  Rect& rr)
+ {
+     Rect tmp;
+
+     tmp.setLeft(abs(rl.m_left - rr.m_left));
+     tmp.setRight(abs(rl.m_right - rr.m_right));
+     tmp.setTop(abs(rl.m_top - rr.m_top));
+     tmp.setBottom(abs(rl.m_bottom - rr.m_bottom));
+
+     return tmp;
+
+ }
 
  std::ostream& operator<<(std::ostream& os, const Rect& r)
  {

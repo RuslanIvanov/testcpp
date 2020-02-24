@@ -302,7 +302,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		// определены методы begin() и end()
                 string st = "TEST";
                 for (string::iterator it = st.begin() ; it != st.end(); it ++ )
-                    *it = std::tolower(*it);
+                    *it = tolower(*it);
                 std::cout<<"\nst = "<<st;
 
 

@@ -122,13 +122,13 @@ template <typename T=Point> void changePoint2(T& t,int X, int Y)
 
 unsigned char mytolower_uchar(unsigned char st)
 {
-    return static_cast<unsigned char>(std::tolower(static_cast<int>(st)));
+    return static_cast<unsigned char>(tolower(static_cast<int>(st)));
 
 }//*/
 
  char mytolower_char( char st)
 {
-    return static_cast<char>(std::tolower(static_cast<int>(st)));
+    return static_cast<char>(tolower(static_cast<int>(st)));
 
 }//*/
 
@@ -136,7 +136,7 @@ unsigned char mytolower_uchar(unsigned char st)
  {
 
      for (std::string::iterator it = st.begin() ; it != st.end(); it ++ )
-         *it = std::tolower(*it);
+         *it = tolower(*it);
      return st;
  }
 
@@ -154,7 +154,7 @@ class predMytolower
     {
        for ( std::string::iterator it = st.begin() ; it != st.end(); ++it )
        {
-           *it = std::tolower(static_cast<char>(*it));
+           *it = tolower(static_cast<char>(*it));
 
        }
         m_st=st;

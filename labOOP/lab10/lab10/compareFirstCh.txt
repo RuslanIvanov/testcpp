@@ -24,3 +24,64 @@ class compareFirstCh
         return false;
     }
 };
+//////////////////////////
+class compareFirstCh
+{//??
+    std::vector<std::string> m_v;
+    int count;
+    public:
+    compareFirstCh(std::vector<std::string> &v)
+    {
+      m_v=v;
+      count=0;
+      std::cout<<"\nm_v.size() = " << m_v.size();
+    }
+
+    bool operator()( std::string& stl )
+    {// вызов по n = 8
+        std::cout<<"\ninput oper() stl: " <<stl;
+        for(size_t i=0;i<m_v.size();i++)
+        {
+            std::cout<<"\n#" <<i+1;
+            if(stl[0]==m_v[i][0])
+            {
+                std::cout<<"-->> (stl[0]:" <<stl[0]<<" m_v "<<m_v[i][0]<<" is TRUE)  ";
+                //return true;
+                count++;
+            }else  std::cout<<"-->> (stl[0]:" <<stl[0]<<" m_v "<<m_v[i][0]<<" is FALSE)  ";
+
+        }
+
+        if(count>0) return true;
+
+        return false;
+    }
+};
+
+
+class compareFirstCh2
+{//??
+   std::vector<std::string> m_v;
+   public:
+    compareFirstCh2(std::vector<std::string> &v)
+    {
+      m_v=v;
+    }
+
+    bool operator()(std::vector<std::string> &v )
+    {
+
+        for(size_t i=0;i<m_v.size();i++)
+        {
+            for(size_t i=0;i<v.size();i++)
+            if(v[i][0]>m_v[i][0])
+            {
+                std::cout<<"\n( stl[0]= " <<v[i][0]<<" m_v = "<<m_v[i][0]<<")";
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+};

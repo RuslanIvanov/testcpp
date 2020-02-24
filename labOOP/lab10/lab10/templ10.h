@@ -162,8 +162,7 @@ class predMytolower
     }
 
 };//*/
-
-
+/*
 class compareFirstCh
 {
     std::vector<std::string> m_v;
@@ -173,7 +172,23 @@ class compareFirstCh
     {
       m_v=v;
       count=0;
+
+      for(size_t i = ii; i<m_v.size();i++)
+      {
+          char ch = m_v[i][0];
+          for(size_t ii = 0; ii<m_v.size();ii++)
+          {
+                if(ch==m_v[i][0])
+                {
+                    count++;// подсчет по первой букве
+                    break;
+                }
+          }
+
+      }
+
       std::cout<<"\nm_v.size() = " << m_v.size();
+      std::cout<<"\n count iter = " << count;
     }
 
     bool operator()( std::string& stl )
@@ -195,40 +210,12 @@ class compareFirstCh
 
         return false;
     }
-};
+};*/
 
-
-class compareFirstCh2
-{
-   std::vector<std::string> m_v;
-   public:
-    compareFirstCh2(std::vector<std::string> &v)
-    {
-      m_v=v;
-    }
-
-    bool operator()(std::vector<std::string> &v )//std::string& stl/*,  std::string& str*/)
-    {
-
-        for(size_t i=0;i<m_v.size();i++)
-        {
-            for(size_t i=0;i<v.size();i++)
-            if(v[i][0]>m_v[i][0])
-            {
-                std::cout<<"\n( stl[0]= " <<v[i][0]<<" m_v = "<<m_v[i][0]<<")";
-                return true;
-            }
-
-        }
-
-        return false;
-    }
-};
 
 class compareFirstCh3
 {
-    char m_ch ;
-    int cout;
+    char m_ch;
     public:
     compareFirstCh3(char ch)
     {

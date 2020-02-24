@@ -339,8 +339,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
                 std::cout<<"\nvst ";
 
-                for(size_t i = 0;i<vst.size();i++)// выод лишних повторныз AS BS ..
-                    copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3(vst[i][0]) );
+               // for(size_t i = 0;i<vst.size();i++)// выод лишних повторныз AS BS ..?
+
+                copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3('A') );
+                copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3('B') );
+                copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3('C') );
+                copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3('D') );
+
 
                 std::cout<<"\nvst source";
                 printCont(vst);

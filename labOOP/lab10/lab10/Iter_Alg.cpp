@@ -337,7 +337,10 @@ int _tmain(int argc, _TCHAR* argv[])
                 vector<string> vst = {"AAA","BBB","CCC","CDD","DCC","AS","BS","B"};
                 ostream_iterator<string> out_it (cout,", ");
 
-                std::cout<<"\nvst ";
+                std::cout<<"\nvst source";
+                printCont(vst);
+
+                std::cout<<"\nout is: ";
 
                // for(size_t i = 0;i<vst.size();i++)// выод лишних повторныз AS BS ..?
 
@@ -346,9 +349,6 @@ int _tmain(int argc, _TCHAR* argv[])
                 copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3('C') );
                 copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3('D') );
 
-
-                std::cout<<"\nvst source";
-                printCont(vst);
 		stop
 
 		//Дан multimap, содержаций пары: "месяц - количество денй в месяце"
@@ -358,18 +358,32 @@ int _tmain(int argc, _TCHAR* argv[])
 			{"January", 31}, {"February", 28}, {"February", 29}, { "March", 31},
 			{"April", 30}, {"May",31}, {"June", 30}, {"July", 31}, {"August",31},
 			{"September",30}, {"October", 31}, {"November",30}, {"December",31}
-		};
+                };
+
+                map<string,int> m1;
+                map<string,int> m2;
 
 
+                copy_if(month.begin(),month.end(),inserter(m2, m2.begin()),UnaryPredicateIsEven(true));
+                std::cout<<"\nm2";
+                printCont(m2);
+
+
+                copy_if(month.begin(),month.end(),inserter(m1, m1.begin()),UnaryPredicateIsEven(false));
+                std::cout<<"\nm1";
+                printCont(m1);
 
 		stop
 
 		//Распечатайте multimap и map-ы, используя написанный вами ранее шаблон
 		//функции, выводящей элементы ЛЮБОГО контейнера на печать.
-		//Что нужно сделать дополнительно для вывода пары?
+                //Что нужно сделать дополнительно для вывода пары? //(it->first <<" & "<<it->second)
 
-
+                std::cout<<"\nprints-------------------------------------------------:";
 	
+                printCont(m1);
+                printCont(m2);
+                printCont(month);
 		stop
 	}
 

@@ -162,56 +162,6 @@ class predMytolower
     }
 
 };//*/
-/*
-class compareFirstCh
-{
-    std::vector<std::string> m_v;
-    int count;
-    public:
-    compareFirstCh(std::vector<std::string> &v)
-    {
-      m_v=v;
-      count=0;
-
-      for(size_t i = ii; i<m_v.size();i++)
-      {
-          char ch = m_v[i][0];
-          for(size_t ii = 0; ii<m_v.size();ii++)
-          {
-                if(ch==m_v[i][0])
-                {
-                    count++;// подсчет по первой букве
-                    break;
-                }
-          }
-
-      }
-
-      std::cout<<"\nm_v.size() = " << m_v.size();
-      std::cout<<"\n count iter = " << count;
-    }
-
-    bool operator()( std::string& stl )
-    {// вызов по n = 8
-        std::cout<<"\ninput oper() stl: " <<stl;
-        for(size_t i=0;i<m_v.size();i++)
-        {
-            std::cout<<"\n#" <<i+1;
-            if(stl[0]==m_v[i][0])
-            {
-                std::cout<<"-->> (stl[0]:" <<stl[0]<<" m_v "<<m_v[i][0]<<" is TRUE)  ";
-                //return true;
-                count++;
-            }else  std::cout<<"-->> (stl[0]:" <<stl[0]<<" m_v "<<m_v[i][0]<<" is FALSE)  ";
-
-        }
-
-        if(count>0) return true;
-
-        return false;
-    }
-};*/
-
 
 class compareFirstCh3
 {
@@ -235,6 +185,26 @@ class compareFirstCh3
       // std::cout<<"-->> stl[0]:" <<stl[0]<<" m_ch "<<m_ch<<" is FALSE)  ";
        return false;
     }
+};
+
+class UnaryPredicateIsEven
+{
+    bool  m_b;
+    public:
+    UnaryPredicateIsEven(bool b)
+    {
+        m_b=b;
+    }
+
+     bool operator()(const std::pair<std::string,int>& r )
+     {
+         if((r.second % 2) == 0 )
+         {
+             return (m_b)?true:false;
+         }
+
+         return (m_b)?false:true;
+     }
 };
 
 

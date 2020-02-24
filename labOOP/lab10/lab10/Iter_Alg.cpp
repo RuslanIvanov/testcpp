@@ -305,6 +305,7 @@ int _tmain(int argc, _TCHAR* argv[])
                     *it = std::tolower(*it);
                 std::cout<<"\nst = "<<st;
 
+
                 string str1 = "AAAA BBBB CCCC";
 
                 transform(str1.begin(), str1.end(),str1.begin(),mytolower_char);
@@ -318,7 +319,10 @@ int _tmain(int argc, _TCHAR* argv[])
                 printCont(lst);
                 set<string> s;
 
-               // transform(lst.begin(), lst.end(),s.begin(),mytolower_uchar);
+                //transform(lst.begin(), lst.end(),s.begin(),predMytolower());
+                //transform(lst.begin(), lst.end(), inserter(s, s.begin()),mytolower_char);
+                transform(lst.begin(), lst.end(), inserter(s, s.begin()),predMytolower());
+
 
                 std::cout<<"\nSet ";
                 printCont(s);
@@ -330,8 +334,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		//вывести сначала строки, начинающиеся с буквы "А" или "а", затем с "Б"...
 		//При этом порядок строк в исходном векторе менять не нужно!
 
+                vector<string> vst = {"AAA","BBB","CCC","CDD","DCC","AS","BS","B"};
+                ostream_iterator<string> out_it (cout,", ");
 
+                std::cout<<"\nvst ";
 
+                for(size_t i = 0;i<vst.size();i++)// выод лишних повторныз AS BS ..
+                    copy_if( vst.begin(),vst.end(),out_it,compareFirstCh3(vst[i][0]) );
+
+                std::cout<<"\nvst source";
+                printCont(vst);
 		stop
 
 		//Дан multimap, содержаций пары: "месяц - количество денй в месяце"

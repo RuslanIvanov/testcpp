@@ -132,41 +132,122 @@ unsigned char mytolower_uchar(unsigned char st)
 
 }//*/
 
+ std::string& mytolowerString( std::string& st)
+ {
 
+     for (std::string::iterator it = st.begin() ; it != st.end(); it ++ )
+         *it = std::tolower(*it);
+     return st;
+ }
 
-/*template <typename T,typename TT>
-TT& mytolower(T& st)
+class predMytolower
 {
-    for (std::string::iterator it = st.begin() ; it != st.end(); it ++ )
-    {
-
-        *it = std::tolower(*it);
-
-    }
-
-  //  return tolower(st);
-
-}//*/
-
-
-/*class mytolower
-{
-
+    std::string m_st;
 
     public:
-    mytolower()
+    predMytolower()
     {
-
+        m_st="str";
     }
 
-    void operator()( std::string& st )
+    std::string operator()( std::string& st )
     {
-        for ( std::string::iterator it = st.begin() ; it != st.end(); ++it )
-        {
+       for ( std::string::iterator it = st.begin() ; it != st.end(); ++it )
+       {
+           *it = std::tolower(static_cast<char>(*it));
 
-           // *it = std::tolower(static_cast<char>(*it));
+       }
+        m_st=st;
+        return m_st;
+    }
+
+};//*/
+
+
+class compareFirstCh
+{
+    std::vector<std::string> m_v;
+    int count;
+    public:
+    compareFirstCh(std::vector<std::string> &v)
+    {
+      m_v=v;
+      count=0;
+      std::cout<<"\nm_v.size() = " << m_v.size();
+    }
+
+    bool operator()( std::string& stl )
+    {// вызов по n = 8
+        std::cout<<"\ninput oper() stl: " <<stl;
+        for(size_t i=0;i<m_v.size();i++)
+        {
+            std::cout<<"\n#" <<i+1;
+            if(stl[0]==m_v[i][0])
+            {
+                std::cout<<"-->> (stl[0]:" <<stl[0]<<" m_v "<<m_v[i][0]<<" is TRUE)  ";
+                //return true;
+                count++;
+            }else  std::cout<<"-->> (stl[0]:" <<stl[0]<<" m_v "<<m_v[i][0]<<" is FALSE)  ";
+
         }
 
+        if(count>0) return true;
+
+        return false;
+    }
+};
+
+
+class compareFirstCh2
+{
+   std::vector<std::string> m_v;
+   public:
+    compareFirstCh2(std::vector<std::string> &v)
+    {
+      m_v=v;
     }
 
-};*/
+    bool operator()(std::vector<std::string> &v )//std::string& stl/*,  std::string& str*/)
+    {
+
+        for(size_t i=0;i<m_v.size();i++)
+        {
+            for(size_t i=0;i<v.size();i++)
+            if(v[i][0]>m_v[i][0])
+            {
+                std::cout<<"\n( stl[0]= " <<v[i][0]<<" m_v = "<<m_v[i][0]<<")";
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+};
+
+class compareFirstCh3
+{
+    char m_ch ;
+    int cout;
+    public:
+    compareFirstCh3(char ch)
+    {
+      m_ch=ch;
+    }
+
+    bool operator()( std::string& stl )
+    {// вызов по n = 8
+
+       //std::cout<<"\ninput oper() stl: " <<stl;
+       if(stl[0]==m_ch)
+       {
+           // std::cout<<"-->> stl[0]:" <<stl[0]<<" ch "<<m_ch<<" is TRUE)  ";
+            return true;
+       }
+
+      // std::cout<<"-->> stl[0]:" <<stl[0]<<" m_ch "<<m_ch<<" is FALSE)  ";
+       return false;
+    }
+};
+
+

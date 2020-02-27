@@ -384,6 +384,11 @@ int _tmain(int argc, _TCHAR* argv[])
                 printCont(m1);
                 printCont(m2);
                 printCont(month);
+
+                printContM(m1);
+                printContM(m2);
+                printContM(month);
+
 		stop
 	}
 

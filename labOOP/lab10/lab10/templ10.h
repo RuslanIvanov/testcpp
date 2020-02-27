@@ -207,4 +207,44 @@ class UnaryPredicateIsEven
      }
 };
 
+// перегрузка пары
+////////////////////////////////////////////////////////////////////////////////////////////
+/*template <typename T, typename TT>
+std::ostream& operator <<(std::ostream& out, std::pair<T, TT>& p)
+{
+    out << p.first << " : ";
+   for (typename TT::iterator i = p.second.begin(); i != p.second.end(); ++i)
+       out << *i << ": ";
+   return out;
+}*/
+
+template <typename T, typename TT>
+std::ostream& operator <<(std::ostream& out, std::pair<T, TT>& p)
+{
+    out << "\n{ " << p.first << " : ";
+    out << p.second << "}";
+
+    return out;
+}
+
+template <typename T, typename TT> void printContM(std::multimap<T, TT>& t)
+{
+    std::cout << "\nContainer multimap,pair use operator<<:";
+    for (typename std::multimap<T, TT>::iterator it = t.begin(); it != t.end(); ++it)
+    {
+        std::pair<T, TT> p = (*it);
+        std::cout << p;
+    }
+
+}
+
+template <typename T, typename TT> void printContM(std::map<T, TT>& t)
+{
+    std::cout << "\nContainer multimap, pair use operator<<:";
+    for (typename std::multimap<T, TT>::iterator it = t.begin(); it != t.end(); ++it)
+    {
+        std::cout << *it;
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////
 

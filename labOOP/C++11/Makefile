@@ -1,4 +1,4 @@
-CCCC = g++ --std=c++14
+CCCC = g++ --std=c++17
 #CCCC = g++
 
 LIBS = -lpthread  -lrt \

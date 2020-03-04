@@ -61,8 +61,8 @@ template<typename T> void NegateAll(T& t)
 		//tt = toupper(tt);*/
 		//if (tt == 0) { tt *= -1; }
 
-		if (tt >= 'A' && tt <= 'Z') { tolower(tt); }
-		else if (tt >= 'a' && tt <= 'z') { toupper(tt); }
-		else { tt *= -1; }
+//		if (tt >= 'A' && tt <= 'Z') { tolower(tt); }
+//		else if (tt >= 'a' && tt <= 'z') { toupper(tt); }
+//		else { tt *= -1; }
 	}
 }

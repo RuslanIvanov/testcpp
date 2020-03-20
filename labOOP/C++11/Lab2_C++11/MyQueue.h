@@ -81,9 +81,9 @@ MyQueue<T>::MyQueue(size_t n, const T& t)
 	{
 		m_pmass = new T[m_cap + m_n];
 
-		for(size_t i=0 ; i< m_n;i++)
+                for(;m_last< m_n;m_last++)
 		{
-			m_pmass[i] = t;
+                        m_pmass[m_last] = t;
 		}
 	}
 	catch (std::bad_alloc)
@@ -149,7 +149,7 @@ MyQueue<T>::MyQueue(const MyQueue& r)
 	try 
 	{
 		m_pmass = new T[m_n + m_cap];
-		for (size_t i = 0; i < m_n; i++)
+                for (size_t i = 0; i < r.m_n; i++)
 		{
 			m_pmass[i] = r.m_pmass[i];
 		}

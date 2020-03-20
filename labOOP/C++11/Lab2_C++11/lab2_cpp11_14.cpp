@@ -86,12 +86,12 @@ int main(int, char**)
 	MyQueue < MyString >  q2 = q1;
 	MyQueue < MyString >  q22 = std::move(q1);
 	q1.printQueue();
-	MyQueue < MyString >  q3{ 10, MyString("!") }; //РѕС‡РµСЂРµРґСЊ РґРѕР»Р¶РЅР° СЃРѕРґРµСЂР¶Р°С‚СЊ 10 СЌР»РµРјРµРЅС‚РѕРІ СЃРѕ СЃС‚СЂРѕРєРѕР№ В«!В» 
+	MyQueue < MyString >  q3{ 10, MyString("!") }; ///очередь должна содержать 10 элементов со строкой «!» 
 	q3.printQueue();
 	q1 = q3;
 	q2 = MyQueue < MyString >(5, MyString(" ? "));
 	q1 = { MyString("bbb"), MyString("ssss") };
 	///////////////////////////////////////////////////////////////////////////////////
-
+	stop
 	return 0;
 }

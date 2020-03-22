@@ -2,13 +2,10 @@
 #include "MyString.h"
 //using namespace std;
 
-// Определение конструктора.
-
 MyString::MyString()
 {
 	m_pStr = new char[1];
 	*m_pStr = 0;
-	//cout << "\nMyString::def constructor";
 }
 
 MyString::MyString(const char* pstr) 
@@ -26,7 +23,6 @@ MyString::MyString(const char* pstr)
 	strcpy(m_pStr, pstr);
 	//strcpy_s(m_pStr, n ,pstr);//где  n размер принимающего буффера
 	///////////////////////////////////////////////
-	//cout << "\nMyString::constructor, param";
 }
 
 MyString::MyString(const MyString& r) 
@@ -34,8 +30,6 @@ MyString::MyString(const MyString& r)
 	int n = strlen(r.m_pStr) + 1;
 	m_pStr = new char[n];
 	strcpy(m_pStr, r.m_pStr);
-
-	//std::cout << "\nMyString::constructor copy";
 }
 
 // Определение деструктора.
@@ -45,12 +39,10 @@ MyString::~MyString()
 	m_pStr = nullptr;
 }
 
-
 const char* MyString::GetString() 
 {
 	return m_pStr;
 }
-
 
 void MyString::SetNewString(const char* pstr) 
 {
@@ -67,7 +59,6 @@ void MyString::SetNewString(const char* pstr)
 
 	m_pStr = new char[n_new];
 	strcpy(m_pStr, pstr);
-
 }
 
 void MyString::ConcatString(const char* pstr)
@@ -89,8 +80,6 @@ void MyString::ConcatString(const char* pstr)
 
 MyString& MyString::operator=(const MyString& r)
 {
-	//cout << "\nMyString::operator=()";
-
 	if (this == &r)
 	{ return *this; }
 

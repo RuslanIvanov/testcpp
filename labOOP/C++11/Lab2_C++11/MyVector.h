@@ -14,7 +14,7 @@ class MyVector
 	T down = T();
 	public:
 		MyVector(T up, T down, std::initializer_list<T>);
-		MyVector() = default;// СЃРіРµРЅРµРЅСЂРёСЂС†Р№ СЃР°Рј
+                MyVector() = default;// generate default constructor
 		void applyList(T up, T down, std::initializer_list<T>);
 		bool deleteList(T up, T down, std::initializer_list<T> list ) ;
 		void printVect();
@@ -24,12 +24,11 @@ class MyVector
 //template<typename T>
 //MyVector<T>::MyVector()
 //{
-//} С‚.Рє = default
+//} = default
 
 template<typename T>
 MyVector<T>::MyVector(T up, T down, std::initializer_list<T> list)
-{// РµСЃР»Рё Р·РЅР°С‡РµРЅРёСЏ С‚Р°РєРёРµ РІ РІРµРєС‚РѕСЂРµ РµСЃС‚СЊ, С‚Рѕ РЅРµ РІСЃР°РІР»СЏС‚СЊ
-	//prev,next
+{//prev,next
 
 	if (down < up) 
 	{
@@ -40,8 +39,6 @@ MyVector<T>::MyVector(T up, T down, std::initializer_list<T> list)
 		
 	m_v.reserve(list.size());
 
-	/*std::vector<T>::iterator it = m_v.begin()+down;
-	std::vector<T>::iterator ite = m_v.end();*/
 	for (auto& element : list)
 	{
 		if (m_v.empty())
@@ -60,8 +57,7 @@ MyVector<T>::MyVector(T up, T down, std::initializer_list<T> list)
 
 template<typename T>
 void MyVector<T>::applyList(T up, T down, std::initializer_list<T> list)
-{// РµСЃР»Рё С‚Р°РєРёРµ Р·РЅР°С‡РµРЅРёСЏ РµСЃС‚СЊ РІ РІРµРєС‚РѕСЂРµ, С‚Рѕ РЅРµ РІСЃС‚Р°РІР»СЏС‚СЊ, РµСЃР»РёС‚Р°РєРёРµ Р·РЅР°С‡РµРЅРёСЏ РїРѕРІС‚РѕСЂСЏР±С‚СЃСЏ РІ СЃРїРёСЃРєРµ РёРЅРёРёС†Рё- С‚Рѕ Р¶Рµ РЅРµ РІСЃС‚Р°РІР»СЏС‚СЊ
-//prev,next
+{//prev,next
 
 	if (down < up)
 	{
@@ -89,9 +85,7 @@ void MyVector<T>::applyList(T up, T down, std::initializer_list<T> list)
 
 template<typename T>
 bool MyVector<T>::deleteList(T up, T down, std::initializer_list<T> list)
-{
-	//СЃРґРІРёРЅСѓС‚СЊ РёС‚РµСЂР°С‚РѕСЂС‹ РЅР° Р·РЅР°С‡РµРЅРёСЏ up Рё down
-	//iterator erase(iterator first, iterator last);
+{	
 	if (m_v.empty())
 	{
 		return false;
@@ -117,7 +111,7 @@ bool MyVector<T>::deleteList(T up, T down, std::initializer_list<T> list)
 
 			it = m_v.erase(it);
 			if(it!=m_v.end())
-			{//СѓРґР°Р»РёР»
+                        {
 				itb = m_v.begin() ;
 				ite = m_v.end();
 			}
@@ -136,11 +130,6 @@ void  MyVector<T>::printVect()
 	{
 		std::cout << " EMPTY! "; return;
 	}
-
-	/*for (size_t i = 0; i<m_v.size(); ++i)
-	{
-		std::cout <<m_v[i] << " ";
-	}*/
 
 	for (auto& el : m_v) 
 	{

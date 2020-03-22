@@ -43,7 +43,8 @@ int main(int, char**)
 
 #if  _WIN32 
 	setlocale(LC_CTYPE, ".UTF8");
-	cout << "РџСЂРёРІРµС‚, Р»Р°Р±2 C++11,14,17!";
+        cout << "Привет лаб2 C++11,14,17!";
+        stop
 #endif
 	MyVector<int> mv1;
 	mv1.printVect();
@@ -61,15 +62,52 @@ int main(int, char**)
 
 	///////////////////////////////////////////////////////////////////////////////////
 
+        {
+        std::cout << "\nMyQueue<int>:------------------------------------------------------------\n";
+        MyQueue<int> mq = {0, 1, 2, 3, 4, 5, 8, 7, 8, 9 };
 
-	MyQueue<int> mq = { 66, 1, 2, 3, 4, 5,77 };
-	mq.printQueue();
 	std::cout <<"\nMyQueue: ";
-	for (auto& el : mq) 
-	{ 
-		std::cout << el << '_'; 
-	}
+        for (auto& el : mq) {std::cout << el << '_';}
+        stop
+        mq.push(10);
+        mq.push(11);
+        mq.push(12);
+        mq.push(13);
+       //mq.printQueueRaw();
+       //stop
+        mq.printQueue();
+        stop
+        size_t n = mq.size()+4;
+        std::cout<<"\nnew size "<<n<<"\n";
+        for(size_t i =0; i < 4; i++)
+        {
+             mq.push(i+n);
+        }
 
+        mq.printQueue();
+        stop
+        MyQueue<int> mq2 = mq;
+        mq2.printQueue();
+        stop
+
+        MyQueue<int> mq3 { 5, 5, 5 };
+        mq3.printQueue();
+        stop
+        mq3 = mq2;
+        mq3.printQueue();
+        stop
+
+        std::cout <<"\npop "<<  mq3.pop();
+        std::cout <<"\npop "<<  mq3.pop();
+
+        mq3.printQueue();
+        stop
+
+        std::cout << "\nMyQueue<int>:------------------------------------------------------------\n";
+
+        stop
+
+        }
 	//////////////////////////////////////////////////////////////////////////////////
 	MyQueue<MyString>  q1{ MyString("AAA"), MyString("qwerty"), MyString("BBB"),  MyString("CCC")};
 

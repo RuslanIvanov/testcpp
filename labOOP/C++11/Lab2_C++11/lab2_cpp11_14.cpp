@@ -15,6 +15,7 @@
 #include "lab2_cpp11_14.h"
 #include "MyVector.h"
 #include "MyQueue.h"
+#include "MyUniquePTR.h"
 
 using namespace std;
 
@@ -128,12 +129,13 @@ int main(int, char**)
         std::cout <<"\nMyQueue 3: ";
         for (auto& el : mq3) {std::cout << el << ':';}
         stop
-        std::cout << "\nMyQueue<int>:------------------------------------------------------------\n";
+        std::cout << "\nMyQueue<int>:-------------------------------------------------------------end\n";
 
         stop
 
         }
 	//////////////////////////////////////////////////////////////////////////////////
+        std::cout << "\nMyQueue<MyString>:------------------------------------------------------------\n";
 	MyQueue<MyString>  q1{ MyString("AAA"), MyString("qwerty"), MyString("BBB"),  MyString("CCC")};
 
 	std::cout << "\nMyQueue: ";
@@ -168,7 +170,48 @@ int main(int, char**)
 	q1 = { MyString("bbb"), MyString("ssss") };
         std::cout << "\nq1 after move oper=()";
         q1.printQueue();
+         std::cout << "\nMyQueue<MyString>:---------------------------------------------------------end\n";
 	///////////////////////////////////////////////////////////////////////////////////
 	stop
+
+        {
+        std::cout << "\nMyUniquePTR<MyString>:------------------------------------------------------------\n";
+        MyUniquePTR<MyString> p1(new MyString ("abc"));
+        std:: cout<<"p1 = "<< p1->GetString();
+        p1->SetNewString("qwerty");
+        std:: cout<<"p1 new string = "<< p1->GetString();
+        stop
+
+        MyString  s2 = *p1;
+        std::cout<<"\ns2 "<<s2;
+
+        //MyUniquePTR< MyString > p2=p1; //здесь компилятор должен выдавать ошибку =>  Исправьте!
+
+        if(p1) {std::cout<<"\nNo object!"; } //а это должно работать
+        MyUniquePTR< MyString > p3(new MyString ("vvv"));
+        std:: cout<<"\np3 = "<< p3->GetString();
+        //p3 = p2; //и здесь компилятор должен выдавать ошибку
+
+        //как проинициализировать???
+        vector< MyUniquePTR< MyString >> v;// = {std::move(MyUniquePTR<MyString>(new MyString ("str3")))};
+        v.push_back(MyUniquePTR<MyString>(new MyString ("str1")));
+        v.push_back(MyUniquePTR<MyString>(new MyString ("str2")));
+
+        std::cout<<"\nv ";
+        for (auto& el : v) {std::cout << *el << ':';}
+
+        list< MyUniquePTR< MyString >> l;
+        //std::copy(std::begin(v),std::end(v),std::begin(l));
+        for (auto it = v.begin(); it!=v.end(); ++it)
+        {
+            l.push_back(std::move(*it));
+        }
+        //как скопировать из v в l ???
+        std::cout<<"\nl ";
+        for (auto& el : l) {std::cout << *el << ';';}
+        }
+        std::cout << "\nMyUniquePTR<MyString>:---------------------------------------------------------end\n";
+        ///////////////////////////////////////////////////////////////////////////////////
+        stop
 	return 0;
 }

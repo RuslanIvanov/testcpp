@@ -94,15 +94,40 @@ int main(int, char**)
         mq3.printQueue();
         stop
         mq3 = mq2;
+        std::cout <<"\nmq3: \n";
         mq3.printQueue();
         stop
 
-        std::cout <<"\npop "<<  mq3.pop();
-        std::cout <<"\npop "<<  mq3.pop();
+        try{
+        size_t el[2];
+        el[0] =  mq3.pop();
+        el[1] =  mq3.pop();
+        std::cout <<"\npop "<< el[0];
+        std::cout <<"\npop "<< el[1];
+        }catch(const char *e) {std::cout<<e; }
+        mq3.printQueue();
+        std::cout <<"\nMyQueue 3[.]: ";
+        for (auto& el : mq3) {std::cout << el << '.';}
+        stop
+        mq3.push(22);
+        mq3.push(23);
+        mq3.push(24);
+        mq3.push(25);
+        mq3.push(26);
+        mq3.push(27);
+        mq3.push(28);
 
         mq3.printQueue();
         stop
-
+        std::cout <<"\nMyQueue 3[,]: ";
+        for (auto& el : mq3) {std::cout << el << ',';}
+        stop
+        mq3.push(29);
+        mq3.push(30);
+        mq3.printQueue();
+        std::cout <<"\nMyQueue 3: ";
+        for (auto& el : mq3) {std::cout << el << ':';}
+        stop
         std::cout << "\nMyQueue<int>:------------------------------------------------------------\n";
 
         stop
@@ -121,14 +146,28 @@ int main(int, char**)
 	std::cout << "\ns1 = " << s1;
 	q1.push("qqq");
 	q1.printQueue();
+        stop
 	MyQueue < MyString >  q2 = q1;
 	MyQueue < MyString >  q22 = std::move(q1);
+        std::cout << "\nq1 after move ";
 	q1.printQueue();
+        std::cout << "\nq22 after move ";
+        q22.printQueue();
+        stop
+
 	MyQueue < MyString >  q3{ 10, MyString("!") }; ///очередь должна содержать 10 элементов со строкой «!» 
 	q3.printQueue();
 	q1 = q3;
+        q1.printQueue();
+        stop
+
 	q2 = MyQueue < MyString >(5, MyString(" ? "));
+        std::cout << "\nq2 after move oper=()";
+        q2.printQueue();
+
 	q1 = { MyString("bbb"), MyString("ssss") };
+        std::cout << "\nq1 after move oper=()";
+        q1.printQueue();
 	///////////////////////////////////////////////////////////////////////////////////
 	stop
 	return 0;

@@ -285,7 +285,8 @@ void MyQueue<T>::push(const T& t)
                 m_pmass[(m_first+m_n)%m_cap] = t;
                 std::cout << " add in mass["<<(m_first+m_n)%m_cap<<"] = "<<m_pmass[(m_first+m_n)%m_cap];
 
-                m_last = (m_first+m_n)%m_cap;
+                m_last++; //= (m_first+m_n)%m_cap;
+                if(m_last>m_n){m_last=0;}
                 m_n++;
 
 

@@ -32,7 +32,7 @@ public:
 	void printQueue();
         void printQueueRaw();
 
-       T* begin()
+        T* begin()
         {
             return &m_pmass[m_first];
         }
@@ -40,8 +40,10 @@ public:
         {
             return &m_pmass[(m_first+m_n)%m_cap];
         }//*/
-       // T* begin(){return m_pmass;}
-      //  T* end() { return m_pmass + m_n;}
+
+       /*
+       T* begin(){return m_pmass;}
+       T* end() { return m_pmass + m_n;}//*/
 
         size_t size() { return  m_n;}
         size_t capacity() { return m_cap;}
@@ -305,6 +307,7 @@ void MyQueue<T>::push(const T& t)
 
                         std::cout << "\nresize mass["<<i<<"] = "<<p[i];
                 }
+		m_first=0;
                 m_last=m_n;//
                 p[m_last] = t;
                 std::cout << " add in mass["<<m_last<<"] = "<<p[m_last];

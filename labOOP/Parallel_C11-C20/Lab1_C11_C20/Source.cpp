@@ -49,6 +49,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	setlocale(LC_CTYPE, ".UTF8");
 	cout << "Привет, лаб1 parallel!";
 #endif
+	string str = "aaa";
+	str = mytoupperString(str);
+	cout<<"#"<<str<<"";
+	stop
 	//1)
 	vector<thread> tv;
 	string s_rez[sizeof(filespec) / sizeof(filespec[0])] = { "" };

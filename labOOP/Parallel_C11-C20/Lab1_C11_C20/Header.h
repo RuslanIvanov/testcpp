@@ -50,6 +50,14 @@ inline string& mytolowerString(std::string& st)
         return st;
 }
 
+inline string& mytoupperString(std::string& st)
+{
+
+        for (std::string::iterator it = st.begin(); it != st.end(); it++)
+                *it = toupper(*it);
+        return st;
+}
+
 class predUpperStr
 {
         std::string m_st;
@@ -83,10 +91,8 @@ inline void readWriteAndChangeFromFile(const string& filename)
 	if (f.is_open() && f2.is_open())
 	{
 		std::cout << "\nfile " << filename << " is opened\n";
-		transform(istreambuf_iterator<char>(f), istreambuf_iterator<char>(), 
-                        ostreambuf_iterator<char>(f2), toupper);
+		transform(istreambuf_iterator<char>(f), istreambuf_iterator<char>(),ostreambuf_iterator<char>(f2), toupper);
 	}
-	
 }
 
 inline void MyBeepInLinux(int Hz, int msec)

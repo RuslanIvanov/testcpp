@@ -42,6 +42,39 @@ inline void readFromFile(const char* filename, string& str)
 	f.close();
 }
 
+inline string& mytolowerString(std::string& st)
+{
+
+        for (std::string::iterator it = st.begin(); it != st.end(); it++)
+                *it = tolower(*it);
+        return st;
+}
+
+class predUpperStr
+{
+        std::string m_st;
+
+public:
+        predUpperStr()
+        {
+                m_st = "str";
+        }
+
+        std::string operator()(std::string& st)
+        {
+
+                for (std::string::iterator it = st.begin(); it != st.end(); ++it)
+                {
+                        if((*it >= 'a' && *it <= 'z'))
+                        *it = toupper(static_cast<char>(*it));
+
+                }
+                m_st = st;
+                return m_st;
+        }
+
+};
+
 inline void readWriteAndChangeFromFile(const string& filename)
 {
 	ifstream f(filename);
@@ -51,43 +84,10 @@ inline void readWriteAndChangeFromFile(const string& filename)
 	{
 		std::cout << "\nfile " << filename << " is opened\n";
 		transform(istreambuf_iterator<char>(f), istreambuf_iterator<char>(), 
-			ostreambuf_iterator<char>(f2), toupper);
+                        ostreambuf_iterator<char>(f2), toupper);
 	}
 	
 }
-
-inline string& mytolowerString(std::string& st)
-{
-
-	for (std::string::iterator it = st.begin(); it != st.end(); it++)
-		*it = tolower(*it);
-	return st;
-}
-
-class predUpperStr
-{
-	std::string m_st;
-
-public:
-	predUpperStr()
-	{
-		m_st = "str";
-	}
-
-	std::string operator()(std::string& st)
-	{
-		
-		for (std::string::iterator it = st.begin(); it != st.end(); ++it)
-		{
-			if((*it >= 'a' && *it <= 'z'))
-			*it = toupper(static_cast<char>(*it));
-
-		}
-		m_st = st;
-		return m_st;
-	}
-
-};
 
 inline void MyBeepInLinux(int Hz, int msec)
 {

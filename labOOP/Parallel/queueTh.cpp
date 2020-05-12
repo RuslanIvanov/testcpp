@@ -36,10 +36,12 @@ static void producer(size_t id, size_t items, size_t stock)
 		go_produce.wait(lock,[&] { return q.size() < stock; });
 
 		q.push(id * 100 + i);
-
+                pcout{} << " Producer " << id << " --> item " << setw(3) << q.back() << '\n';
 		go_consume.notify_all();
 		this_thread::sleep_for(90ms);
 	}
+
+        pcout{} << "EXIT: Producer " << id << '\n';
 }
 
 static void consumer(size_t id)
@@ -50,16 +52,18 @@ static void consumer(size_t id)
 
 	if (go_consume.wait_for(lock, 1s,[] { return !q.empty(); })) 
 	{
+            pcout{} << "item " << setw(3) << q.front()<< " --> Consumer " << id << '\n';
 		q.pop();
 
 		go_produce.notify_all();
 		this_thread::sleep_for(130ms);
 	}
 	}
+        pcout{} << "EXIT: Producer " << id << '\n';
 }
 
 
-int main()
+int main(int,char**)
 {
 	vector<thread> workers;
 	vector<thread> consumers;
@@ -76,5 +80,9 @@ int main()
 
 	for (auto &t : workers)
 	{ t.join(); }
+
 	production_stopped = true;
+
+        for (auto &t : consumers) { t.join(); }
+	return 0;
 }

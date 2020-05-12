@@ -1,4 +1,4 @@
-CCCC = g++ --std=c++11
+CCCC = g++ --std=c++17
 #CCCC = g++
 
 LIBS = -lpthread  -lrt \
@@ -7,7 +7,8 @@ CFLAGS=-c -Wall
 LDFLAGS=
 
 SOURCES= \
-lab4.cpp \
+lab_4.cpp \
+Point.cpp \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=./run.exe

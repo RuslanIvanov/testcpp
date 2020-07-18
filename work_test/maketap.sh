@@ -1,5 +1,18 @@
 #!/bin/bash
 
+ip link set ip link set tap3 down
+ip link delete tap3
+
+ip link set ip link set tap2 down
+ip link delete tap2
+
+ip link set ip link set tap1 down
+ip link delete tap1
+
+ip link set ip link set tap0 down
+ip link delete tap0
+
+
 ip tuntap add dev tap2 mode tap
 ip address add 192.168.9.222/24 dev tap2
 ip address show tap2

@@ -111,7 +111,8 @@ int main(int argc, char* argv[])
 
 		while(bOut == false)
 		{
-			unsigned int p=0;
+			//unsigned int p=0;
+			void* p=0;
 			if(globalEvents::eventLan.Wait(&p)==true)
 			{
 				globalEvents::eventLan.Reset();   
@@ -416,9 +417,9 @@ void out(int sig)
     	{
                 bOut=true;
         	printf("\nGoodbye (signal %d)\n",sig);
-	        globalEvents::eventLan.Set(0);
-		globalEvents::eventLan.Set(0);
-		globalEvents::eventLan.Set(0);
+	        globalEvents::eventLan.Set((void*)NULL);
+		globalEvents::eventLan.Set((void*)NULL);
+		globalEvents::eventLan.Set((void*)NULL);
 
 	}
 

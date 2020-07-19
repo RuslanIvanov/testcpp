@@ -354,10 +354,11 @@ int cEthernet::task(void* par)
                     {
                         //globalEvents::eventLan.Set((unsigned int)this);// а точно здесь?
 			//globalEvents::eventLan.Set(reinterpret_cast<unsigned int>(this));
-			char tmp[100]="";
-			sprintf(tmp,"%p",this);
-			unsigned int adr = atoi(tmp);
-			globalEvents::eventLan.Set(adr);
+			globalEvents::eventLan.Set(this);	
+			//char tmp[100]="";
+			//sprintf(tmp,"%p",this);
+			//unsigned int adr = atoi(tmp);
+			//globalEvents::eventLan.Set(adr);
 			printf("\nOBG %p, Set",this);
 		    } else {
 

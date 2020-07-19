@@ -22,6 +22,7 @@ class cEvent
 private:
 	int m_id;
 	unsigned int m_param;
+	void* m_p;
 	
 	pthread_cond_t m_ready;
 	pthread_mutex_t m_lock;
@@ -30,6 +31,8 @@ public:
 	bool m_bCreated;
 	void Set(unsigned int);
 	bool Wait(unsigned int*);
+	void Set(void *);
+	bool Wait(void**);
 	void Reset();
 	cEvent(void);
 	~cEvent(void);

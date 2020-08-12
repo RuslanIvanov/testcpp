@@ -25,7 +25,7 @@ unsigned char nummsg;
 unsigned char countU=0;
 unsigned char countInit=0;
 unsigned char countIsTrain=0;
-unsigned char DELAY_INIT=0;
+unsigned char DELAY_INIT=1;
 unsigned char DELAY_TRAIN=0;
 unsigned char tx[512] = {0x88,0x0,0x0,0x99,0x43,0,0}; 
 unsigned short nt=7;
@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 	        if(t.setTimerrt(timerFunc1)==-1) {perror("setTimerrt 1"); return 0;}
 
 
-        bMsgRm = false;
+        	bMsgRm = false;
 		nummsg=0;
 
 		while(bOut == false)
@@ -136,13 +136,13 @@ int main(int argc, char* argv[])
 
 					//if(countIsTrain>100)// поезд на ГСП
 					{
-						//tx[19] = 1; tx[20]=0;
+						tx[19] = 1; tx[20]=0;
 					//	if(countIsTrain>200)
 						if(((rx[1]&0x1)==0x1) && ((rx[1]&0x2)==0x2))
-            			{
-	                			bMsgRm=true; 
-								tx[19] = 1; tx[20]=0;
-        	    		} //countIsTrain++;
+            					{
+	                				bMsgRm=true; 
+							tx[19] = 1; tx[20]=0;
+        	    				} //countIsTrain++;
 					} //else countIsTrain++;
 
 					switch(rx[4])
@@ -161,8 +161,8 @@ int main(int argc, char* argv[])
 						break; 
 					}
 					case 0xFE:
-                    {
-                       printf("\n\t\tSTOP INIT RM"); 
+                    			{
+                      				printf("\n\t\tSTOP INIT RM"); 
 					}
 					break;
 					case 0x1:  
@@ -232,7 +232,7 @@ int main(int argc, char* argv[])
 			//--
 			tx[18] = rx[18]; //счетик
 
-
+			tx[19]  = 1; 
 			//31/01/2020//////////////////////
 			if((rx[1]&0x1)==0x1)
 			{

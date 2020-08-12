@@ -368,7 +368,7 @@ int cEthernet::task(void* par)
 				if(rez2 < 0)
 				{ ERRORP(("\nUPU_ETH: error sendto in eth1")); }
 
-				//globalEvents::eventLan.Reset();
+				globalEvents::eventLan.Reset();
                            }
 			}
 

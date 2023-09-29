@@ -10,7 +10,7 @@ class Foo {
          }
 
          virtual void v()
-        {
+         {
              printf("Hello from a VIRTUAL method in Foo!\n");
          }
 };
@@ -27,6 +27,31 @@ class FooBar : public Foo {
              printf("Hello from a VIRTUAL method in FooBar!\n");
          }
 };
+
+class cBaseThread
+{
+	public:
+
+	cBaseThread(){ printf("\n cBaseThread \n"); }
+	virtual void task()=0;
+};
+
+class c_socket: public  cBaseThread
+{
+	public:
+
+	c_socket(){ printf("\n c_socket \n"); }
+	void task()=0;
+};
+
+class c_can: public c_socket
+{
+	public:
+
+	c_can(){ printf("\n c_can \n"); }
+	void task() { printf("\n task \n"); }
+};
+
 
 int main(int argc, char **argv)
 {
@@ -61,4 +86,15 @@ int main(int argc, char **argv)
      // If FooBar had more than one virtual method, then you would access the
      // second's address with foobarVtable[0][1], the third's with
      // foobarVtable[0][2], and so on.
+
+
+	c_can can;
+
+	cBaseThread *pth = new c_can;
+
+	pth->task();
+
+	delete pth;
+
+	can.task();
 }

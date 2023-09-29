@@ -1,0 +1,25 @@
+//crc date: 31032022_105012
+#pragma once
+const char* pCrcSoft[]={
+"CRC:"
+," fed760a4b9347f00d7146ca6fbb0c2e3 " 
+," ./class.cpp " 
+," 64cba1b17d0485c3663de954fef863a8 " 
+," ./dynamic_cast2.cpp " 
+," 2d5ee242949ca131b9e589dad2349ca0 " 
+," ./dynamic_cast.cpp " 
+," c950b9cd2c2374897e565e5687e97cd1 " 
+," ./f.cpp " 
+," d27b19871881a45399e259a54720466a " 
+," ./incr.cpp " 
+," 60caccf26dd13f22e2ea3c0ca763d2ca " 
+," ./len.cpp " 
+," 35f1915ed81962d625a0e5b8568e9729 " 
+," ./mass.cpp " 
+," d8a6f063e04fe8e6f561ed7f3388bf18 " 
+," ./readCRC.cpp " 
+," 2f05aded9c94fbf0097b140a3befc061 " 
+," ./test1.cpp " 
+," 2f05aded9c94fbf0097b140a3befc061 " 
+," ./test1.h " 
+};
